@@ -24,11 +24,15 @@ export function Reveal({ children, className = "" }: { children: ReactNode; clas
             img.addEventListener("error", () => resolve(), { once: true });
           });
 
+    // a slow image may hold the section back only briefly, never leave it blank on screen
     const show = async () => {
-      await Promise.all(Array.from(el.querySelectorAll("img"), loaded));
+      const images = Promise.all(Array.from(el.querySelectorAll("img"), loaded));
+      await Promise.race([images, new Promise((resolve) => setTimeout(resolve, 400))]);
       if (!cancelled) el.classList.add("is-visible");
     };
 
+    // start a little before the section enters the screen, so it is already on its way in when it shows,
+    // instead of sitting blank until a share of a tall section is visible
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -36,7 +40,7 @@ export function Reveal({ children, className = "" }: { children: ReactNode; clas
           void show();
         }
       },
-      { threshold: 0.1 },
+      { rootMargin: "0px 0px 15% 0px" },
     );
     observer.observe(el);
     return () => {

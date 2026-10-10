@@ -95,7 +95,7 @@ export function ConnectedSystem() {
             <div
               className={`flex items-center rounded-[2.2cqw] border bg-white/95 shadow-[0_12px_26px_-14px_rgb(50_70_160/0.4)] transition-all duration-300 ${
                 "stacked" in module ? "flex-col gap-[1cqw] px-[1.4cqw] py-[1.8cqw]" : "gap-[2cqw] py-[1.5cqw] pl-[1.5cqw] pr-[2.6cqw]"
-              } ${isActive ? "scale-[1.04] border-[#8fb3ff] shadow-[0_16px_30px_-12px_rgb(60_110_240/0.45)]" : "border-white"}`}
+              } ${isActive ? "border-[#8fb3ff] shadow-[0_16px_30px_-12px_rgb(60_110_240/0.45)]" : "border-white"}`}
             >
               <span className="tone-icon [--icon-size:9cqw]" data-tone={module.tone}>
                 <module.Icon />

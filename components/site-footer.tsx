@@ -74,8 +74,8 @@ const CONTACTS = [
 export function SiteFooter() {
   return (
     <footer className="footer relative z-10 isolate overflow-hidden text-white">
-      <div className="container-page pb-8 pt-14 sm:pt-16 lg:pb-[2.2vw] lg:pt-[3.6vw]">
-        <div className="grid gap-12 lg:grid-cols-[minmax(0,21%)_1px_minmax(0,1fr)] lg:gap-[3.2vw]">
+      <div className="container-page pb-6 pt-10 sm:pb-8 sm:pt-16 lg:pb-[2.2vw] lg:pt-[3.6vw]">
+        <div className="grid gap-9 sm:gap-12 lg:grid-cols-[minmax(0,21%)_1px_minmax(0,1fr)] lg:gap-[3.2vw]">
           {/* brand */}
           <div className="sm:grid sm:grid-cols-[auto_minmax(0,1fr)] sm:items-start sm:gap-x-12 lg:block">
             <div>
@@ -88,11 +88,11 @@ export function SiteFooter() {
             </div>
 
             <div>
-              <p className="footer-copy mt-6 max-w-[420px] sm:mt-0 lg:mt-[2.6vw] lg:max-w-none">
+              <p className="footer-copy mt-5 max-w-[420px] sm:mt-0 lg:mt-[2.6vw] lg:max-w-none">
                 We build custom software platforms for growing businesses — helping you streamline operations, improve
                 efficiency and scale with confidence.
               </p>
-              <ul className="mt-6 flex gap-4 lg:mt-[1.8vw] lg:gap-[1.1vw]">
+              <ul className="mt-5 flex gap-3 sm:mt-6 sm:gap-4 lg:mt-[1.8vw] lg:gap-[1.1vw]">
                 {SOCIAL_LINKS.map(({ label, href, network }) => {
                   const Icon = SOCIAL_ICONS[network];
                   return (
@@ -110,13 +110,13 @@ export function SiteFooter() {
           <span aria-hidden="true" className="hidden bg-white/15 lg:block" />
 
           {/* link columns */}
-          <nav aria-label="Footer" className="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-[1fr_1.3fr_0.9fr] md:grid-rows-[auto_1fr] lg:grid-rows-none lg:grid-cols-[1fr_1.3fr_0.85fr_0.75fr] lg:gap-[2vw]">
+          <nav aria-label="Footer" className="grid grid-cols-2 gap-x-4 gap-y-8 sm:gap-x-6 sm:gap-y-10 md:grid-cols-[1fr_1.3fr_0.9fr] md:grid-rows-[auto_1fr] lg:grid-rows-none lg:grid-cols-[1fr_1.3fr_0.85fr_0.75fr] lg:gap-[2vw]">
             {COLUMNS.map((column, index) => (
               // on tablet Company and Legal share the third column, so the two long lists span both rows
               <div key={column.title} className={index < 2 ? "md:row-span-2 lg:row-span-1" : undefined}>
                 <h2 className="footer-heading">{column.title}</h2>
                 <span className="footer-heading-line" style={{ "--accent": column.accent } as CSSProperties} />
-                <ul className="mt-4 grid gap-2.5 lg:mt-[1.1vw] lg:gap-[0.55vw]">
+                <ul className="mt-3 grid gap-2 sm:mt-4 sm:gap-2.5 lg:mt-[1.1vw] lg:gap-[0.55vw]">
                   {column.links.map((link) => (
                     <li key={link.label}>
                       <Link href={link.href} className="footer-link">
@@ -131,12 +131,12 @@ export function SiteFooter() {
         </div>
 
         {/* contact, hosting and copyright */}
-        <div className="mt-12 flex flex-col gap-8 border-t border-white/15 pt-8 lg:mt-[2.4vw] lg:flex-row lg:items-center lg:justify-between lg:gap-[2vw] lg:pt-[1.5vw]">
-          <ul className="flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center sm:gap-0">
+        <div className="mt-9 flex flex-col gap-6 border-t border-white/15 pt-6 sm:mt-12 sm:gap-8 sm:pt-8 lg:mt-[2.4vw] lg:flex-row lg:items-center lg:justify-between lg:gap-[2vw] lg:pt-[1.5vw]">
+          <ul className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-0">
             {CONTACTS.map(({ label, Icon, href }) => {
               const content = (
                 <>
-                  <Icon className="h-5 w-5 shrink-0 lg:h-[1.3vw] lg:w-[1.3vw] lg:min-h-4 lg:min-w-4" />
+                  <Icon className="h-[18px] w-[18px] shrink-0 sm:h-5 sm:w-5 lg:h-[1.3vw] lg:w-[1.3vw] lg:min-h-4 lg:min-w-4" />
                   {label}
                 </>
               );
@@ -156,7 +156,7 @@ export function SiteFooter() {
 
           <div className="flex flex-wrap items-center gap-x-6 gap-y-4 lg:gap-x-0">
             <div className="flex items-center gap-2 lg:gap-[0.5vw] lg:pr-[1.4vw]">
-              <AwsMark className="h-8 w-auto text-white lg:h-[2.2vw] lg:min-h-7" />
+              <AwsMark className="h-7 w-auto sm:h-8 text-white lg:h-[2.2vw] lg:min-h-7" />
               <span className="footer-note">Securely hosted on AWS</span>
             </div>
             <p className="footer-legal lg:border-l lg:border-white/15 lg:pl-[1.4vw]">

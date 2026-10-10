@@ -81,13 +81,13 @@
   --size-benefit-icon: 3.5rem;
 
   /* footer type */
-  --fs-footer-logo: 2.25rem;
-  --fs-footer-heading: 1.0625rem;
-  --fs-footer-link: 0.9375rem;
-  --fs-footer-copy: 0.9375rem;
-  --fs-footer-sm: 0.875rem;
+  --fs-footer-logo: 2rem;
+  --fs-footer-heading: 1rem;
+  --fs-footer-link: 0.875rem;
+  --fs-footer-copy: 0.875rem;
+  --fs-footer-sm: 0.8125rem;
   --fs-footer-xs: 0.6875rem;
-  --size-footer-social: 2.75rem;
+  --size-footer-social: 2.5rem;
 
   /* "What we build" cards */
   --fs-card-title: 1rem;
@@ -115,6 +115,12 @@
     --btn-lg-px: 2rem;
     --btn-lg-py: 1.25rem;
     --size-benefit-icon: 74px;
+    --fs-footer-logo: 2.25rem;
+    --fs-footer-heading: 1.0625rem;
+    --fs-footer-link: 0.9375rem;
+    --fs-footer-copy: 0.9375rem;
+    --fs-footer-sm: 0.875rem;
+    --size-footer-social: 2.75rem;
     --fs-card-title: 1.0625rem;
     --fs-card-copy: 0.9rem;
     --size-card-art: 5.75rem;
@@ -172,6 +178,8 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    /* in-page links stop below the fixed header */
+    scroll-padding-top: var(--header-h);
     background: rgb(var(--tone-light-top));
   }
 
@@ -199,7 +207,7 @@
 
   /* content that fades up into place as it scrolls into view (components/reveal.tsx) */
   .reveal {
-    @apply translate-y-5 opacity-0 transition-[opacity,transform] duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)];
+    @apply translate-y-4 opacity-0 transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)];
   }
   .reveal.is-visible {
     @apply translate-y-0 opacity-100;
