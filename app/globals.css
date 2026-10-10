@@ -70,9 +70,31 @@
   --btn-md-py: 1rem;
   --btn-lg-px: 1.6rem;
   --btn-lg-py: 1rem;
+  --btn-sm-px: 1.4rem;
+  --btn-sm-py: 0.8rem;
+  --fs-btn-sm: 0.9375rem;
 
   /* round icon of a benefit */
   --size-benefit-icon: 3.5rem;
+
+  /* footer type */
+  --fs-footer-logo: 2.25rem;
+  --fs-footer-heading: 1.0625rem;
+  --fs-footer-link: 0.9375rem;
+  --fs-footer-copy: 0.9375rem;
+  --fs-footer-sm: 0.875rem;
+  --fs-footer-xs: 0.6875rem;
+  --size-footer-social: 2.75rem;
+
+  /* "What we build" cards */
+  --fs-card-title: 1rem;
+  --fs-card-copy: 0.875rem;
+  --size-card-art: 4.75rem;
+  --size-industry-art: 4.5rem;
+  --size-card-arrow: 2rem;
+  --fs-tip: 0.8125rem;
+  --fs-label-caps: 0.6875rem;
+  --fs-cta-title: 1.375rem;
 }
 
 @media (min-width: 640px) {
@@ -89,12 +111,17 @@
     --btn-lg-px: 2rem;
     --btn-lg-py: 1.25rem;
     --size-benefit-icon: 74px;
+    --fs-card-title: 1.0625rem;
+    --fs-card-copy: 0.9rem;
+    --size-card-art: 5.75rem;
+    --size-industry-art: 7.5rem;
+    --fs-cta-title: 1.5rem;
   }
 }
 
 @media (min-width: 1024px) {
   :root {
-    --page-gutter: 7.1%;
+    --page-gutter: 4%;
     --fs-eyebrow: clamp(11px, 0.85vw, 15px);
     --fs-display: clamp(2.5rem, min(4.6vw, 9svh), 6.25rem);
     --fs-lead: clamp(1rem, min(1.6vw, 3.2svh), 2rem);
@@ -112,7 +139,25 @@
     --btn-md-py: 0.8vw;
     --btn-lg-px: 1.7vw;
     --btn-lg-py: min(1.1vw, 1.9svh);
+    --btn-sm-px: 1.5vw;
+    --btn-sm-py: 0.85vw;
+    --fs-btn-sm: clamp(0.85rem, 1.05vw, 1.3rem);
     --size-benefit-icon: min(4.3vw, 8.4svh);
+    --fs-footer-logo: clamp(2rem, 2.6vw, 3.5rem);
+    --fs-footer-heading: clamp(0.95rem, 1.15vw, 1.4rem);
+    --fs-footer-link: clamp(0.8rem, 0.92vw, 1.1rem);
+    --fs-footer-copy: clamp(0.85rem, 1vw, 1.2rem);
+    --fs-footer-sm: clamp(0.75rem, 0.85vw, 1rem);
+    --fs-footer-xs: clamp(0.6rem, 0.62vw, 0.8rem);
+    --size-footer-social: clamp(2.4rem, 2.9vw, 3.4rem);
+    --fs-card-title: clamp(0.95rem, 1.25vw, 1.5rem);
+    --fs-card-copy: clamp(0.78rem, 0.98vw, 1.15rem);
+    --size-card-art: clamp(5rem, 7.2vw, 8.5rem);
+    --size-industry-art: clamp(5.5rem, 9vw, 10.5rem);
+    --size-card-arrow: clamp(1.9rem, 2.3vw, 2.8rem);
+    --fs-tip: clamp(0.75rem, 0.85vw, 1rem);
+    --fs-label-caps: clamp(0.6rem, 0.62vw, 0.8rem);
+    --fs-cta-title: clamp(1rem, 1.25vw, 1.6rem);
   }
 }
 
@@ -210,6 +255,10 @@
   .copy-sm {
     @apply font-display text-copy font-normal leading-snug text-brand-slate;
   }
+  /* the label of a list row, like More manual work */
+  .item-label {
+    @apply font-display text-item font-bold text-brand-navy;
+  }
 
   /* slow floating motion for artwork; the keyframes are below */
   .float-a {
@@ -234,6 +283,164 @@
     @apply z-10 border-t-2 border-brand-line;
   }
 
+  /* a background picture behind a whole section, placed inside its Reveal so it arrives with the content;
+     it reaches a little above the top because the Reveal starts slightly lower while it fades in */
+  .section-bg {
+    @apply pointer-events-none absolute inset-x-0 -top-6 -z-10 h-[calc(100%+1.5rem)] w-full object-cover;
+  }
+
+  /* the soft glass card of sections 3 and 4; it lifts a little on hover */
+  .card-glass {
+    @apply rounded-2xl border border-white/80 bg-white/70 backdrop-blur-sm transition-[transform,box-shadow] duration-300 ease-out hover:-translate-y-1 lg:rounded-[1.2vw];
+    box-shadow: 0 10px 28px -18px rgb(40 70 170 / 0.35);
+  }
+  .card-glass:hover {
+    box-shadow: 0 18px 36px -18px rgb(40 80 200 / 0.45);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .card-glass {
+      transition: none;
+    }
+  }
+  .card-title {
+    font-size: var(--fs-card-title);
+    @apply font-display font-bold leading-tight text-brand-navy;
+  }
+  .card-copy {
+    font-size: var(--fs-card-copy);
+    @apply mt-1.5 font-display leading-snug text-brand-slate lg:mt-[0.45vw];
+  }
+  /* the round arrow at the bottom right of a card */
+  .card-arrow {
+    @apply grid shrink-0 place-items-center rounded-full bg-[#eef1ff] text-brand-blue transition-colors hover:bg-brand-gradient hover:text-white;
+    width: var(--size-card-arrow);
+    height: var(--size-card-arrow);
+  }
+  /* small spaced capitals, like SOMETHING DIFFERENT IN MIND? */
+  .label-caps {
+    font-size: var(--fs-label-caps);
+    @apply font-display font-extrabold uppercase tracking-[0.22em] text-brand-blue;
+  }
+  .cta-title {
+    font-size: var(--fs-cta-title);
+    @apply font-display font-extrabold leading-tight tracking-tight text-brand-navy;
+  }
+
+  /* a short tooltip: put .tip inside a .tip-host; it shows on hover, focus, or a tap on phones */
+  .tip-host {
+    @apply relative outline-none focus-visible:ring-2 focus-visible:ring-[rgb(10_155_255/0.6)];
+  }
+  .tip-host:hover,
+  .tip-host:focus-within {
+    @apply z-20;
+  }
+  .tip {
+    @apply pointer-events-none absolute bottom-full left-1/2 mb-2.5 w-max max-w-[90%] -translate-x-1/2 translate-y-1 rounded-xl bg-brand-navy px-3.5 py-2 text-center font-display font-medium leading-snug text-white opacity-0 shadow-lg transition-[opacity,transform] duration-200 lg:mb-[0.7vw] lg:rounded-[0.8vw] lg:px-[1vw] lg:py-[0.55vw];
+    font-size: var(--fs-tip);
+  }
+  .tip::after {
+    content: "";
+    @apply absolute left-1/2 top-full -translate-x-1/2 border-[6px] border-transparent border-t-brand-navy;
+  }
+  .tip-host:hover .tip,
+  .tip-host:focus-within .tip {
+    @apply translate-y-0 opacity-100;
+  }
+  @media (hover: none) {
+    /* on touch screens hover sticks after a tap, so only focus (the tap itself) opens the tooltip */
+    .tip-host:hover:not(:focus-within) .tip {
+      @apply translate-y-1 opacity-0;
+    }
+  }
+
+  /* a "What we build" card: on phones the picture sits left of the text, from tablet above it */
+  .service-card {
+    @apply grid grid-cols-[auto_minmax(0,1fr)] items-center gap-4 p-4 sm:grid-cols-1 sm:content-start sm:justify-items-center sm:gap-3 sm:px-6 sm:pb-7 sm:pt-6 lg:gap-[0.7vw] lg:px-[2.3vw] lg:pb-[1.9vw] lg:pt-[1.5vw];
+  }
+  .service-card > div {
+    @apply sm:w-full;
+  }
+  .service-art {
+    @apply block shrink-0;
+    width: var(--size-card-art);
+    height: calc(var(--size-card-art) * 0.83);
+  }
+
+  /* an Industries card: like a "What we build" card, with a round arrow beside its text */
+  .industry-card {
+    @apply grid grid-cols-[auto_minmax(0,1fr)] items-center gap-4 p-4 sm:grid-cols-1 sm:content-start sm:gap-3 sm:px-6 sm:pb-6 sm:pt-5 lg:gap-[0.6vw] lg:px-[1.9vw] lg:pb-[1.4vw] lg:pt-[1.2vw];
+  }
+  .industry-art {
+    @apply block shrink-0 sm:justify-self-center;
+    width: var(--size-industry-art);
+    height: calc(var(--size-industry-art) * 0.714);
+  }
+  .industry-foot {
+    @apply flex items-end justify-between gap-3 lg:gap-[0.8vw];
+  }
+  /* the card for an industry that is not listed: text and button, a thin line, then the picture */
+  .industry-cta {
+    @apply flex flex-col-reverse gap-4 p-5 sm:p-6 lg:flex-row lg:items-center lg:gap-[1.2vw] lg:px-[1.6vw] lg:py-[1.3vw];
+  }
+  .industry-cta > div {
+    @apply lg:flex-1;
+  }
+  .industry-cta-art {
+    @apply w-32 shrink-0 self-center sm:w-36 lg:w-[7.5vw];
+  }
+
+  /* the footer: deep navy with soft glows, drawn in CSS so it needs no image */
+  .footer {
+    background:
+      radial-gradient(60% 70% at 8% 115%, rgb(88 70 220 / 0.45), transparent 70%),
+      radial-gradient(45% 60% at 95% 110%, rgb(40 90 230 / 0.35), transparent 70%),
+      radial-gradient(40% 50% at 55% -20%, rgb(60 110 255 / 0.18), transparent 70%),
+      linear-gradient(180deg, #0b1a4f 0%, #111a5a 55%, #191d6c 100%);
+  }
+  /* a footer column title and the short coloured line under it; set the line colour with --accent */
+  .footer-heading {
+    font-size: var(--fs-footer-heading);
+    @apply font-display font-bold;
+  }
+  .footer-heading-line {
+    @apply mt-2 block h-[3px] w-9 rounded-full lg:mt-[0.5vw] lg:w-[2.2vw];
+    background: var(--accent, var(--color-blue));
+  }
+  .footer-logo {
+    font-size: var(--fs-footer-logo);
+    @apply inline-flex items-center gap-[0.18em] font-logo font-medium leading-none;
+  }
+  .footer-tagline {
+    font-size: var(--fs-footer-sm);
+    @apply text-[#c9d4f7];
+  }
+  .footer-note {
+    font-size: var(--fs-footer-xs);
+    @apply text-[#c9d4f7];
+  }
+  .footer-legal {
+    font-size: var(--fs-footer-sm);
+    @apply leading-relaxed text-[#dbe3ff];
+  }
+  .footer-copy {
+    font-size: var(--fs-footer-copy);
+    @apply font-display font-normal leading-relaxed text-[#dbe3ff];
+  }
+  .footer-link {
+    font-size: var(--fs-footer-link);
+    @apply font-display leading-snug text-[#aebbe6] transition-colors hover:text-white;
+  }
+  .footer-social {
+    @apply grid place-items-center rounded-full border border-white/25 text-white transition-colors hover:border-white/60 hover:bg-white/10;
+    width: var(--size-footer-social);
+    height: var(--size-footer-social);
+  }
+  /* a contact item in the bottom bar; from tablet a thin line separates it from the one before */
+  .footer-contact {
+    font-size: var(--fs-footer-sm);
+    @apply font-display text-[#dbe3ff] sm:border-l sm:border-white/15 sm:px-6 sm:first:border-l-0 sm:first:pl-0 lg:px-[1.4vw];
+  }
+
   /* page width and side gutters */
   .container-page {
     @apply mx-auto w-full max-w-page px-gutter;
@@ -241,12 +448,17 @@
 
   /* buttons: .btn plus a size, md (header, rounded) or lg (call to action, pill) */
   .btn {
-    @apply inline-flex items-center gap-2 bg-brand-gradient font-light leading-tight text-white transition-transform duration-200 hover:-translate-y-0.5;
+    @apply inline-flex items-center gap-2 whitespace-nowrap bg-brand-gradient font-light leading-tight text-white transition-transform duration-200 hover:-translate-y-0.5;
   }
   .btn-md {
     @apply rounded-2xl shadow-brand-sm;
     padding: var(--btn-md-py) var(--btn-md-px);
     font-size: var(--fs-btn-md);
+  }
+  .btn-sm {
+    @apply gap-2 rounded-full shadow-brand-sm;
+    padding: var(--btn-sm-py) var(--btn-sm-px);
+    font-size: var(--fs-btn-sm);
   }
   .btn-lg {
     @apply gap-3 rounded-full shadow-brand;

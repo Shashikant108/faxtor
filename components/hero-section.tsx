@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { preload } from "react-dom";
 import { CONTACT_HREF } from "@/lib/site-config";
 import { ArrowIcon } from "./arrow-icon";
 import { Fold } from "./fold";
@@ -18,6 +19,10 @@ const BENEFITS = [
  * From desktop it fills one screen, with the text on the left and the video on the right; below that it stacks.
  */
 export function HeroSection() {
+  // fetch the video's poster and the background first, so the picture is ready with the text
+  preload("/hero-poster.jpg", { as: "image", fetchPriority: "high" });
+  preload("/hero/hero-bg.webp", { as: "image", fetchPriority: "high" });
+
   return (
     <Fold tone="light" className="isolate overflow-hidden lg:flex lg:h-svh lg:min-h-[620px] lg:flex-col">
       <div
@@ -65,7 +70,7 @@ export function HeroSection() {
             </ul>
           </div>
 
-          <HeroVideo className="mt-10 lg:-ml-[5vw] lg:mt-0 lg:w-[calc(100%+10vw)] lg:-translate-x-[0.5vw]" />
+          <HeroVideo className="mt-10 lg:-ml-[7.4vw] lg:mt-0 lg:w-[calc(100%+10vw)] lg:-translate-x-[0.5vw]" />
         </div>
       </div>
     </Fold>

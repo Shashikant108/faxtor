@@ -9,10 +9,10 @@ const HUB = { x: 317, y: 208 };
 
 const MODULES = [
   { key: "sales", label: "Sales", x: 222, y: 55, width: 25, tone: "violet", Icon: SalesIcon, update: "+3 new orders" },
-  { key: "management", label: "Management", x: 477, y: 325, width: 31, tone: "violet", Icon: ReportIcon, update: "Report ready" },
+  { key: "management", label: "Management", x: 492, y: 333, width: 31, tone: "violet", Icon: ReportIcon, update: "Report ready" },
   { key: "operations", label: "Operations", x: 469, y: 68, width: 29, tone: "violet", Icon: GearIcon, update: "2 tasks done" },
   { key: "customers", label: "Customers", x: 119, y: 185, width: 16.5, tone: "sky", Icon: PeopleIcon, update: "Reply sent", stacked: true },
-  { key: "inventory", label: "Inventory", x: 179, y: 308, width: 29, tone: "amber", Icon: BoxIcon, update: "Stock synced" },
+  { key: "inventory", label: "Inventory", x: 136, y: 328, width: 29, tone: "amber", Icon: BoxIcon, update: "Stock synced" },
   { key: "finance", label: "Finance", x: 537, y: 203, width: 26.7, tone: "sky", Icon: RupeeIcon, update: "₹48,000 received" },
 ] as const;
 

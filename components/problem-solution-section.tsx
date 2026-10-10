@@ -25,11 +25,12 @@ const CHALLENGES = [
 export function ProblemSolutionSection() {
   return (
     <Fold tone="lavender" id="solutions" className="fold-sheet isolate overflow-hidden">
-      {/* side space on desktop; the frame inside keeps the design's proportions */}
-      <div className="mx-auto w-full max-w-page px-5 py-14 sm:px-10 sm:py-20 lg:px-[3.5vw] lg:pb-[2.5vw] lg:pt-0">
-      <div className="relative lg:aspect-[1774/887]">
+      {/* the same side space as every section; the frame inside keeps the design's proportions */}
+      <div className="container-page py-14 sm:py-20 lg:pb-[2.5vw] lg:pt-0">
+      {/* one Reveal for the whole section, so pictures, text and icons arrive together */}
+      <Reveal className="relative lg:aspect-[1774/887]">
         {/* label, heading and intro */}
-        <Reveal className="relative z-10 text-center lg:absolute lg:inset-x-0 lg:top-[3.4%]">
+        <div className="relative z-10 text-center lg:absolute lg:inset-x-0 lg:top-[3.4%]">
           <p className="eyebrow">The Problem &amp; The Solution</p>
           <span className="eyebrow-line mx-auto mt-3 lg:mt-[0.5vw]" />
           <h2 className="heading-section mt-6 lg:mt-[1.5vw]">
@@ -41,32 +42,28 @@ export function ProblemSolutionSection() {
             <span className="lg:block lg:whitespace-nowrap">As your business grows, disconnected tools and manual processes can slow your team down. </span>
             <span className="lg:block lg:whitespace-nowrap">Faxtor brings your people, processes and information together.</span>
           </p>
-        </Reveal>
+        </div>
 
         {/* the problem: scattered tools */}
-        <Reveal className="mx-auto mt-10 w-full max-w-[460px] lg:absolute lg:left-[0.8%] lg:top-[21%] lg:mt-0 lg:w-[29.4%] lg:max-w-none">
+        <div className="mx-auto mt-10 w-full max-w-[460px] lg:absolute lg:left-[0.8%] lg:top-[21%] lg:mt-0 lg:w-[29.4%] lg:max-w-none">
           <ScatteredTools />
-        </Reveal>
+        </div>
 
         {/* the challenges */}
         <div className="relative z-10 mt-10 lg:absolute lg:left-[32.1%] lg:top-[34.2%] lg:mt-0 lg:w-[17.6%]">
-          <Reveal>
-            <span className="chip" data-tone="rose">The Challenges</span>
-          </Reveal>
+          <span className="chip" data-tone="rose">The Challenges</span>
           <ul className="mt-3 grid gap-1 lg:mt-[0.6vw] lg:gap-[0.22vw]">
             {CHALLENGES.map(({ label, Icon, tone }, index) => (
               <li key={label}>
-                <Reveal delay={index * 70}>
-                  <div
-                    className="card-soft row-cycle flex items-center gap-3 border px-3 py-2.5 lg:h-[3.5vw] lg:gap-[0.9vw] lg:px-[0.9vw] lg:py-0"
-                    style={{ animationDelay: `${index * 1.5}s` }}
-                  >
-                    <span className="tone-icon [--icon-size:2.5rem] lg:[--icon-size:2.25vw]" data-tone={tone}>
-                      <Icon />
-                    </span>
-                    <span className="font-display text-item font-bold text-brand-navy">{label}</span>
-                  </div>
-                </Reveal>
+                <div
+                  className="card-soft row-cycle flex items-center gap-3 border px-3 py-2.5 lg:h-[3.5vw] lg:gap-[0.9vw] lg:px-[0.9vw] lg:py-0"
+                  style={{ animationDelay: `${index * 1.5}s` }}
+                >
+                  <span className="tone-icon [--icon-size:2.5rem] lg:[--icon-size:2.25vw]" data-tone={tone}>
+                    <Icon />
+                  </span>
+                  <span className="item-label">{label}</span>
+                </div>
               </li>
             ))}
           </ul>
@@ -79,25 +76,23 @@ export function ProblemSolutionSection() {
         </div>
 
         {/* the solution */}
-        <Reveal className="mt-12 lg:absolute lg:left-[66.7%] lg:top-[34.2%] lg:mt-0">
+        <div className="mt-12 lg:absolute lg:left-[66.7%] lg:top-[34.2%] lg:mt-0">
           <span className="chip" data-tone="sky">The Solution</span>
           <h3 className="heading-sub mt-3 lg:mt-[0.6vw]">One connected system.</h3>
-        </Reveal>
+        </div>
 
-        <Reveal className="mx-auto mt-6 w-full max-w-[640px] lg:absolute lg:left-[64.1%] lg:top-[44.2%] lg:mt-0 lg:w-[35.9%] lg:max-w-none">
+        <div className="mx-auto mt-6 w-full max-w-[640px] lg:absolute lg:left-[64.1%] lg:top-[44.2%] lg:mt-0 lg:w-[35.9%] lg:max-w-none">
           <ConnectedSystem />
-        </Reveal>
+        </div>
 
         {/* call to action */}
         <div className="mt-10 flex justify-center lg:absolute lg:bottom-[2.5%] lg:left-[51.2%] lg:mt-0 lg:-translate-x-1/2">
-          <Reveal>
-            <Link href={CONTACT_HREF} className="btn btn-lg">
-              Discuss your requirements
-              <ArrowIcon className="h-5 w-5" />
-            </Link>
-          </Reveal>
+          <Link href={CONTACT_HREF} className="btn btn-lg">
+            Discuss your requirements
+            <ArrowIcon className="h-5 w-5" />
+          </Link>
         </div>
-      </div>
+      </Reveal>
       </div>
     </Fold>
   );
