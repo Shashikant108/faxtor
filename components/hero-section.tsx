@@ -5,7 +5,6 @@ import { ArrowIcon } from "./arrow-icon";
 import { Fold } from "./fold";
 import { AchieveMoreIcon, SaveTimeIcon, WorkSmarterIcon } from "./benefit-icons";
 import { HeroVideo } from "./hero-video";
-import { SiteHeader } from "./site-header";
 
 const BENEFITS = [
   { label: "Save Time", Icon: SaveTimeIcon, tone: "sky" },
@@ -27,9 +26,11 @@ export function HeroSection() {
     <Fold tone="light" className="isolate overflow-hidden lg:flex lg:h-svh lg:min-h-[620px] lg:flex-col">
       <div
         aria-hidden="true"
+        data-parallax="0.1"
         className="hero-bg"
       />
-      <SiteHeader />
+      {/* room for the fixed header, which lives in app/layout.tsx */}
+      <div aria-hidden="true" className="header-space" />
 
       <div className="container-page relative z-10 pb-16 pt-14 sm:pt-20 lg:flex lg:flex-1 lg:items-start lg:pb-[2vw] lg:pt-[min(3.8vw,7svh)]">
         <div className="lg:grid lg:w-full lg:grid-cols-[48vw_minmax(0,1fr)] lg:items-center">
@@ -70,7 +71,7 @@ export function HeroSection() {
             </ul>
           </div>
 
-          <HeroVideo className="mt-10 lg:-ml-[7.4vw] lg:mt-0 lg:w-[calc(100%+10vw)] lg:-translate-x-[0.5vw]" />
+          <HeroVideo className="mx-auto mt-10 w-[88%] -translate-x-[6%] lg:mx-0 lg:-ml-[4.4vw] lg:mt-0 lg:w-[calc(100%+4vw)] lg:-translate-x-[0.5vw]" />
         </div>
       </div>
     </Fold>

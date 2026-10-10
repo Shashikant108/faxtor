@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { Caveat, Lexend, Plus_Jakarta_Sans, Quicksand } from "next/font/google";
+import { OffscreenPause } from "@/components/offscreen-pause";
 import { ScrollBackdrop } from "@/components/scroll-backdrop";
+import { SiteHeader } from "@/components/site-header";
+import { SmoothScroll } from "@/components/smooth-scroll";
+import "lenis/dist/lenis.css";
 import "./globals.css";
 
 const lexend = Lexend({
@@ -44,6 +48,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${lexend.variable} ${jakarta.variable} ${caveat.variable} ${quicksand.variable} font-sans antialiased`}>
         <ScrollBackdrop />
+        <SmoothScroll />
+        <OffscreenPause />
+        <SiteHeader />
         {children}
       </body>
     </html>

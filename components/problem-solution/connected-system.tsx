@@ -8,7 +8,7 @@ const FRAME = { w: 636, h: 398 };
 const HUB = { x: 317, y: 208 };
 
 const MODULES = [
-  { key: "sales", label: "Sales", x: 222, y: 55, width: 25, tone: "violet", Icon: SalesIcon, update: "+3 new orders" },
+  { key: "sales", label: "Sales", x: 222, y: 55, width: 25, tone: "violet", Icon: SalesIcon, update: "+3 new orders", below: true },
   { key: "management", label: "Management", x: 492, y: 333, width: 31, tone: "violet", Icon: ReportIcon, update: "Report ready" },
   { key: "operations", label: "Operations", x: 469, y: 68, width: 29, tone: "violet", Icon: GearIcon, update: "2 tasks done" },
   { key: "customers", label: "Customers", x: 119, y: 185, width: 16.5, tone: "sky", Icon: PeopleIcon, update: "Reply sent", stacked: true },
@@ -83,9 +83,9 @@ export function ConnectedSystem() {
             className="absolute"
             style={{ ...at(module.x, module.y), width: `${module.width}cqw`, transform: "translate(-50%, -50%)" }}
           >
-            {/* the update this module just made */}
+            {/* the update this module just made; under the card for Sales, so it never covers the heading above */}
             <span
-              className={`absolute bottom-full left-1/2 mb-[1.2cqw] flex -translate-x-1/2 items-center gap-[0.8cqw] whitespace-nowrap rounded-full bg-brand-navy px-[1.6cqw] py-[0.7cqw] font-display text-[max(1.9cqw,9px)] font-bold text-white shadow-lg transition-all duration-300 ${
+              className={`absolute left-1/2 ${"below" in module ? "top-full mt-[1.2cqw]" : "bottom-full mb-[1.2cqw]"} flex -translate-x-1/2 items-center gap-[0.8cqw] whitespace-nowrap rounded-full bg-brand-navy px-[1.6cqw] py-[0.7cqw] font-display text-[max(1.9cqw,9px)] font-bold text-white shadow-lg transition-all duration-300 ${
                 isActive ? "translate-y-0 opacity-100" : "translate-y-[0.8cqw] opacity-0"
               }`}
             >

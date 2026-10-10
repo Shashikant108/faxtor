@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import Link from "next/link";
 import { CONTACT_HREF } from "@/lib/site-config";
 import { ArrowIcon } from "./arrow-icon";
@@ -24,11 +25,11 @@ const CHALLENGES = [
  */
 export function ProblemSolutionSection() {
   return (
-    <Fold tone="lavender" id="solutions" className="isolate overflow-hidden">
+    <Fold tone="lavender" id="solutions" className="section-clip isolate">
       {/* one Reveal for the whole section, background picture included, so everything arrives together */}
       <Reveal className="relative">
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/backgrounds/soft-waves.webp" alt="" width={1774} height={887} className="section-bg" />
+      <img src="/backgrounds/soft-waves.webp" alt="" width={1774} height={887} data-parallax="0.04" className="section-bg" />
       {/* the same side space as every section; the frame inside keeps the design's proportions */}
       <div className="container-page py-14 sm:py-20 lg:pb-[2.5vw] lg:pt-0">
       <div className="relative lg:aspect-[1774/887]">
@@ -59,8 +60,8 @@ export function ProblemSolutionSection() {
             {CHALLENGES.map(({ label, Icon, tone }, index) => (
               <li key={label}>
                 <div
-                  className="card-soft row-cycle flex items-center gap-3 border px-3 py-2.5 lg:h-[3.5vw] lg:gap-[0.9vw] lg:px-[0.9vw] lg:py-0"
-                  style={{ animationDelay: `${index * 1.5}s` }}
+                  className="card-soft row-cycle flex items-center gap-3 border border-transparent px-3 py-2.5 lg:h-[3.5vw] lg:gap-[0.9vw] lg:px-[0.9vw] lg:py-0"
+                  style={{ "--row-delay": `${index * 1.5}s` } as CSSProperties}
                 >
                   <span className="tone-icon [--icon-size:2.5rem] lg:[--icon-size:2.25vw]" data-tone={tone}>
                     <Icon />

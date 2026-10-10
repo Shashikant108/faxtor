@@ -46,6 +46,9 @@
   --shadow-brand: 0 14px 34px -12px rgb(10 155 255 / 0.65);
   --shadow-brand-sm: 0 10px 30px -10px rgb(10 155 255 / 0.6);
 
+  /* the fixed header's height: padding plus the logo */
+  --header-h: 5.25rem;
+
   /* page frame */
   --page-gutter: 1.25rem;
   --page-max: 1900px;
@@ -100,6 +103,7 @@
 @media (min-width: 640px) {
   :root {
     --page-gutter: 2.5rem;
+    --header-h: 5.5rem;
     --fs-eyebrow: 0.75rem;
     --fs-display: 3.75rem;
     --fs-lead: 1.5rem;
@@ -122,6 +126,7 @@
 @media (min-width: 1024px) {
   :root {
     --page-gutter: 4%;
+    --header-h: calc(2vw + clamp(44px, 3.2vw, 64px));
     --fs-eyebrow: clamp(11px, 0.85vw, 15px);
     --fs-display: clamp(2.5rem, min(4.6vw, 9svh), 6.25rem);
     --fs-lead: clamp(1rem, min(1.6vw, 3.2svh), 2rem);
@@ -175,6 +180,11 @@
       scroll-behavior: auto;
     }
   }
+
+  /* Lenis does the smooth scrolling itself, so the browser's own smoothing must stay out of its way */
+  html.lenis {
+    scroll-behavior: auto;
+  }
 }
 
 @layer components {
@@ -189,7 +199,7 @@
 
   /* content that fades up into place as it scrolls into view (components/reveal.tsx) */
   .reveal {
-    @apply translate-y-6 opacity-0 transition-[opacity,transform] duration-700 ease-out;
+    @apply translate-y-5 opacity-0 transition-[opacity,transform] duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)];
   }
   .reveal.is-visible {
     @apply translate-y-0 opacity-100;
@@ -241,8 +251,15 @@
 
   /* a soft white card */
   .card-soft {
-    @apply rounded-xl bg-white/80 backdrop-blur-sm;
+    @apply rounded-xl bg-white/80;
     box-shadow: 0 8px 22px -14px rgb(30 60 150 / 0.3);
+  }
+
+  /* looping animations wait while their section is off screen (components/offscreen-pause.tsx) */
+  [data-paused] *,
+  [data-paused] *::before,
+  [data-paused] *::after {
+    animation-play-state: paused !important;
   }
 
   /* section headings and copy */
@@ -278,18 +295,42 @@
     }
   }
 
+  /* the fixed header; it is see-through over the hero and turns into frosted glass once the page scrolls */
+  .site-header {
+    @apply fixed inset-x-0 top-0 z-50 border-b border-transparent transition-[background-color,box-shadow,border-color] duration-300;
+  }
+  .site-header[data-scrolled="true"] {
+    @apply border-white/60 bg-white/80 backdrop-blur-md;
+    box-shadow: 0 10px 30px -20px rgb(30 60 150 / 0.4);
+  }
+  /* the room the fixed header takes at the top of the hero */
+  .header-space {
+    @apply shrink-0;
+    height: var(--header-h);
+  }
+
+  /* a picture that drifts with the parallax (components/smooth-scroll.tsx), kept on its own GPU layer */
+  [data-parallax] {
+    will-change: transform;
+  }
+
   /* the hero's background picture; its bottom fades out so the hero flows into the next section */
   .hero-bg {
     @apply pointer-events-none absolute inset-0 -z-10 bg-[url('/hero/hero-bg.webp')] bg-cover bg-[position:right_center] bg-no-repeat;
-    mask-image: linear-gradient(to bottom, #000 72%, transparent);
+    mask-image: linear-gradient(to bottom, #000 58%, transparent 90%);
   }
 
-  /* a background picture behind a whole section, placed inside its Reveal so it arrives with the content;
-     it reaches a little above the top because the Reveal starts slightly lower while it fades in. Its top
-     and bottom fade out, so sections melt into each other instead of meeting at a hard line */
+  /* a section whose background may run on under the next section (which paints over it, so the two blend)
+     but never up over the section before it, nor out at the sides */
+  .section-clip {
+    clip-path: inset(0 0 -40% 0);
+  }
+  /* a background picture behind a whole section, placed inside its Reveal so it arrives with the content.
+     It runs on below the section, under the next one, and room is left for it to drift with the parallax
+     (data-parallax); its top and bottom fade out, so sections melt into each other instead of meeting at a line */
   .section-bg {
-    @apply pointer-events-none absolute inset-x-0 -top-6 -z-10 h-[calc(100%+1.5rem)] w-full object-cover;
-    mask-image: linear-gradient(to bottom, transparent, #000 16%, #000 84%, transparent);
+    @apply pointer-events-none absolute inset-x-0 top-0 -z-10 h-[124%] w-full object-cover;
+    mask-image: linear-gradient(to bottom, transparent, #000 20%, #000 68%, transparent);
   }
 
   /* the soft glass card of sections 3 and 4; it lifts a little on hover */
@@ -549,7 +590,16 @@
   .ring-turn { animation: ring-turn 40s linear infinite; transform-origin: 317px 208px; }
 
   /* the challenge list: one row at a time steps forward, and each icon has its own small motion */
-  .row-cycle { animation: row-cycle 9s ease-in-out infinite; }
+  /* a challenge row in turn slides out a little and lights up; the light is a layer that only fades, so the
+     loop stays on the GPU (moving a shadow or a border colour would repaint every frame) */
+  .row-cycle { @apply relative; animation: row-cycle 9s ease-in-out infinite; animation-delay: var(--row-delay, 0s); }
+  .row-cycle::after {
+    content: "";
+    @apply pointer-events-none absolute -inset-px rounded-[inherit] border border-brand-line opacity-0;
+    box-shadow: 0 14px 28px -12px rgb(60 90 200 / 0.4);
+    animation: row-glow 9s ease-in-out infinite;
+    animation-delay: var(--row-delay, 0s);
+  }
   .clock-hand { animation: clock-spin 4s linear infinite; transform-box: view-box; transform-origin: 12px 12px; }
   .bell-ring { animation: bell-ring 2.6s ease-in-out infinite; transform-box: view-box; transform-origin: 12px 4px; }
   .bar-a, .bar-b, .bar-c { animation: bar-grow 2.4s ease-in-out infinite; transform-box: fill-box; transform-origin: bottom; }
@@ -560,7 +610,7 @@
   .doc-lines { animation: doc-lines 3s ease-in-out infinite; }
 
   @media (prefers-reduced-motion: reduce) {
-    .float-card, .paper-drift, .plane-glide, .thread, .dot-blink, .badge-pop, .hub-ring, .ring-turn, .row-cycle,
+    .float-card, .paper-drift, .plane-glide, .thread, .dot-blink, .badge-pop, .hub-ring, .ring-turn, .row-cycle, .row-cycle::after,
     .clock-hand, .bell-ring, .bar-a, .bar-b, .bar-c, .coin-bob, .trend-draw, .doc-lines {
       animation: none;
     }
@@ -606,8 +656,12 @@
   to { transform: rotate(360deg); }
 }
 @keyframes row-cycle {
-  0%, 17%, 100% { transform: translateX(0); box-shadow: 0 8px 22px -14px rgb(30 60 150 / 0.3); border-color: transparent; }
-  3%, 14% { transform: translateX(10px); box-shadow: 0 14px 28px -12px rgb(60 90 200 / 0.4); border-color: var(--color-fold-line); }
+  0%, 17%, 100% { transform: translate3d(0, 0, 0); }
+  3%, 14% { transform: translate3d(10px, 0, 0); }
+}
+@keyframes row-glow {
+  0%, 17%, 100% { opacity: 0; }
+  3%, 14% { opacity: 1; }
 }
 @keyframes clock-spin {
   to { transform: rotate(360deg); }

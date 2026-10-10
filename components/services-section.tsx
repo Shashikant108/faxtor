@@ -32,10 +32,10 @@ const SERVICES = [
  */
 export function ServicesSection() {
   return (
-    <Fold tone="tint" id="services" className="isolate overflow-hidden">
+    <Fold tone="tint" id="services" className="section-clip isolate">
       <Reveal className="relative">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/backgrounds/soft-waves.webp" alt="" width={1774} height={887} className="section-bg" />
+        <img src="/backgrounds/soft-waves.webp" alt="" width={1774} height={887} data-parallax="0.04" className="section-bg" />
         <div className="container-page py-14 sm:py-20 lg:py-[3.2vw]">
           <div className="text-center">
             <p className="eyebrow">What we build</p>
