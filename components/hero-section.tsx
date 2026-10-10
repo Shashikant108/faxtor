@@ -26,7 +26,7 @@ export function HeroSection() {
       />
       <SiteHeader />
 
-      <div className="container-page relative z-10 pb-16 pt-14 sm:pt-20 lg:flex lg:flex-1 lg:items-center lg:pb-[2vw] lg:pt-[min(2.9vw,6svh)]">
+      <div className="container-page relative z-10 pb-16 pt-14 sm:pt-20 lg:flex lg:flex-1 lg:items-start lg:pb-[2vw] lg:pt-[min(3.8vw,7svh)]">
         <div className="lg:grid lg:w-full lg:grid-cols-[48vw_minmax(0,1fr)] lg:items-center">
           {/* above the video, so its soft left edge can never dim the text where the two meet on a wide screen */}
           <div className="relative z-10">

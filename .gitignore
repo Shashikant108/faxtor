@@ -49,3 +49,11 @@ Thumbs.db
 *.mov
 *.wmv
 
+
+# Next.js build output and local caches
+.next/
+out/
+*.tsbuildinfo
+
+# local Claude preview config
+.claude/

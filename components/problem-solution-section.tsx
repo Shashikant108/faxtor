@@ -25,17 +25,12 @@ const CHALLENGES = [
 export function ProblemSolutionSection() {
   return (
     <Fold tone="lavender" id="solutions" className="fold-sheet isolate overflow-hidden">
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 -z-10 bg-[url('/problem-solution/section-bg.webp')] bg-cover bg-center bg-no-repeat [mask-image:linear-gradient(to_bottom,#000,#000_88%,transparent)]"
-      />
-
       {/* side space on desktop; the frame inside keeps the design's proportions */}
-      <div className="mx-auto w-full max-w-page px-5 py-14 sm:px-10 sm:py-20 lg:px-[3.5vw] lg:py-0">
+      <div className="mx-auto w-full max-w-page px-5 py-14 sm:px-10 sm:py-20 lg:px-[3.5vw] lg:pb-[2.5vw] lg:pt-0">
       <div className="relative lg:aspect-[1774/887]">
         {/* label, heading and intro */}
         <Reveal className="relative z-10 text-center lg:absolute lg:inset-x-0 lg:top-[3.4%]">
-          <p className="eyebrow" data-size="sm">The Problem &amp; The Solution</p>
+          <p className="eyebrow">The Problem &amp; The Solution</p>
           <span className="eyebrow-line mx-auto mt-3 lg:mt-[0.5vw]" />
           <h2 className="heading-section mt-6 lg:mt-[1.5vw]">
             Important information is scattered
@@ -94,7 +89,7 @@ export function ProblemSolutionSection() {
         </Reveal>
 
         {/* call to action */}
-        <div className="mt-10 flex justify-center lg:absolute lg:bottom-[5.8%] lg:left-[51.2%] lg:mt-0 lg:-translate-x-1/2">
+        <div className="mt-10 flex justify-center lg:absolute lg:bottom-[2.5%] lg:left-[51.2%] lg:mt-0 lg:-translate-x-1/2">
           <Reveal>
             <Link href={CONTACT_HREF} className="btn btn-lg">
               Discuss your requirements
