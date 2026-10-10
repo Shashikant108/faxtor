@@ -24,11 +24,14 @@ const CHALLENGES = [
  */
 export function ProblemSolutionSection() {
   return (
-    <Fold tone="lavender" id="solutions" className="fold-sheet isolate overflow-hidden">
+    <Fold tone="lavender" id="solutions" className="isolate overflow-hidden">
+      {/* one Reveal for the whole section, background picture included, so everything arrives together */}
+      <Reveal className="relative">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="/backgrounds/soft-waves.webp" alt="" width={1774} height={887} className="section-bg" />
       {/* the same side space as every section; the frame inside keeps the design's proportions */}
       <div className="container-page py-14 sm:py-20 lg:pb-[2.5vw] lg:pt-0">
-      {/* one Reveal for the whole section, so pictures, text and icons arrive together */}
-      <Reveal className="relative lg:aspect-[1774/887]">
+      <div className="relative lg:aspect-[1774/887]">
         {/* label, heading and intro */}
         <div className="relative z-10 text-center lg:absolute lg:inset-x-0 lg:top-[3.4%]">
           <p className="eyebrow">The Problem &amp; The Solution</p>
@@ -92,8 +95,9 @@ export function ProblemSolutionSection() {
             <ArrowIcon className="h-5 w-5" />
           </Link>
         </div>
-      </Reveal>
       </div>
+      </div>
+      </Reveal>
     </Fold>
   );
 }

@@ -27,7 +27,7 @@ export function HeroSection() {
     <Fold tone="light" className="isolate overflow-hidden lg:flex lg:h-svh lg:min-h-[620px] lg:flex-col">
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 -z-10 bg-[url('/hero/hero-bg.webp')] bg-cover bg-[position:right_center] bg-no-repeat"
+        className="hero-bg"
       />
       <SiteHeader />
 

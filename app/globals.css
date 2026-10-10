@@ -278,15 +278,18 @@
     }
   }
 
-  /* a fold that starts with a clear line, so you can see where the one before it ends */
-  .fold-sheet {
-    @apply z-10 border-t-2 border-brand-line;
+  /* the hero's background picture; its bottom fades out so the hero flows into the next section */
+  .hero-bg {
+    @apply pointer-events-none absolute inset-0 -z-10 bg-[url('/hero/hero-bg.webp')] bg-cover bg-[position:right_center] bg-no-repeat;
+    mask-image: linear-gradient(to bottom, #000 72%, transparent);
   }
 
   /* a background picture behind a whole section, placed inside its Reveal so it arrives with the content;
-     it reaches a little above the top because the Reveal starts slightly lower while it fades in */
+     it reaches a little above the top because the Reveal starts slightly lower while it fades in. Its top
+     and bottom fade out, so sections melt into each other instead of meeting at a hard line */
   .section-bg {
     @apply pointer-events-none absolute inset-x-0 -top-6 -z-10 h-[calc(100%+1.5rem)] w-full object-cover;
+    mask-image: linear-gradient(to bottom, transparent, #000 16%, #000 84%, transparent);
   }
 
   /* the soft glass card of sections 3 and 4; it lifts a little on hover */

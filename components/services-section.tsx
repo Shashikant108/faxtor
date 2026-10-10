@@ -32,7 +32,7 @@ const SERVICES = [
  */
 export function ServicesSection() {
   return (
-    <Fold tone="tint" id="services" className="fold-sheet isolate overflow-hidden">
+    <Fold tone="tint" id="services" className="isolate overflow-hidden">
       <Reveal className="relative">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/backgrounds/soft-waves.webp" alt="" width={1774} height={887} className="section-bg" />
