@@ -976,7 +976,7 @@
   /* on phones the three sit side by side in one row, each icon above its text, with a thin line between them;
      from tablet they are a list, icon beside text */
   .footer-contact-list {
-    @apply mt-4 grid grid-cols-3 not-italic sm:grid-cols-1 sm:gap-3 lg:mt-[1.1vw] lg:gap-[0.9vw];
+    @apply grid grid-cols-3 not-italic sm:mt-4 sm:grid-cols-1 sm:gap-3 lg:mt-[1.1vw] lg:gap-[0.9vw];
   }
   .footer-contact-line {
     font-size: var(--fs-footer-link);

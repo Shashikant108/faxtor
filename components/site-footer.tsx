@@ -102,8 +102,9 @@ export function SiteFooter() {
 
             {/* contact stays open on every screen */}
             <div className="footer-contact-column">
-              <h2 className="footer-heading">Contact</h2>
-              <span className="footer-heading-line" style={{ "--accent": "#2dd4bf" } as CSSProperties} />
+              {/* on phones the heading is left to screen readers: the icons already say what these are */}
+              <h2 className="footer-heading max-sm:sr-only">Contact</h2>
+              <span className="footer-heading-line max-sm:hidden" style={{ "--accent": "#2dd4bf" } as CSSProperties} />
               <address className="footer-contact-list">
                 {CONTACTS.map(({ label, Icon, href }) => {
                   const content = (
