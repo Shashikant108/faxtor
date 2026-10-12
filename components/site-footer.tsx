@@ -77,7 +77,7 @@ const CONTACTS = [
 export function SiteFooter() {
   return (
     <footer className="footer relative z-10 isolate overflow-hidden text-white">
-      <div className="container-page pb-6 pt-10 sm:pb-8 sm:pt-16 lg:pb-[2.2vw] lg:pt-[3.6vw]">
+      <div className="container-page pb-6 pt-10 sm:pb-8 sm:pt-16 lg:pb-[1.1vw] lg:pt-[3.6vw]">
         <div className="grid gap-5 sm:gap-12 lg:grid-cols-[minmax(0,21%)_1px_minmax(0,1fr)] lg:gap-[3.2vw]">
           {/* brand */}
           <div className="sm:grid sm:grid-cols-[auto_minmax(0,1fr)] sm:items-start sm:gap-x-12 lg:block">
@@ -140,7 +140,7 @@ export function SiteFooter() {
         </div>
 
         {/* contact, hosting and copyright */}
-        <div className="flex flex-col gap-6 border-t border-white/15 pt-6 sm:mt-12 sm:gap-8 sm:pt-8 lg:mt-[2.4vw] lg:flex-row lg:items-center lg:justify-between lg:gap-[2vw] lg:pt-[1.5vw]">
+        <div className="flex flex-col gap-6 border-t border-white/15 pt-6 sm:mt-12 sm:gap-8 sm:pt-8 lg:mt-[2.4vw] lg:flex-row lg:items-center lg:justify-between lg:gap-[2vw] lg:pt-[1vw]">
           {/* on phones the three sit side by side in one row, each icon above its text */}
           <ul className="grid grid-cols-3 sm:flex sm:flex-row sm:flex-wrap sm:items-center">
             {CONTACTS.map(({ label, Icon, href }) => {
@@ -167,7 +167,7 @@ export function SiteFooter() {
           {/* on phones hosting and copyright share one row, so the note folds onto two lines and the copyright sits right */}
           <div className="flex items-center justify-between gap-4 sm:flex-wrap sm:justify-start sm:gap-x-6 sm:gap-y-4 lg:gap-x-0">
             <div className="flex shrink-0 items-center gap-2 lg:gap-[0.5vw] lg:pr-[1.4vw]">
-              <AwsMark className="h-7 w-auto sm:h-8 text-white lg:h-[2.2vw] lg:min-h-7" />
+              <AwsMark className="h-7 w-auto sm:h-8 text-white lg:h-[1.7vw] lg:min-h-7" />
               <span className="footer-note leading-snug">
                 Securely hosted <br className="sm:hidden" />
                 on AWS
@@ -175,7 +175,8 @@ export function SiteFooter() {
             </div>
             <p className="footer-legal max-sm:text-right max-sm:text-[length:var(--fs-footer-xs)] lg:border-l lg:border-white/15 lg:pl-[1.4vw]">
               © {new Date().getFullYear()} Faxtor Learning Pvt.&nbsp;Ltd.
-              <br />
+              {/* one line from tablet up; on phones it shares a row with the AWS badge, so it breaks in two */}{" "}
+              <br className="sm:hidden" />
               All rights reserved.
             </p>
           </div>
