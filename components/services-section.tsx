@@ -43,8 +43,8 @@ export function ServicesSection() {
               <span className="text-gradient block lg:mx-auto lg:w-fit">better ways of working.</span>
             </h2>
             <p className="copy-sm mx-auto mt-4 max-w-[640px] lg:mt-[1.1vw] lg:max-w-none">
-              <span className="lg:block">From your first website to the systems that run your operations, </span>
-              <span className="lg:block">we help turn business needs into practical digital solutions.</span>
+              From your first website to the systems that run your operations, we help turn business needs into practical
+              digital solutions.
             </p>
           </div>
 

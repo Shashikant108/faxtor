@@ -1,25 +1,17 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { CONTACT_HREF, NAV_LINKS } from "@/lib/site-config";
 import { Logo } from "./logo";
 import { ArrowIcon } from "./arrow-icon";
 
-/** The header: fixed at the top of the screen; once the page scrolls it turns into frosted glass. */
+/** The header: fixed at the top of the screen, always solid frosted white so it never looks see-through. */
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const update = () => setScrolled(window.scrollY > 8);
-    update();
-    window.addEventListener("scroll", update, { passive: true });
-    return () => window.removeEventListener("scroll", update);
-  }, []);
 
   return (
-    <header className="site-header" data-scrolled={scrolled || open}>
+    <header className="site-header">
       <div className="container-page flex items-center justify-between py-5 lg:py-[1vw]">
         <div className="flex items-center gap-14 lg:gap-[5.5vw]">
           <Logo />

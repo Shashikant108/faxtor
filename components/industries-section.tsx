@@ -3,40 +3,96 @@ import { CONTACT_HREF } from "@/lib/site-config";
 import { ArrowIcon } from "./arrow-icon";
 import { Fold } from "./fold";
 import {
-  ConstructionArt,
+  ConstructionIcon,
   CustomBuildArt,
-  EducationArt,
-  FinanceArt,
-  ManufacturingArt,
-  NetworkArt,
-  PlatformArt,
-  RealEstateArt,
-  RetailArt,
-  ShippingArt,
-  TelecomArt,
-  TravelArt,
+  EducationIcon,
+  FinanceIcon,
+  ManufacturingIcon,
+  MembershipIcon,
+  PlatformIcon,
+  RealEstateIcon,
+  RetailIcon,
+  TelecomIcon,
+  TradeIcon,
 } from "./industry-icons";
 
-// `span` is the card's width on desktop, in 24ths of the row: two rows of four, then three cards and the wide
-// "not listed" card. TODO: point each "#" at its industry page once those pages exist.
 const INDUSTRIES = [
-  { title: "Education & Training", tip: "Fees, batches & attendance", Art: EducationArt, span: "lg:col-span-6", copy: "Schools, preschools, coaching centres and learning platforms." },
-  { title: "Manufacturing & Production", tip: "Shop floor to dispatch", Art: ManufacturingArt, span: "lg:col-span-6", copy: "Production planning, inventory, procurement and supplier management." },
-  { title: "Retail & E-commerce", tip: "Online & in-store, one stock", Art: RetailArt, span: "lg:col-span-6", copy: "Product catalogue, inventory, orders and customer management." },
-  { title: "Import Export & Trading", tip: "Shipments & documents tracked", Art: ShippingArt, span: "lg:col-span-6", copy: "Purchase orders, supplier coordination, inventory, dispatch and documentation." },
-  { title: "Construction & Project Management", tip: "Sites, BOQs & vendors", Art: ConstructionArt, span: "lg:col-span-6", copy: "BOQs, vendor quotations, procurement and project tracking." },
-  { title: "Real Estate & Property", tip: "Plots, bookings & payments", Art: RealEstateArt, span: "lg:col-span-6", copy: "Project and plot management, quotations, sales and customer tracking." },
-  { title: "Financial Services & Lending", tip: "Loan lifecycle, end to end", Art: FinanceArt, span: "lg:col-span-6", copy: "Loan processing, document management, approvals and disbursements." },
-  { title: "Travel & Hospitality", tip: "Bookings to itineraries", Art: TravelArt, span: "lg:col-span-6", copy: "Bookings, customer management, operations and itinerary management." },
-  { title: "Telecom & Field Services", tip: "Technicians on the map", Art: TelecomArt, span: "lg:col-span-5", copy: "Service requests, assignments, technician tracking and customer updates." },
-  { title: "SaaS & Digital Platforms", tip: "Multi-tenant, ready to scale", Art: PlatformArt, span: "lg:col-span-5", copy: "Multi-tenant products, user management, subscriptions and integrations." },
-  { title: "Memberships, Networks & Associations", tip: "Members, events & referrals", Art: NetworkArt, span: "lg:col-span-5", copy: "Members, events, referrals and commission tracking." },
+  {
+    title: "Education & Training",
+    Icon: EducationIcon,
+    tone: "sky",
+    copy: "Schools, preschools, coaching centres and learning platforms.",
+    tags: ["Admissions", "Attendance", "Fees & Invoicing", "Student Records"],
+  },
+  {
+    title: "Manufacturing & Production",
+    Icon: ManufacturingIcon,
+    tone: "violet",
+    copy: "Production planning, inventory, procurement and supplier management.",
+    tags: ["Production Planning", "Inventory", "Procurement", "Work Orders"],
+  },
+  {
+    title: "Retail & E-commerce",
+    Icon: RetailIcon,
+    tone: "rose",
+    copy: "Product catalogue, inventory, orders and customer management.",
+    tags: ["Product Catalogue", "Order Management", "Inventory", "Customer Management"],
+  },
+  {
+    title: "Import Export & Trading",
+    Icon: TradeIcon,
+    tone: "teal",
+    copy: "Purchase orders, supplier coordination, inventory, dispatch and documentation.",
+    tags: ["Purchase Orders", "Inventory", "Logistics", "Shipment Tracking"],
+  },
+  {
+    title: "Construction & Project Management",
+    Icon: ConstructionIcon,
+    tone: "amber",
+    copy: "BOQs, vendor quotations, procurement and project tracking.",
+    tags: ["BOQ & Estimation", "Vendor Management", "Project Tracking", "Cost Control"],
+  },
+  {
+    title: "Real Estate & Property",
+    Icon: RealEstateIcon,
+    tone: "indigo",
+    copy: "Project and plot management, quotations, sales and customer tracking.",
+    tags: ["Project Management", "Unit/Plot Sales", "Customer Tracking", "Property Listings"],
+  },
+  {
+    title: "Financial Services & Lending",
+    Icon: FinanceIcon,
+    tone: "teal",
+    copy: "Loan processing, document management, approvals and disbursements.",
+    tags: ["Lead Management", "Application Tracking", "Disbursements", "Repayment Tracking"],
+  },
+  {
+    title: "Telecom & Field Services",
+    Icon: TelecomIcon,
+    tone: "violet",
+    copy: "Service requests, assignments, technician tracking and customer updates.",
+    tags: ["Service Management", "Work Assignments", "Field Staff Tracking", "Complaint Management"],
+  },
+  {
+    title: "SaaS & Digital Platforms",
+    Icon: PlatformIcon,
+    tone: "sky",
+    copy: "Multi-tenant products, user management, subscriptions and integrations.",
+    tags: ["Multi-tenant Setup", "User Management", "Subscriptions", "Integrations"],
+  },
+  {
+    title: "Memberships, Networks & Associations",
+    Icon: MembershipIcon,
+    tone: "rose",
+    copy: "Members, events, referrals and commission tracking.",
+    tags: ["Member Management", "Event Management", "Referrals & Commissions", "Renewals"],
+  },
 ];
 
 /**
- * Section 4, industries. Eleven cards and a wide "your industry isn't listed?" card: on desktop four in a
- * row with the last row as in the design, two on tablet, one on phones (lying flat, picture on the left).
- * Each card shows a short tooltip on hover, and on phones on tap.
+ * Section 4, industries. Ten cards, each an icon and name, a line on what we build for that industry and the
+ * modules it usually needs, then a wide "your industry isn't listed" card: four in a row on desktop (the wide
+ * card takes the last two places), two on tablet, one on phones.
  */
 export function IndustriesSection() {
   return (
@@ -44,57 +100,58 @@ export function IndustriesSection() {
       <div className="relative">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/backgrounds/soft-waves.webp" alt="" width={1774} height={887} data-parallax="0.04" className="section-bg" />
-        <div className="container-page py-14 sm:py-20 lg:py-[2.6vw]">
+        <div className="container-page py-14 sm:py-20 lg:py-[2.8vw]">
           <div className="text-center">
             <p className="eyebrow">Industries</p>
-            <span className="eyebrow-line mx-auto mt-3 lg:mt-[0.5vw]" />
-            <h2 className="heading-section mt-6 lg:mt-[1.4vw]">
-              Built for businesses that <span className="text-gradient inline-block">work differently.</span>
+            <span aria-hidden="true" className="eyebrow-line mx-auto mt-3 lg:mt-[0.5vw]" />
+            <h2 className="heading-section mt-6 lg:mt-[1.5vw]">
+              Built for businesses that <span className="text-gradient">work differently.</span>
             </h2>
             <p className="copy-sm mx-auto mt-4 max-w-[640px] lg:mt-[1vw] lg:max-w-none">
-              <span className="lg:block">Every industry has its own processes, challenges and workflows. </span>
-              <span className="lg:block">We build software around the way your business actually works.</span>
+              Every industry has its own processes, challenges and workflows. We build software around the way your
+              business actually works.
             </p>
           </div>
 
-          <div className="mt-10 grid gap-3 sm:grid-cols-2 sm:gap-4 lg:mt-[1.8vw] lg:grid-cols-[repeat(24,minmax(0,1fr))] lg:gap-[1.1vw]">
-            {INDUSTRIES.map(({ title, tip, Art, span, copy }, index) => (
-              <div key={title} className={`card-glass industry-card tip-host ${span}`} tabIndex={0} aria-describedby={`industry-tip-${index}`}>
-                <span id={`industry-tip-${index}`} role="tooltip" className="tip">
-                  {tip}
-                </span>
-                <span className="industry-art">
-                  <Art className="h-full w-full" />
-                </span>
-                <div>
+          <ul className="industry-grid">
+            {INDUSTRIES.map(({ title, Icon, tone, copy, tags }) => (
+              <li key={title} className="card-glass industry-card">
+                <div className="industry-head">
+                  <span className="industry-icon" data-tone={tone}>
+                    <Icon />
+                  </span>
                   <h3 className="card-title">{title}</h3>
-                  <div className="industry-foot">
-                    <p className="card-copy">{copy}</p>
-                    <Link href={CONTACT_HREF} aria-label={`Discuss software for ${title}`} className="card-arrow">
-                      <ArrowIcon className="h-[45%] w-[45%]" />
-                    </Link>
-                  </div>
                 </div>
-              </div>
+                <p className="industry-copy">{copy}</p>
+                <ul className="industry-tags" aria-label={`What we build for ${title}`}>
+                  {tags.map((tag) => (
+                    <li key={tag} className="industry-tag">
+                      {tag}
+                    </li>
+                  ))}
+                </ul>
+              </li>
             ))}
 
             {/* the industry that is not on the list */}
-            <div className="card-glass industry-cta lg:col-span-9">
+            <li className="industry-cta">
               <div>
-                <p className="label-caps">Something different in mind?</p>
-                <h3 className="cta-title mt-3 lg:mt-[0.8vw]">
-                  Your industry isn’t listed?{" "}
+                <p className="eyebrow">Something different in mind?</p>
+                <h3 className="industry-cta-title mt-3 lg:mt-[0.7vw]">
+                  Your industry isn’t listed.{" "}
                   <span className="text-gradient block w-fit">Let’s build around your business.</span>
                 </h3>
-                <Link href={CONTACT_HREF} className="btn btn-sm mt-5 lg:mt-[1.4vw]">
+                <p className="industry-copy max-w-[30rem]">
+                  Tell us about your workflow, and we’ll design a custom solution that fits your processes and your goals.
+                </p>
+                <Link href={CONTACT_HREF} className="btn btn-sm mt-5 lg:mt-[1.2vw]">
                   Discuss your requirements
                   <ArrowIcon className="h-[1.1em] w-[1.1em]" />
                 </Link>
               </div>
-              <span aria-hidden="true" className="hidden self-stretch bg-brand-line/60 lg:block lg:w-px" />
               <CustomBuildArt className="industry-cta-art" />
-            </div>
-          </div>
+            </li>
+          </ul>
         </div>
       </div>
     </Fold>

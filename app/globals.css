@@ -95,10 +95,6 @@
   --fs-card-title: 1rem;
   --fs-card-copy: 0.875rem;
   --size-card-art: 4.75rem;
-  --size-industry-art: 4.5rem;
-  --size-card-arrow: 2.5rem;
-  --fs-tip: 0.8125rem;
-  --fs-label-caps: 0.75rem;
   --fs-cta-title: 1.375rem;
 
   /* "How we work" steps and "A partner throughout" points */
@@ -153,7 +149,6 @@
     --fs-card-title: 1.0625rem;
     --fs-card-copy: 0.9rem;
     --size-card-art: 5.75rem;
-    --size-industry-art: 7.5rem;
     --fs-cta-title: 1.5rem;
     --size-step-art: 8.5rem;
     --size-step-badge: 3rem;
@@ -209,10 +204,6 @@
     --fs-card-title: clamp(0.95rem, 1.25vw, 1.5rem);
     --fs-card-copy: clamp(0.78rem, 0.98vw, 1.15rem);
     --size-card-art: clamp(5rem, 7.2vw, 8.5rem);
-    --size-industry-art: clamp(5.5rem, 9vw, 10.5rem);
-    --size-card-arrow: clamp(1.9rem, 2.3vw, 2.8rem);
-    --fs-tip: clamp(0.75rem, 0.85vw, 1rem);
-    --fs-label-caps: clamp(0.6rem, 0.62vw, 0.8rem);
     --fs-cta-title: clamp(1rem, 1.25vw, 1.6rem);
     --size-step-art: clamp(8rem, 11.2vw, 14rem);
     --size-step-badge: clamp(2.6rem, 3.4vw, 4.2rem);
@@ -322,12 +313,6 @@
     padding: 0.35em 1.1em;
   }
 
-  /* a soft white card */
-  .card-soft {
-    @apply rounded-xl bg-white/80;
-    box-shadow: 0 8px 22px -14px rgb(30 60 150 / 0.3);
-  }
-
   /* looping animations wait while their section is off screen (components/offscreen-pause.tsx) */
   [data-paused] *,
   [data-paused] *::before,
@@ -350,30 +335,10 @@
     @apply font-display text-item font-bold text-brand-navy;
   }
 
-  /* slow floating motion for artwork; the keyframes are below */
-  .float-a {
-    animation: float-a 7s ease-in-out infinite;
-  }
-  .float-b {
-    animation: float-b 8.5s ease-in-out infinite;
-  }
-  .sway {
-    animation: sway 5.5s ease-in-out infinite;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .float-a,
-    .float-b,
-    .sway {
-      animation: none;
-    }
-  }
-
-  /* the fixed header; it is see-through over the hero and turns into frosted glass once the page scrolls */
+  /* the fixed header: always solid frosted white, at the top of the page too
+     (never see-through over the content behind it) */
   .site-header {
-    @apply fixed inset-x-0 top-0 z-50 border-b border-transparent transition-[background-color,box-shadow,border-color] duration-300;
-  }
-  .site-header[data-scrolled="true"] {
-    @apply border-white/60 bg-white/80 backdrop-blur-md;
+    @apply fixed inset-x-0 top-0 z-50 border-b border-white/60 bg-white/80 backdrop-blur-md;
     box-shadow: 0 10px 30px -20px rgb(30 60 150 / 0.4);
   }
   /* the room the fixed header takes at the top of the hero */
@@ -461,47 +426,9 @@
     font-size: var(--fs-card-copy);
     @apply mt-1.5 font-display leading-snug text-brand-slate lg:mt-[0.45vw];
   }
-  /* the round arrow at the bottom right of a card */
-  .card-arrow {
-    @apply grid shrink-0 place-items-center rounded-full bg-[#eef1ff] text-brand-blue transition-colors hover:bg-brand-gradient hover:text-white;
-    width: var(--size-card-arrow);
-    height: var(--size-card-arrow);
-  }
-  /* small spaced capitals, like SOMETHING DIFFERENT IN MIND? */
-  .label-caps {
-    font-size: var(--fs-label-caps);
-    @apply font-display font-extrabold uppercase tracking-[0.22em] text-brand-blue;
-  }
   .cta-title {
     font-size: var(--fs-cta-title);
     @apply font-display font-extrabold leading-tight tracking-tight text-brand-navy;
-  }
-
-  /* a short tooltip: put .tip inside a .tip-host; it shows on hover, focus, or a tap on phones */
-  .tip-host {
-    @apply relative outline-none focus-visible:ring-2 focus-visible:ring-[rgb(10_155_255/0.6)];
-  }
-  .tip-host:hover,
-  .tip-host:focus-within {
-    @apply z-20;
-  }
-  .tip {
-    @apply pointer-events-none absolute bottom-full left-1/2 mb-2.5 w-max max-w-[90%] -translate-x-1/2 translate-y-1 rounded-xl bg-brand-navy px-3.5 py-2 text-center font-display font-medium leading-snug text-white opacity-0 shadow-lg transition-[opacity,transform] duration-200 lg:mb-[0.7vw] lg:rounded-[0.8vw] lg:px-[1vw] lg:py-[0.55vw];
-    font-size: var(--fs-tip);
-  }
-  .tip::after {
-    content: "";
-    @apply absolute left-1/2 top-full -translate-x-1/2 border-[6px] border-transparent border-t-brand-navy;
-  }
-  .tip-host:hover .tip,
-  .tip-host:focus-within .tip {
-    @apply translate-y-0 opacity-100;
-  }
-  @media (hover: none) {
-    /* on touch screens hover sticks after a tap, so only focus (the tap itself) opens the tooltip */
-    .tip-host:hover:not(:focus-within) .tip {
-      @apply translate-y-1 opacity-0;
-    }
   }
 
   /* a "What we build" card: on phones the picture sits left of the text, from tablet above it */
@@ -517,27 +444,49 @@
     height: calc(var(--size-card-art) * 0.83);
   }
 
-  /* an Industries card: like a "What we build" card, with a round arrow beside its text */
+  /* Industries: one card a row on phones, two on tablet, four on desktop; the "not listed" card takes two places */
+  .industry-grid {
+    @apply mt-8 grid gap-3 sm:grid-cols-2 sm:gap-4 lg:mt-[2vw] lg:grid-cols-4 lg:gap-[1.1vw];
+  }
   .industry-card {
-    @apply grid grid-cols-[auto_minmax(0,1fr)] items-center gap-4 p-4 sm:grid-cols-1 sm:content-start sm:gap-3 sm:px-6 sm:pb-6 sm:pt-5 lg:gap-[0.6vw] lg:px-[1.9vw] lg:pb-[1.4vw] lg:pt-[1.2vw];
+    @apply flex flex-col p-4 sm:p-5 lg:px-[1.3vw] lg:py-[1.2vw];
   }
-  .industry-art {
-    @apply block shrink-0 sm:justify-self-center;
-    width: var(--size-industry-art);
-    height: calc(var(--size-industry-art) * 0.714);
+  .industry-head {
+    @apply flex items-center gap-3 lg:gap-[0.8vw];
   }
-  .industry-foot {
-    @apply flex items-end justify-between gap-3 lg:gap-[0.8vw];
+  /* the tinted rounded square around a card's icon */
+  .industry-icon {
+    @apply grid h-11 w-11 shrink-0 place-items-center rounded-xl lg:h-[2.9vw] lg:min-h-10 lg:w-[2.9vw] lg:min-w-10 lg:rounded-[0.75vw];
   }
-  /* the card for an industry that is not listed: text and button, a thin line, then the picture */
+  .industry-icon svg {
+    @apply h-[52%] w-[52%];
+  }
+  .industry-copy {
+    font-size: var(--fs-card-copy);
+    @apply mt-3 font-display leading-snug text-brand-slate lg:mt-[0.8vw];
+  }
+  /* the modules an industry usually needs, as small pills at the bottom of its card */
+  .industry-tags {
+    @apply mt-auto flex flex-wrap gap-1.5 pt-4 lg:gap-[0.4vw] lg:pt-[1vw];
+  }
+  .industry-tag {
+    @apply rounded-full bg-[#eef2fb] px-2.5 py-1 font-display text-[0.72rem] font-semibold leading-tight text-[#4a5a85] lg:px-[0.65vw] lg:py-[0.3vw] lg:text-[clamp(0.62rem,0.72vw,0.9rem)];
+  }
+  /* the card for an industry that is not listed: text and button on the left, the picture on the right */
   .industry-cta {
-    @apply flex flex-col-reverse gap-4 p-5 sm:p-6 lg:flex-row lg:items-center lg:gap-[1.2vw] lg:px-[1.6vw] lg:py-[1.3vw];
+    @apply flex flex-col-reverse gap-4 rounded-2xl border border-white/80 p-5 sm:col-span-2 sm:flex-row sm:items-center sm:gap-6 sm:p-7 lg:rounded-[1.2vw] lg:gap-[1.4vw] lg:px-[2vw] lg:py-[1.6vw];
+    background: linear-gradient(135deg, rgb(238 236 255 / 0.95) 0%, rgb(230 238 255 / 0.9) 55%, rgb(244 236 255 / 0.9) 100%);
+    box-shadow: 0 10px 28px -18px rgb(40 70 170 / 0.35);
   }
   .industry-cta > div {
-    @apply lg:flex-1;
+    @apply min-w-0 sm:flex-1;
+  }
+  .industry-cta-title {
+    font-size: var(--fs-cta-title);
+    @apply font-display font-extrabold leading-tight tracking-tight text-brand-navy;
   }
   .industry-cta-art {
-    @apply w-32 shrink-0 self-center sm:w-36 lg:w-[7.5vw];
+    @apply w-36 shrink-0 self-center sm:w-44 lg:w-[11vw];
   }
 
   /* "How we work": on phones a list (picture left, text right), two a row on tablet, four on desktop
@@ -811,7 +760,7 @@
   }
   .form-note {
     font-size: var(--fs-contact-value);
-    @apply font-display text-brand-slate lg:whitespace-nowrap;
+    @apply min-w-0 font-display text-brand-slate;
   }
 
   /* the contact form in a dialog (components/contact-dialog.tsx): centred over a dimmed, blurred page; on
@@ -854,10 +803,6 @@
   }
   .contact-dialog .contact-copy {
     @apply lg:max-w-none;
-  }
-  /* the form is narrower here than in the section, so its note may wrap */
-  .contact-dialog .form-note {
-    @apply lg:whitespace-normal;
   }
 
   /* the dialog on phones: only the form, on one screen without scrolling (the invitation and the ways to reach
@@ -946,6 +891,56 @@
   }
   .legal-date {
     @apply text-sm text-[#7c86a6];
+  }
+
+  /* section 2: on desktop the challenges card, an arrow and the connected system side by side; below desktop
+     they stack and the arrow points down */
+  .ps-grid {
+    @apply relative mt-10 grid items-center gap-6 lg:mt-[2.4vw] lg:grid-cols-[minmax(0,0.74fr)_minmax(0,1.26fr)] lg:gap-[5vw];
+  }
+  .ps-problem {
+    @apply rounded-2xl border border-[#fde3e7] p-5 sm:p-7 lg:rounded-[1.4vw] lg:px-[2vw] lg:py-[1.5vw];
+    background: linear-gradient(160deg, rgb(255 236 240 / 0.95) 0%, rgb(255 245 247 / 0.7) 60%, rgb(255 255 255 / 0.5) 100%);
+  }
+  .ps-solution {
+    @apply min-w-0;
+  }
+  .ps-lead {
+    @apply copy-sm mt-2 lg:mt-[0.5vw];
+  }
+  .ps-challenge {
+    @apply flex items-center gap-4 border-b border-[#f6d9df] py-3 last:border-b-0 lg:gap-[1vw] lg:py-[0.6vw];
+  }
+  .ps-challenge-icon {
+    @apply bg-white shadow-sm;
+    --icon-size: 2.75rem;
+  }
+  @media (min-width: 1024px) {
+    .ps-challenge-icon {
+      --icon-size: clamp(2.6rem, 3vw, 3.8rem);
+    }
+  }
+  .ps-challenge-note {
+    font-size: var(--fs-card-copy);
+    @apply mt-0.5 block font-display leading-snug text-brand-slate;
+  }
+  .ps-arrow {
+    @apply mx-auto grid h-12 w-12 place-items-center rounded-full bg-white text-brand-blue lg:h-[4vw] lg:min-h-12 lg:w-[4vw] lg:min-w-12;
+    box-shadow: 0 12px 28px -14px rgb(40 80 200 / 0.5);
+  }
+  /* on desktop the arrow sits in the middle of the gap between the two, taking no grid column of its own, so
+     the two keep that width (the 0.37 is the first column's share, 0.74 of 2fr) */
+  @media (min-width: 1024px) {
+    .ps-arrow {
+      @apply absolute top-1/2 z-10 -translate-x-1/2 -translate-y-1/2;
+      left: calc((100% - 5vw) * 0.37 + 2.5vw);
+    }
+  }
+  /* the connected system picture, with rounded corners and a soft shadow; on desktop a thin strip is trimmed off
+     its left and right edges (up to the module labels), so it stands a little taller beside the challenges card */
+  .ps-picture {
+    @apply block h-auto w-full rounded-2xl object-cover lg:aspect-[1.72] lg:rounded-[1.4vw];
+    box-shadow: 0 24px 50px -32px rgb(40 70 170 / 0.45);
   }
 
   /* the footer: deep navy with soft glows, drawn in CSS so it needs no image */
@@ -1116,47 +1111,12 @@
 @keyframes dialog-fade {
   from { opacity: 0; }
 }
-@keyframes float-a {
-  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
-  50% { transform: translate3d(0, -10px, 0) rotate(0.5deg); }
-}
-@keyframes float-b {
-  0%, 100% { transform: translate3d(0, -6px, 0); }
-  50% { transform: translate3d(0, 6px, 0); }
-}
-@keyframes sway {
-  0%, 100% { transform: translate3d(-4px, 0, 0); }
-  50% { transform: translate3d(8px, 0, 0); }
-}
-
 /* ==========================================================================
    Motion. Every loop below stops for people who ask for less motion.
    ========================================================================== */
 @layer components {
-  /* section 2, scattered tools: cards drift, papers sway, the plane glides, coins fall, threads run */
-  .float-card { animation: float-card 6s ease-in-out infinite; }
-  .paper-drift { animation: paper-drift 7.5s ease-in-out infinite; }
-  .plane-glide { animation: plane-glide 5s ease-in-out infinite; }
-  .coin-fall { animation: coin-fall 3s cubic-bezier(0.45, 0, 0.6, 1) infinite; opacity: 0; }
-  .thread { animation: dash-flow 1.6s linear infinite; }
+  /* the challenge icons: each has its own small motion */
   .dot-blink { animation: dot-blink 2.4s ease-in-out infinite; }
-  .badge-pop { animation: badge-pop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1); }
-
-  /* section 2, connected system: the hub breathes, its ring turns */
-  .hub-ring { animation: hub-ring 2.8s ease-out infinite; background: rgb(90 140 255 / 0.25); }
-  .ring-turn { animation: ring-turn 40s linear infinite; transform-origin: 317px 208px; }
-
-  /* the challenge list: one row at a time steps forward, and each icon has its own small motion */
-  /* a challenge row in turn slides out a little and lights up; the light is a layer that only fades, so the
-     loop stays on the GPU (moving a shadow or a border colour would repaint every frame) */
-  .row-cycle { @apply relative; animation: row-cycle 9s ease-in-out infinite; animation-delay: var(--row-delay, 0s); }
-  .row-cycle::after {
-    content: "";
-    @apply pointer-events-none absolute -inset-px rounded-[inherit] border border-brand-line opacity-0;
-    box-shadow: 0 14px 28px -12px rgb(60 90 200 / 0.4);
-    animation: row-glow 9s ease-in-out infinite;
-    animation-delay: var(--row-delay, 0s);
-  }
   .clock-hand { animation: clock-spin 4s linear infinite; transform-box: view-box; transform-origin: 12px 12px; }
   .bell-ring { animation: bell-ring 2.6s ease-in-out infinite; transform-box: view-box; transform-origin: 12px 4px; }
   .bar-a, .bar-b, .bar-c { animation: bar-grow 2.4s ease-in-out infinite; transform-box: fill-box; transform-origin: bottom; }
@@ -1167,58 +1127,15 @@
   .doc-lines { animation: doc-lines 3s ease-in-out infinite; }
 
   @media (prefers-reduced-motion: reduce) {
-    .float-card, .paper-drift, .plane-glide, .thread, .dot-blink, .badge-pop, .hub-ring, .ring-turn, .row-cycle, .row-cycle::after,
-    .clock-hand, .bell-ring, .bar-a, .bar-b, .bar-c, .coin-bob, .trend-draw, .doc-lines {
+    .dot-blink, .clock-hand, .bell-ring, .bar-a, .bar-b, .bar-c, .coin-bob, .trend-draw, .doc-lines {
       animation: none;
     }
-    .coin-fall { animation: none; opacity: 0; }
   }
 }
 
-@keyframes float-card {
-  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
-  50% { transform: translate3d(0, -7px, 0) rotate(1.5deg); }
-}
-@keyframes paper-drift {
-  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
-  50% { transform: translate3d(4px, -8px, 0) rotate(-4deg); }
-}
-@keyframes plane-glide {
-  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
-  50% { transform: translate3d(10px, -8px, 0) rotate(-6deg); }
-}
-/* from the cards down into the hole (15.7cqw across, 30.5cqw down in the 521 frame) */
-@keyframes coin-fall {
-  0% { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 0; }
-  12% { opacity: 1; }
-  75% { transform: translate(15.7cqw, 27cqw) rotate(220deg) scale(0.9); opacity: 1; }
-  100% { transform: translate(15.7cqw, 31cqw) rotate(260deg) scale(0.35); opacity: 0; }
-}
-@keyframes dash-flow {
-  to { stroke-dashoffset: -22; }
-}
 @keyframes dot-blink {
   0%, 100% { opacity: 0.45; }
   50% { opacity: 1; }
-}
-@keyframes badge-pop {
-  0% { transform: scale(0.6); }
-  100% { transform: scale(1); }
-}
-@keyframes hub-ring {
-  0% { transform: scale(1); opacity: 0.7; }
-  100% { transform: scale(1.35); opacity: 0; }
-}
-@keyframes ring-turn {
-  to { transform: rotate(360deg); }
-}
-@keyframes row-cycle {
-  0%, 17%, 100% { transform: translate3d(0, 0, 0); }
-  3%, 14% { transform: translate3d(10px, 0, 0); }
-}
-@keyframes row-glow {
-  0%, 17%, 100% { opacity: 0; }
-  3%, 14% { opacity: 1; }
 }
 @keyframes clock-spin {
   to { transform: rotate(360deg); }
