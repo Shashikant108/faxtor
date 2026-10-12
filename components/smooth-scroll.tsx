@@ -6,8 +6,8 @@ import Lenis from "lenis";
 /**
  * Smooth, slightly eased scrolling for the whole page (Lenis), plus a gentle parallax: anything marked
  * `data-parallax="0.1"` drifts against the scroll by that share of its section's distance from the middle
- * of the screen. In-page links glide to their section, stopping below the fixed header. Both stay off for
- * people who ask for less motion.
+ * of the screen (desktop only). In-page links glide to their section, stopping below the fixed header. Both
+ * stay off for people who ask for less motion.
  */
 export function SmoothScroll() {
   useEffect(() => {
@@ -20,8 +20,15 @@ export function SmoothScroll() {
       anchors: { offset: -(header?.offsetHeight ?? 0) },
     });
 
+    // touch screens scroll natively, a frame ahead of anything script can move, so a drifting picture there
+    // would judder against the page; it only drifts on desktop, with a mouse or trackpad
+    const desktop = window.matchMedia("(min-width: 1024px) and (pointer: fine)");
     const layers = Array.from(document.querySelectorAll<HTMLElement>("[data-parallax]"));
     const drift = () => {
+      if (!desktop.matches) {
+        for (const layer of layers) layer.style.transform = "";
+        return;
+      }
       const middle = window.innerHeight / 2;
       for (const layer of layers) {
         const section = layer.closest<HTMLElement>("[data-fold]") ?? layer.parentElement;

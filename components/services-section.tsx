@@ -2,7 +2,6 @@ import Link from "next/link";
 import { CONTACT_HREF } from "@/lib/site-config";
 import { ArrowIcon } from "./arrow-icon";
 import { Fold } from "./fold";
-import { Reveal } from "./reveal";
 import {
   AutomationArt,
   CrmArt,
@@ -27,13 +26,12 @@ const SERVICES = [
 
 /**
  * Section 3, what we build. Eight cards, four in a row on desktop, two on tablet; on phones each card
- * lies flat with its picture on the left so the list stays short. Everything, the background picture too,
- * arrives together in one Reveal.
+ * lies flat with its picture on the left so the list stays short.
  */
 export function ServicesSection() {
   return (
     <Fold tone="tint" id="services" className="section-clip isolate">
-      <Reveal className="relative">
+      <div className="relative">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/backgrounds/soft-waves.webp" alt="" width={1774} height={887} data-parallax="0.04" className="section-bg" />
         <div className="container-page py-14 sm:py-20 lg:py-[3.2vw]">
@@ -71,7 +69,7 @@ export function ServicesSection() {
             </Link>
           </div>
         </div>
-      </Reveal>
+      </div>
     </Fold>
   );
 }

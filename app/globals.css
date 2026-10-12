@@ -205,19 +205,6 @@
     will-change: background;
   }
 
-  /* content that fades up into place as it scrolls into view (components/reveal.tsx) */
-  .reveal {
-    @apply translate-y-4 opacity-0 transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)];
-  }
-  .reveal.is-visible {
-    @apply translate-y-0 opacity-100;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .reveal {
-      @apply translate-y-0 opacity-100 transition-none;
-    }
-  }
-
   /* tones for round icons and chips: set data-tone="sky | violet | indigo | rose | amber" */
   [data-tone="sky"] {
     background: var(--color-sky-soft);
@@ -333,7 +320,7 @@
   .section-clip {
     clip-path: inset(0 0 -40% 0);
   }
-  /* a background picture behind a whole section, placed inside its Reveal so it arrives with the content.
+  /* a background picture behind a whole section.
      It runs on below the section, under the next one, and room is left for it to drift with the parallax
      (data-parallax); its top and bottom fade out, so sections melt into each other instead of meeting at a line */
   .section-bg {

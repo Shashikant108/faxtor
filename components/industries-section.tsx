@@ -2,7 +2,6 @@ import Link from "next/link";
 import { CONTACT_HREF } from "@/lib/site-config";
 import { ArrowIcon } from "./arrow-icon";
 import { Fold } from "./fold";
-import { Reveal } from "./reveal";
 import {
   ConstructionArt,
   CustomBuildArt,
@@ -37,12 +36,12 @@ const INDUSTRIES = [
 /**
  * Section 4, industries. Eleven cards and a wide "your industry isn't listed?" card: on desktop four in a
  * row with the last row as in the design, two on tablet, one on phones (lying flat, picture on the left).
- * Each card shows a short tooltip on hover, and on phones on tap. Everything arrives together in one Reveal.
+ * Each card shows a short tooltip on hover, and on phones on tap.
  */
 export function IndustriesSection() {
   return (
     <Fold tone="tint" id="industries" className="section-clip isolate">
-      <Reveal className="relative">
+      <div className="relative">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/backgrounds/soft-waves.webp" alt="" width={1774} height={887} data-parallax="0.04" className="section-bg" />
         <div className="container-page py-14 sm:py-20 lg:py-[2.6vw]">
@@ -97,7 +96,7 @@ export function IndustriesSection() {
             </div>
           </div>
         </div>
-      </Reveal>
+      </div>
     </Fold>
   );
 }

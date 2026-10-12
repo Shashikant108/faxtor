@@ -6,7 +6,6 @@ import { BarsIcon, BellIcon, ClockIcon, CoinsIcon, DocumentIcon, TrendIcon } fro
 import { Fold } from "./fold";
 import { ConnectedSystem } from "./problem-solution/connected-system";
 import { ScatteredTools } from "./problem-solution/scattered-tools";
-import { Reveal } from "./reveal";
 
 const CHALLENGES = [
   { label: "More manual work", Icon: ClockIcon, tone: "sky" },
@@ -26,8 +25,8 @@ const CHALLENGES = [
 export function ProblemSolutionSection() {
   return (
     <Fold tone="lavender" id="solutions" className="section-clip isolate">
-      {/* one Reveal for the whole section, background picture included, so everything arrives together */}
-      <Reveal className="relative">
+      {/* the whole section, background picture included, is on the page from the start */}
+      <div className="relative">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src="/backgrounds/soft-waves.webp" alt="" width={1774} height={887} data-parallax="0.04" className="section-bg" />
       {/* the same side space as every section; the frame inside keeps the design's proportions */}
@@ -98,7 +97,7 @@ export function ProblemSolutionSection() {
         </div>
       </div>
       </div>
-      </Reveal>
+      </div>
     </Fold>
   );
 }
