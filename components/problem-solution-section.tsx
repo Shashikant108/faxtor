@@ -30,7 +30,7 @@ export function ProblemSolutionSection() {
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src="/backgrounds/soft-waves.webp" alt="" width={1774} height={887} data-parallax="0.04" className="section-bg" />
       {/* the same side space as every section; the frame inside keeps the design's proportions */}
-      <div className="container-page py-14 sm:py-20 lg:pb-[2.5vw] lg:pt-0">
+      <div className="container-page pb-14 pt-8 sm:py-20 lg:pb-[2.5vw] lg:pt-0">
       <div className="relative lg:aspect-[1774/887]">
         {/* label, heading and intro */}
         <div className="relative z-10 text-center lg:absolute lg:inset-x-0 lg:top-[3.4%]">

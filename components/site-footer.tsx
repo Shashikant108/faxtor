@@ -1,7 +1,8 @@
 import type { CSSProperties } from "react";
 import Link from "next/link";
 import { CONTACT_HREF, CONTACT_INFO, SOCIAL_LINKS } from "@/lib/site-config";
-import { AwsMark, InstagramIcon, LinkedInIcon, MailIcon, PhoneIcon, PinIcon, YouTubeIcon } from "./footer-icons";
+import { FooterAccordion } from "./footer-accordion";
+import { AwsMark, ChevronIcon, InstagramIcon, LinkedInIcon, MailIcon, PhoneIcon, PinIcon, YouTubeIcon } from "./footer-icons";
 
 const SOCIAL_ICONS = { linkedin: LinkedInIcon, instagram: InstagramIcon, youtube: YouTubeIcon } as const;
 
@@ -68,8 +69,9 @@ const CONTACTS = [
 
 /**
  * The footer: brand, link columns, then a bar with contact details, hosting and copyright. The dark
- * background is drawn with gradients, so the only image is the Faxtor mark. On phones the link columns
- * sit two by two, on tablet in three (Company above Legal), and from desktop next to the brand as in the design.
+ * background is drawn with gradients, so the only image is the Faxtor mark. On phones the link columns fold
+ * away behind their headings (tap to open), on tablet they sit in three (Company above Legal), and from desktop
+ * next to the brand as in the design.
  */
 export function SiteFooter() {
   return (
@@ -110,13 +112,18 @@ export function SiteFooter() {
           <span aria-hidden="true" className="hidden bg-white/15 lg:block" />
 
           {/* link columns */}
-          <nav aria-label="Footer" className="grid grid-cols-2 gap-x-4 gap-y-8 sm:gap-x-6 sm:gap-y-10 md:grid-cols-[1fr_1.3fr_0.9fr] md:grid-rows-[auto_1fr] lg:grid-rows-none lg:grid-cols-[1fr_1.3fr_0.85fr_0.75fr] lg:gap-[2vw]">
+          <nav aria-label="Footer" className="grid border-t border-white/10 sm:grid-cols-2 sm:border-0 sm:gap-x-6 sm:gap-y-10 md:grid-cols-[1fr_1.3fr_0.9fr] md:grid-rows-[auto_1fr] lg:grid-rows-none lg:grid-cols-[1fr_1.3fr_0.85fr_0.75fr] lg:gap-[2vw]">
             {COLUMNS.map((column, index) => (
               // on tablet Company and Legal share the third column, so the two long lists span both rows
-              <div key={column.title} className={index < 2 ? "md:row-span-2 lg:row-span-1" : undefined}>
-                <h2 className="footer-heading">{column.title}</h2>
-                <span className="footer-heading-line" style={{ "--accent": column.accent } as CSSProperties} />
-                <ul className="mt-3 grid gap-2 sm:mt-4 sm:gap-2.5 lg:mt-[1.1vw] lg:gap-[0.55vw]">
+              <details key={column.title} open className={`footer-column group ${index < 2 ? "md:row-span-2 lg:row-span-1" : ""}`}>
+                <summary className="footer-summary">
+                  <span>
+                    <h2 className="footer-heading">{column.title}</h2>
+                    <span className="footer-heading-line" style={{ "--accent": column.accent } as CSSProperties} />
+                  </span>
+                  <ChevronIcon className="h-5 w-5 shrink-0 text-[#aebbe6] transition-transform group-open:rotate-180 sm:hidden" />
+                </summary>
+                <ul className="mt-3 grid gap-2 pb-2 sm:mt-4 sm:gap-2.5 sm:pb-0 lg:mt-[1.1vw] lg:gap-[0.55vw]">
                   {column.links.map((link) => (
                     <li key={link.label}>
                       <Link href={link.href} className="footer-link">
@@ -125,14 +132,16 @@ export function SiteFooter() {
                     </li>
                   ))}
                 </ul>
-              </div>
+              </details>
             ))}
           </nav>
+          <FooterAccordion />
         </div>
 
         {/* contact, hosting and copyright */}
-        <div className="mt-9 flex flex-col gap-6 border-t border-white/15 pt-6 sm:mt-12 sm:gap-8 sm:pt-8 lg:mt-[2.4vw] lg:flex-row lg:items-center lg:justify-between lg:gap-[2vw] lg:pt-[1.5vw]">
-          <ul className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-0">
+        <div className="flex flex-col gap-6 border-t border-white/15 pt-6 sm:mt-12 sm:gap-8 sm:pt-8 lg:mt-[2.4vw] lg:flex-row lg:items-center lg:justify-between lg:gap-[2vw] lg:pt-[1.5vw]">
+          {/* on phones the three sit side by side in one row, each icon above its text */}
+          <ul className="grid grid-cols-3 sm:flex sm:flex-row sm:flex-wrap sm:items-center">
             {CONTACTS.map(({ label, Icon, href }) => {
               const content = (
                 <>
@@ -143,24 +152,28 @@ export function SiteFooter() {
               return (
                 <li key={label} className="footer-contact">
                   {href ? (
-                    <a href={href} className="flex items-center gap-3 transition-colors hover:text-[#7cc4ff] lg:gap-[0.8vw]">
+                    <a href={href} className="footer-contact-item transition-colors hover:text-[#7cc4ff]">
                       {content}
                     </a>
                   ) : (
-                    <span className="flex items-center gap-3 lg:gap-[0.8vw]">{content}</span>
+                    <span className="footer-contact-item">{content}</span>
                   )}
                 </li>
               );
             })}
           </ul>
 
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-4 lg:gap-x-0">
-            <div className="flex items-center gap-2 lg:gap-[0.5vw] lg:pr-[1.4vw]">
+          {/* on phones hosting and copyright share one row, so the note folds onto two lines and the copyright sits right */}
+          <div className="flex items-center justify-between gap-4 sm:flex-wrap sm:justify-start sm:gap-x-6 sm:gap-y-4 lg:gap-x-0">
+            <div className="flex shrink-0 items-center gap-2 lg:gap-[0.5vw] lg:pr-[1.4vw]">
               <AwsMark className="h-7 w-auto sm:h-8 text-white lg:h-[2.2vw] lg:min-h-7" />
-              <span className="footer-note">Securely hosted on AWS</span>
+              <span className="footer-note leading-snug">
+                Securely hosted <br className="sm:hidden" />
+                on AWS
+              </span>
             </div>
-            <p className="footer-legal lg:border-l lg:border-white/15 lg:pl-[1.4vw]">
-              © {new Date().getFullYear()} Faxtor Learning Pvt. Ltd.
+            <p className="footer-legal max-sm:text-right max-sm:text-[length:var(--fs-footer-xs)] lg:border-l lg:border-white/15 lg:pl-[1.4vw]">
+              © {new Date().getFullYear()} Faxtor Learning Pvt.&nbsp;Ltd.
               <br />
               All rights reserved.
             </p>

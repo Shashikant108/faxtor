@@ -32,7 +32,7 @@ export function HeroSection() {
       {/* room for the fixed header, which lives in app/layout.tsx */}
       <div aria-hidden="true" className="header-space" />
 
-      <div className="container-page relative z-10 pb-16 pt-14 sm:pt-20 lg:flex lg:flex-1 lg:items-start lg:pb-[2vw] lg:pt-[min(3.8vw,7svh)]">
+      <div className="container-page relative z-10 pb-10 pt-14 sm:pb-16 sm:pt-20 lg:flex lg:flex-1 lg:items-start lg:pb-[2vw] lg:pt-[min(3.8vw,7svh)]">
         <div className="lg:grid lg:w-full lg:grid-cols-[48vw_minmax(0,1fr)] lg:items-center">
           {/* above the video, so its soft left edge can never dim the text where the two meet on a wide screen */}
           <div className="relative z-10">
@@ -53,7 +53,7 @@ export function HeroSection() {
                 <span className="lg:block lg:whitespace-nowrap">and the way you work.</span>
               </p>
 
-              <Link href={CONTACT_HREF} className="btn btn-lg mt-9 lg:mt-[min(2.4vw,3.4svh)]">
+              <Link href={CONTACT_HREF} className="btn btn-lg mx-auto mt-9 flex w-fit sm:mx-0 sm:inline-flex lg:mt-[min(2.4vw,3.4svh)]">
                 Discuss your requirements
                 <ArrowIcon className="h-5 w-5" />
               </Link>
@@ -71,7 +71,7 @@ export function HeroSection() {
             </ul>
           </div>
 
-          <HeroVideo className="mx-auto mt-10 w-[88%] -translate-x-[6%] lg:mx-0 lg:-ml-[4.4vw] lg:mt-0 lg:w-[calc(100%+4vw)] lg:-translate-x-[0.5vw]" />
+          <HeroVideo className="relative left-1/2 mt-14 w-screen max-w-[760px] -translate-x-1/2 lg:left-auto lg:mx-0 lg:max-w-none lg:-ml-[4.4vw] lg:mt-0 lg:w-[calc(100%+4vw)] lg:-translate-x-[0.5vw]" />
         </div>
       </div>
     </Fold>

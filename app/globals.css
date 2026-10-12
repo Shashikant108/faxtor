@@ -15,7 +15,7 @@
   --color-slate: #3f4766;
   --color-blue: #0a9bff;
   --color-purple: #7b3ff2;
-  --color-divider: rgb(226 232 240 / 0.8);
+  --color-divider: rgb(212 221 244);
   --color-fold-line: #b9c8f2;
 
   /* the round benefit icons: a soft circle and the icon colour on it */
@@ -436,6 +436,18 @@
       radial-gradient(40% 50% at 55% -20%, rgb(60 110 255 / 0.18), transparent 70%),
       linear-gradient(180deg, #0b1a4f 0%, #111a5a 55%, #191d6c 100%);
   }
+  /* a footer link column: on phones a fold-away row with a line under it, from 640px always open
+     (components/footer-accordion.tsx) */
+  .footer-column {
+    @apply border-b border-white/10 py-4 last-of-type:border-b-0 sm:border-0 sm:py-0;
+  }
+  .footer-summary {
+    @apply flex cursor-pointer list-none items-center justify-between gap-4 sm:pointer-events-none sm:cursor-auto;
+  }
+  .footer-summary::-webkit-details-marker {
+    display: none;
+  }
+
   /* a footer column title and the short coloured line under it; set the line colour with --accent */
   .footer-heading {
     font-size: var(--fs-footer-heading);
@@ -475,9 +487,13 @@
     height: var(--size-footer-social);
   }
   /* a contact item in the bottom bar; from tablet a thin line separates it from the one before */
+  /* a contact in the footer bar: on phones three narrow columns with the icon above the text, from 640px a line */
   .footer-contact {
     font-size: var(--fs-footer-sm);
-    @apply font-display text-[#dbe3ff] sm:border-l sm:border-white/15 sm:px-6 sm:first:border-l-0 sm:first:pl-0 lg:px-[1.4vw];
+    @apply border-l border-white/15 px-1 font-display text-[#dbe3ff] first:border-l-0 max-sm:text-[length:var(--fs-footer-xs)] sm:px-6 sm:first:pl-0 lg:px-[1.4vw];
+  }
+  .footer-contact-item {
+    @apply flex flex-col items-center gap-2 text-center sm:flex-row sm:gap-3 sm:text-left lg:gap-[0.8vw];
   }
 
   /* page width and side gutters */
