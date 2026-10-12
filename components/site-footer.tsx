@@ -6,7 +6,8 @@ import { AwsMark, ChevronIcon, InstagramIcon, LinkedInIcon, MailIcon, PhoneIcon,
 
 const SOCIAL_ICONS = { linkedin: LinkedInIcon, instagram: InstagramIcon, youtube: YouTubeIcon } as const;
 
-// TODO: point each "#" at its page once those pages exist
+// until each service and industry has its own page, its link leads to that section of the home page
+// TODO: point Careers, Privacy Policy and Terms & Conditions at their pages once those exist
 const COLUMNS = [
   {
     title: "Our Solutions",
@@ -22,7 +23,7 @@ const COLUMNS = [
       "White-Label Mobile Apps",
       "SaaS Development",
       "Source Code Licensing",
-    ].map((label) => ({ label, href: "#" })),
+    ].map((label) => ({ label, href: "#services" })),
   },
   {
     title: "Industries",
@@ -39,14 +40,14 @@ const COLUMNS = [
       "Telecom & Field Services",
       "Garment Manufacturers",
       "SMEs & Businesses",
-    ].map((label) => ({ label, href: "#" })),
+    ].map((label) => ({ label, href: "#industries" })),
   },
   {
     title: "Company",
     accent: "#e366d6",
     links: [
-      { label: "About Us", href: "#about" },
-      { label: "Our Work", href: "#our-work" },
+      { label: "About Us", href: "#why-faxtor" },
+      { label: "Our Work", href: "#how-we-work" },
       { label: "Careers", href: "#" },
       { label: "Contact Us", href: CONTACT_HREF },
     ],
@@ -77,7 +78,7 @@ export function SiteFooter() {
   return (
     <footer className="footer relative z-10 isolate overflow-hidden text-white">
       <div className="container-page pb-6 pt-10 sm:pb-8 sm:pt-16 lg:pb-[2.2vw] lg:pt-[3.6vw]">
-        <div className="grid gap-9 sm:gap-12 lg:grid-cols-[minmax(0,21%)_1px_minmax(0,1fr)] lg:gap-[3.2vw]">
+        <div className="grid gap-5 sm:gap-12 lg:grid-cols-[minmax(0,21%)_1px_minmax(0,1fr)] lg:gap-[3.2vw]">
           {/* brand */}
           <div className="sm:grid sm:grid-cols-[auto_minmax(0,1fr)] sm:items-start sm:gap-x-12 lg:block">
             <div>

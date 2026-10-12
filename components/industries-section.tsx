@@ -70,7 +70,7 @@ export function IndustriesSection() {
                   <h3 className="card-title">{title}</h3>
                   <div className="industry-foot">
                     <p className="card-copy">{copy}</p>
-                    <Link href="#" aria-label={`More about ${title}`} className="card-arrow">
+                    <Link href={CONTACT_HREF} aria-label={`Discuss software for ${title}`} className="card-arrow">
                       <ArrowIcon className="h-[45%] w-[45%]" />
                     </Link>
                   </div>
@@ -83,7 +83,7 @@ export function IndustriesSection() {
               <div>
                 <p className="label-caps">Something different in mind?</p>
                 <h3 className="cta-title mt-3 lg:mt-[0.8vw]">
-                  Your industry isn’t listed?
+                  Your industry isn’t listed?{" "}
                   <span className="text-gradient block w-fit">Let’s build around your business.</span>
                 </h3>
                 <Link href={CONTACT_HREF} className="btn btn-sm mt-5 lg:mt-[1.4vw]">

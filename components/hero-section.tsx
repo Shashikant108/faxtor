@@ -1,10 +1,10 @@
-import Link from "next/link";
 import { preload } from "react-dom";
-import { CONTACT_HREF } from "@/lib/site-config";
 import { ArrowIcon } from "./arrow-icon";
+import { ContactDialogButton } from "./contact-dialog";
 import { Fold } from "./fold";
 import { AchieveMoreIcon, SaveTimeIcon, WorkSmarterIcon } from "./benefit-icons";
 import { HeroVideo } from "./hero-video";
+import { SERVICES } from "./services-section";
 
 const BENEFITS = [
   { label: "Save Time", Icon: SaveTimeIcon, tone: "sky" },
@@ -41,7 +41,7 @@ export function HeroSection() {
               <span className="eyebrow-line mt-3" />
 
               <h1 className="heading-display mt-6 lg:mt-[min(2.2vw,3svh)]">
-                Software Your
+                Software Your{" "}
                 <span className="text-gradient inline-block">Business Deserves.</span>
               </h1>
 
@@ -53,10 +53,13 @@ export function HeroSection() {
                 <span className="lg:block lg:whitespace-nowrap">and the way you work.</span>
               </p>
 
-              <Link href={CONTACT_HREF} className="btn btn-lg mx-auto mt-9 flex w-fit sm:mx-0 sm:inline-flex lg:mt-[min(2.4vw,3.4svh)]">
+              <ContactDialogButton
+                needs={SERVICES.map((service) => service.title)}
+                className="btn btn-lg mx-auto mt-9 flex w-fit sm:mx-0 sm:inline-flex lg:mt-[min(2.4vw,3.4svh)]"
+              >
                 Discuss your requirements
                 <ArrowIcon className="h-5 w-5" />
-              </Link>
+              </ContactDialogButton>
             </div>
 
             <ul className="mt-12 flex flex-wrap items-start gap-y-8 sm:mt-14 lg:-ml-[2.65vw] lg:mt-[min(3vw,6svh)]">

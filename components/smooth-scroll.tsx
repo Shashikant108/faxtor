@@ -13,11 +13,12 @@ export function SmoothScroll() {
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return undefined;
 
-    const header = document.querySelector<HTMLElement>(".site-header");
     const lenis = new Lenis({
       lerp: 0.09,
       autoRaf: true,
-      anchors: { offset: -(header?.offsetHeight ?? 0) },
+      // in-page links stop below the fixed header through the page's scroll-padding-top (app/globals.css),
+      // which Lenis already honours; an offset here as well would leave a gap of a whole header
+      anchors: true,
     });
 
     // touch screens scroll natively, a frame ahead of anything script can move, so a drifting picture there

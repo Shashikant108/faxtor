@@ -57,3 +57,7 @@ out/
 
 # local Claude preview config
 .claude/
+
+# local settings and secrets (the example file is shared)
+.env*
+!.env.example

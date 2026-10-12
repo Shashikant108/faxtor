@@ -37,8 +37,8 @@ export function ProblemSolutionSection() {
           <p className="eyebrow">The Problem &amp; The Solution</p>
           <span className="eyebrow-line mx-auto mt-3 lg:mt-[0.5vw]" />
           <h2 className="heading-section mt-6 lg:mt-[1.5vw]">
-            Important information is scattered
-            <span className="text-gradient block lg:inline-block lg:w-full">across different tools and people.</span>
+            Important information is scattered{" "}
+            <span className="text-gradient sm:block lg:inline-block lg:w-full">across different tools and people.</span>
           </h2>
           <p className="copy-sm mx-auto mt-4 max-w-[640px] lg:mt-[1.2vw] lg:max-w-none">
             {/* on desktop the two sentences sit on two lines, as in the design */}

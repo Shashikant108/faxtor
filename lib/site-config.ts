@@ -1,12 +1,32 @@
 // content shared by more than one component: change it here once
 
+// TODO: confirm the live domain; every link Google sees (canonical, sitemap, share previews) is built from it
+export const SITE_URL = "https://faxtor.in";
+export const SITE_NAME = "Faxtor";
+export const SITE_TAGLINE = "From chaos to clarity";
+export const SITE_TITLE = "Faxtor | Custom Software, ERP & CRM Development in Bangalore";
+export const SITE_DESCRIPTION =
+  "Faxtor builds custom software, ERP, CRM, web and mobile apps for growing businesses, bringing sales, orders, operations and payments into one system.";
+export const SITE_KEYWORDS = [
+  "custom software development",
+  "ERP software",
+  "CRM software",
+  "business automation",
+  "WhatsApp automation",
+  "web application development",
+  "mobile app development",
+  "SaaS development",
+  "software company in Bangalore",
+  "software for SMEs",
+];
+
 export const CONTACT_HREF = "#contact";
 
 export const NAV_LINKS = [
-  { label: "Solutions", href: "#solutions" },
+  { label: "Solutions", href: "#services" },
   { label: "Industries", href: "#industries" },
-  { label: "Our Work", href: "#our-work" },
-  { label: "About", href: "#about" },
+  { label: "Our Work", href: "#how-we-work" },
+  { label: "About", href: "#why-faxtor" },
   { label: "Contact", href: "#contact" },
 ] as const;
 

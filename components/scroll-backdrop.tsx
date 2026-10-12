@@ -32,6 +32,7 @@ export function ScrollBackdrop() {
     if (!backdrop) return undefined;
 
     let frame = 0;
+    let painted = "";
     const tones = new Map<string, { top: Rgb; bottom: Rgb }>();
     const toneOf = (name: string) => {
       let tone = tones.get(name);
@@ -67,6 +68,10 @@ export function ScrollBackdrop() {
         bottom = mix(from.bottom, next.bottom, t);
       }
 
+      // repaint the full-screen gradient only when its colours really change, not on every scroll frame
+      const next = `${top.join(" ")}|${bottom.join(" ")}`;
+      if (next === painted) return;
+      painted = next;
       backdrop.style.setProperty("--bd-top", top.join(" "));
       backdrop.style.setProperty("--bd-bottom", bottom.join(" "));
     };

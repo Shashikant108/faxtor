@@ -13,7 +13,7 @@ import {
   WhatsAppArt,
 } from "./service-icons";
 
-const SERVICES = [
+export const SERVICES = [
   { title: "Website Development", Art: WebsiteArt, copy: "Modern, mobile-ready websites that showcase your business and convert enquiries." },
   { title: "Custom Web Applications", Art: WebAppArt, copy: "Solutions built around your workflow, when off-the-shelf tools don’t fit." },
   { title: "ERP Software", Art: ErpArt, copy: "Manage your operations, inventory, purchases, staff and reporting in one system." },
@@ -39,7 +39,7 @@ export function ServicesSection() {
             <p className="eyebrow">What we build</p>
             <span className="eyebrow-line mx-auto mt-3 lg:mt-[0.5vw]" />
             <h2 className="heading-section mt-6 lg:mt-[1.5vw]">
-              From everyday challenges to
+              From everyday challenges to{" "}
               <span className="text-gradient block lg:mx-auto lg:w-fit">better ways of working.</span>
             </h2>
             <p className="copy-sm mx-auto mt-4 max-w-[640px] lg:mt-[1.1vw] lg:max-w-none">

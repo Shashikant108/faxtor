@@ -29,6 +29,8 @@
   --color-rose-soft: #fde6ea;
   --color-amber: #f59e0b;
   --color-amber-soft: #fff0d4;
+  --color-teal: #0f9f8f;
+  --color-teal-soft: #dcf6f1;
 
   /* the page background, one tone per fold: the colour at the top and at the bottom of the screen,
      as "r g b" so they can be blended while scrolling (components/scroll-backdrop.tsx) */
@@ -54,7 +56,7 @@
   --page-max: 1900px;
 
   /* type */
-  --fs-eyebrow: 11px;
+  --fs-eyebrow: 12px;
   --fs-display: 2.75rem;
   --fs-lead: 1.25rem;
   --fs-body: 1rem;
@@ -62,7 +64,7 @@
   --fs-label: 0.875rem;
   --fs-btn-md: 1.125rem;
   --fs-btn-lg: 1rem;
-  --fs-h2: 1.75rem;
+  --fs-h2: 1.625rem;
   --fs-h3: 1.375rem;
   --fs-copy: 1rem;
   --fs-item: 1rem;
@@ -94,10 +96,37 @@
   --fs-card-copy: 0.875rem;
   --size-card-art: 4.75rem;
   --size-industry-art: 4.5rem;
-  --size-card-arrow: 2rem;
+  --size-card-arrow: 2.5rem;
   --fs-tip: 0.8125rem;
-  --fs-label-caps: 0.6875rem;
+  --fs-label-caps: 0.75rem;
   --fs-cta-title: 1.375rem;
+
+  /* "How we work" steps and "A partner throughout" points */
+  --size-step-art: 5.5rem;
+  --size-step-badge: 2.25rem;
+  --fs-step-num: 0.95rem;
+  --fs-step-title: 1.0625rem;
+  --size-partner-icon: 3rem;
+  --fs-partner-title: 0.95rem;
+  --fs-partner-copy: 0.85rem;
+
+  /* "Software Integrations" logo cards */
+  --size-logo: 2rem;
+  --fs-logo-name: 0.75rem;
+  --size-logo-arrow: 2.5rem;
+
+  /* "Why Faxtor" cards and strengths */
+  --size-why-art: 5rem;
+  --size-strength-art: 4.75rem;
+  --fs-why-stat: 1.75rem;
+  --fs-why-title: 1.0625rem;
+
+  /* contact section */
+  --fs-contact-heading: 2rem;
+  --size-contact-icon: 2.75rem;
+  --fs-contact-label: 0.9375rem;
+  --fs-contact-value: 0.875rem;
+  --fs-field: 0.9375rem;
 }
 
 @media (min-width: 640px) {
@@ -126,6 +155,22 @@
     --size-card-art: 5.75rem;
     --size-industry-art: 7.5rem;
     --fs-cta-title: 1.5rem;
+    --size-step-art: 8.5rem;
+    --size-step-badge: 3rem;
+    --fs-step-num: 1.125rem;
+    --fs-step-title: 1.25rem;
+    --size-partner-icon: 3.5rem;
+    --fs-partner-title: 1rem;
+    --fs-partner-copy: 0.875rem;
+    --size-logo: 2.25rem;
+    --fs-logo-name: 0.8125rem;
+    --size-logo-arrow: 2.75rem;
+    --size-why-art: 6.75rem;
+    --size-strength-art: 6rem;
+    --fs-why-stat: 2.25rem;
+    --fs-why-title: 1.25rem;
+    --fs-contact-heading: 3.25rem;
+    --size-contact-icon: 3rem;
   }
 }
 
@@ -169,6 +214,26 @@
     --fs-tip: clamp(0.75rem, 0.85vw, 1rem);
     --fs-label-caps: clamp(0.6rem, 0.62vw, 0.8rem);
     --fs-cta-title: clamp(1rem, 1.25vw, 1.6rem);
+    --size-step-art: clamp(8rem, 11.2vw, 14rem);
+    --size-step-badge: clamp(2.6rem, 3.4vw, 4.2rem);
+    --fs-step-num: clamp(1rem, 1.45vw, 1.85rem);
+    --fs-step-title: clamp(1rem, 1.42vw, 1.9rem);
+    --step-gap: 3.2vw;
+    --size-partner-icon: clamp(2.8rem, 3.8vw, 4.6rem);
+    --fs-partner-title: clamp(0.85rem, 0.98vw, 1.25rem);
+    --fs-partner-copy: clamp(0.72rem, 0.8vw, 1rem);
+    --size-logo: clamp(1.8rem, 2.3vw, 3rem);
+    --fs-logo-name: clamp(0.68rem, 0.72vw, 0.95rem);
+    --size-logo-arrow: clamp(2.6rem, 3.1vw, 3.8rem);
+    --size-why-art: clamp(6rem, 9.6vw, 12rem);
+    --size-strength-art: clamp(6rem, 10.5vw, 13rem);
+    --fs-why-stat: clamp(1.9rem, 3vw, 4rem);
+    --fs-why-title: clamp(1rem, 1.55vw, 2.05rem);
+    --fs-contact-heading: clamp(2.4rem, 4vw, 5.4rem);
+    --size-contact-icon: clamp(2.6rem, 3.3vw, 4.2rem);
+    --fs-contact-label: clamp(0.85rem, 0.95vw, 1.25rem);
+    --fs-contact-value: clamp(0.78rem, 0.88vw, 1.15rem);
+    --fs-field: clamp(0.8rem, 0.88vw, 1.15rem);
   }
 }
 
@@ -176,6 +241,16 @@
    Shared pieces. Use these classes instead of repeating utilities.
    ========================================================================== */
 @layer base {
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+
   html {
     scroll-behavior: smooth;
     /* in-page links stop below the fixed header */
@@ -202,7 +277,6 @@
     --bd-bottom: var(--tone-light-bottom);
     @apply pointer-events-none fixed inset-0 -z-20;
     background: linear-gradient(180deg, rgb(var(--bd-top)) 0%, rgb(var(--bd-bottom)) 100%);
-    will-change: background;
   }
 
   /* tones for round icons and chips: set data-tone="sky | violet | indigo | rose | amber" */
@@ -225,6 +299,10 @@
   [data-tone="amber"] {
     background: var(--color-amber-soft);
     color: var(--color-amber);
+  }
+  [data-tone="teal"] {
+    background: var(--color-teal-soft);
+    color: var(--color-teal);
   }
 
   /* a small round icon badge; set its size with --icon-size */
@@ -304,9 +382,36 @@
     height: var(--header-h);
   }
 
-  /* a picture that drifts with the parallax (components/smooth-scroll.tsx), kept on its own GPU layer */
-  [data-parallax] {
-    will-change: transform;
+  /* a picture that drifts with the parallax (components/smooth-scroll.tsx), kept on its own GPU layer; only
+     where it drifts (desktop with a mouse), so phones do not hold a layer for every section picture */
+  @media (min-width: 1024px) and (pointer: fine) {
+    [data-parallax] {
+      will-change: transform;
+    }
+  }
+
+  /* the caption under the hero video below desktop: what the clip is showing, part by part, with a dot for each
+     part. Its height is fixed to two lines so the page never moves when the words change */
+  .hero-story {
+    @apply mx-auto mt-4 flex w-[min(30rem,calc(100vw_-_2.5rem))] flex-col items-center gap-2.5 text-center sm:mt-5 lg:hidden;
+  }
+  .hero-story-text {
+    @apply grid min-h-[2.7em] place-items-center font-display text-[0.95rem] font-semibold leading-snug text-brand-navy sm:text-base;
+    animation: story-in 0.45s ease-out;
+  }
+  .hero-story-steps {
+    @apply flex gap-1.5;
+  }
+  .hero-story-step {
+    @apply block h-1.5 w-3.5 rounded-full bg-[#c8d3f1] transition-colors duration-300;
+  }
+  .hero-story-step[data-current] {
+    @apply bg-brand-gradient;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-story-text {
+      animation: none;
+    }
   }
 
   /* the hero's background picture; its bottom fades out so the hero flows into the next section */
@@ -330,8 +435,15 @@
 
   /* the soft glass card of sections 3 and 4; it lifts a little on hover */
   .card-glass {
-    @apply rounded-2xl border border-white/80 bg-white/70 backdrop-blur-sm transition-[transform,box-shadow] duration-300 ease-out hover:-translate-y-1 lg:rounded-[1.2vw];
+    @apply rounded-2xl border border-white/80 bg-white/85 transition-[transform,box-shadow] duration-300 ease-out hover:-translate-y-1 lg:rounded-[1.2vw];
     box-shadow: 0 10px 28px -18px rgb(40 70 170 / 0.35);
+  }
+  /* the frosted blur only on desktop: on phones every blurred card is repainted on each scroll frame, so
+     they get a slightly firmer white instead, which looks almost the same */
+  @media (min-width: 1024px) and (pointer: fine) {
+    .card-glass {
+      @apply bg-white/70 backdrop-blur-sm;
+    }
   }
   .card-glass:hover {
     box-shadow: 0 18px 36px -18px rgb(40 80 200 / 0.45);
@@ -428,6 +540,374 @@
     @apply w-32 shrink-0 self-center sm:w-36 lg:w-[7.5vw];
   }
 
+  /* "How we work": on phones a list (picture left, text right), two a row on tablet, four on desktop
+     where a wavy line runs from each step's number to the next */
+  .steps {
+    @apply mt-10 grid gap-8 sm:grid-cols-2 sm:gap-x-8 sm:gap-y-12 lg:mt-[2.4vw] lg:grid-cols-4 lg:gap-[var(--step-gap)];
+  }
+  .step {
+    @apply relative grid grid-cols-[auto_minmax(0,1fr)] items-center gap-4 sm:block;
+  }
+  .step-head {
+    @apply flex flex-col items-center;
+    width: var(--size-step-art);
+  }
+  .step-badge {
+    @apply grid place-items-center rounded-full font-display font-extrabold text-[#2f8cff];
+    width: var(--size-step-badge);
+    height: var(--size-step-badge);
+    font-size: var(--fs-step-num);
+    background: radial-gradient(circle at 50% 35%, #ffffff 0%, #e2eeff 100%);
+    box-shadow: 0 0 0 6px rgb(255 255 255 / 0.55), 0 8px 20px -10px rgb(40 90 220 / 0.5);
+  }
+  .step-badge[data-even] {
+    @apply text-brand-purple;
+    background: radial-gradient(circle at 50% 35%, #ffffff 0%, #eee6ff 100%);
+  }
+  .step-link {
+    @apply pointer-events-none absolute hidden lg:block;
+    top: calc(var(--size-step-badge) / 2);
+    left: calc(var(--size-step-art) / 2 + var(--size-step-badge) / 2 + 0.6vw);
+    width: calc(100% + var(--step-gap) - var(--size-step-badge) - 1.2vw);
+    height: 2.6vw;
+    transform: translateY(-62%);
+  }
+  .step-dot {
+    @apply absolute left-1/2 top-[70%] h-[0.5vw] min-h-[6px] w-[0.5vw] min-w-[6px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#6f8ff5];
+    box-shadow: 0 0 0 4px rgb(111 143 245 / 0.18);
+  }
+  .step-art {
+    @apply mt-2 block sm:mt-3 lg:mt-[0.9vw];
+    width: var(--size-step-art);
+    height: calc(var(--size-step-art) * 0.83);
+  }
+  .step-title {
+    font-size: var(--fs-step-title);
+    @apply font-display font-extrabold leading-tight tracking-tight text-brand-navy sm:mt-4 lg:mt-[1vw];
+  }
+  .step-copy {
+    font-size: var(--fs-copy);
+    @apply mt-2 font-display leading-snug text-brand-slate lg:mt-[0.8vw];
+  }
+
+  /* "A partner throughout": a deep band with soft glows; the laptop sits right of the text from desktop */
+  .partner {
+    background:
+      radial-gradient(45% 70% at 92% 10%, rgb(124 92 255 / 0.45), transparent 70%),
+      radial-gradient(40% 60% at 70% 75%, rgb(50 110 255 / 0.3), transparent 70%),
+      radial-gradient(50% 60% at 0% 100%, rgb(70 60 200 / 0.35), transparent 70%),
+      linear-gradient(180deg, #0a1440 0%, #0f1a52 60%, #151c63 100%);
+  }
+  .partner-waves {
+    @apply pointer-events-none absolute inset-0 -z-10 h-full w-full;
+  }
+  .text-gradient-light {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(90deg, #2fa8ff 0%, #a77bff 100%);
+  }
+  .partner-copy {
+    font-size: var(--fs-copy);
+    @apply max-w-[640px] font-display leading-relaxed text-[#c9d4f7] lg:max-w-none lg:pr-[4vw];
+  }
+  .partner-art {
+    @apply mx-auto mt-8 block w-full max-w-[560px] lg:absolute lg:right-[1.2vw] lg:top-[1.6vw] lg:mt-0 lg:w-[40vw] lg:max-w-none;
+  }
+  .partner-points {
+    @apply relative z-10 mt-10 grid gap-6 sm:grid-cols-2 sm:gap-8 lg:mt-[3.8vw] lg:grid-cols-4 lg:gap-[2vw] lg:pr-[22vw];
+  }
+  .partner-point {
+    @apply flex items-start gap-4 lg:gap-[1vw];
+  }
+  .partner-icon {
+    @apply grid shrink-0 place-items-center rounded-full border border-white/10 bg-white/[0.07];
+    width: var(--size-partner-icon);
+    height: var(--size-partner-icon);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.08), 0 10px 24px -14px rgb(0 0 0 / 0.6);
+  }
+  .partner-title {
+    font-size: var(--fs-partner-title);
+    @apply font-display font-bold leading-snug text-white;
+  }
+  .partner-text {
+    font-size: var(--fs-partner-copy);
+    @apply mt-1.5 font-display leading-snug text-[#aebbe6] lg:mt-[0.6vw];
+  }
+
+  /* "Software Integrations": a row of logo cards that scrolls sideways
+     (components/integrations-carousel.tsx); on phones it runs to the screen edges and is swiped */
+  .logo-carousel {
+    @apply mt-10 lg:mt-[2.4vw];
+  }
+  .logo-band {
+    @apply relative -mx-gutter sm:mx-0 sm:px-14 lg:px-[3.9vw];
+  }
+  .logo-track {
+    @apply flex snap-x snap-mandatory gap-2.5 overflow-x-auto overscroll-x-contain px-gutter pb-4 pt-2 [scrollbar-width:none] sm:px-1 lg:gap-[0.55vw] [&::-webkit-scrollbar]:hidden;
+    scroll-padding-inline: var(--page-gutter);
+    mask-image: linear-gradient(to right, transparent, #000 4%, #000 96%, transparent);
+  }
+  /* a white card: the logo with its name under it */
+  .logo-card {
+    @apply flex min-w-[4.75rem] shrink-0 snap-start flex-col items-center justify-center gap-2 rounded-xl bg-white px-3 py-3 lg:min-w-[4.7vw] lg:gap-[0.55vw] lg:rounded-[0.8vw] lg:px-[0.75vw] lg:py-[0.85vw];
+    box-shadow: 0 8px 20px -14px rgb(40 70 170 / 0.35);
+  }
+  .logo-mark {
+    @apply block w-auto;
+    height: var(--size-logo);
+  }
+  .logo-mark-wide {
+    height: calc(var(--size-logo) * 0.9);
+  }
+  .logo-name {
+    font-size: var(--fs-logo-name);
+    @apply whitespace-nowrap font-display font-semibold text-brand-navy;
+  }
+  /* a white round arrow either side of the row; on phones it sits over the faded edge of the row */
+  .logo-arrow {
+    @apply absolute top-1/2 z-10 grid -translate-y-1/2 place-items-center rounded-full bg-white text-brand-blue transition-colors hover:bg-brand-gradient hover:text-white;
+    width: var(--size-logo-arrow);
+    height: var(--size-logo-arrow);
+    box-shadow: 0 10px 24px -12px rgb(40 80 200 / 0.5);
+  }
+  .logo-dots {
+    @apply mt-4 flex justify-center lg:mt-[1.1vw];
+  }
+  /* a short pill inside a 24px tall button, for easy tapping; every pill is the same size and the current
+     one takes the brand gradient */
+  .logo-dot {
+    @apply grid h-6 w-6 place-items-center;
+  }
+  .logo-dot::before {
+    content: "";
+    @apply block h-1.5 w-3.5 rounded-full bg-[#c8d3f1] transition-colors duration-300;
+  }
+  .logo-dot:hover::before {
+    @apply bg-[#9fb3ec];
+  }
+  .logo-dot[aria-current]::before {
+    @apply bg-brand-gradient;
+  }
+
+  /* "Why Faxtor": four proof cards (on phones the picture sits left of the text), a labelled line,
+     then six strengths each standing on a soft round glow */
+  .why-cards {
+    @apply mt-10 grid gap-3 sm:grid-cols-2 sm:gap-4 lg:mt-[2.2vw] lg:grid-cols-4 lg:gap-[1.5vw];
+  }
+  .why-card {
+    @apply grid grid-cols-[auto_minmax(0,1fr)] items-center gap-4 p-4 sm:grid-cols-1 sm:justify-items-center sm:gap-2 sm:px-6 sm:pb-5 sm:pt-4 sm:text-center lg:gap-[0.4vw] lg:px-[1.8vw] lg:pb-[1.3vw] lg:pt-[1vw];
+  }
+  .why-art {
+    @apply block shrink-0;
+    width: var(--size-why-art);
+    height: calc(var(--size-why-art) * 0.75);
+  }
+  .why-stat {
+    font-size: var(--fs-why-stat);
+    @apply text-gradient font-display font-extrabold leading-none tracking-tight;
+  }
+  .why-title {
+    font-size: var(--fs-why-title);
+    @apply font-display font-extrabold leading-tight tracking-tight text-brand-navy;
+  }
+  .why-copy {
+    font-size: var(--fs-copy);
+    @apply mt-1.5 font-display leading-snug text-brand-slate lg:mt-[0.6vw];
+  }
+  .why-divider {
+    @apply mx-auto mt-12 flex max-w-[64rem] items-center gap-4 sm:mt-14 lg:mt-[3vw] lg:max-w-[64vw] lg:gap-[1.6vw];
+  }
+  .why-divider-line {
+    @apply h-px min-w-8 flex-1 bg-[#cdd8f6];
+  }
+  .why-strengths {
+    @apply mt-8 grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 sm:gap-y-10 lg:mt-[2vw] lg:grid-cols-6 lg:gap-[1.6vw];
+  }
+  .why-strength {
+    @apply flex flex-col items-center text-center;
+  }
+  .why-strength .card-copy {
+    @apply max-w-[16rem];
+  }
+  .why-strength-art {
+    @apply mb-3 block lg:mb-[1vw];
+    width: var(--size-strength-art);
+    height: calc(var(--size-strength-art) * 0.8);
+    background: radial-gradient(closest-side, rgb(231 236 255 / 0.95), rgb(231 236 255 / 0) 100%);
+  }
+
+  /* the contact section: the invitation and ways to reach us, then the form card (beside it on desktop) */
+  .contact-grid {
+    @apply relative grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.82fr)] lg:items-center lg:gap-[4vw];
+  }
+  .contact-heading {
+    font-size: var(--fs-contact-heading);
+    @apply font-display font-extrabold leading-[1.04] tracking-tight text-brand-navy;
+  }
+  .contact-ribbon {
+    @apply pointer-events-none absolute -left-[11.5vw] top-[24%] -z-[1] hidden w-[14vw] opacity-90 lg:block;
+  }
+  .contact-copy {
+    @apply copy-sm mt-5 max-w-[620px] lg:mt-[1.4vw] lg:max-w-[38vw];
+  }
+  .contact-ways {
+    @apply mt-8 grid gap-4 not-italic sm:grid-cols-3 sm:gap-0 lg:mt-[2.4vw];
+  }
+  /* in the dialog: the three ways in one row on every screen, each with its icon above its text */
+  .contact-ways-compact {
+    @apply grid-cols-3 gap-0 sm:gap-0;
+  }
+  .contact-ways-compact .contact-way {
+    @apply min-w-0 flex-col items-start gap-2 border-l border-[#d9e1f4] px-3 first:border-l-0 first:pl-0 lg:gap-[0.6vw] lg:px-[1vw];
+  }
+  .contact-ways-compact .contact-way-icon {
+    --icon-size: 2.5rem;
+  }
+  .contact-ways-compact .contact-way-label {
+    @apply text-[0.8125rem] lg:text-[clamp(0.78rem,0.85vw,1.1rem)];
+  }
+  .contact-ways-compact .contact-way-value {
+    @apply break-words text-[0.75rem] lg:text-[clamp(0.7rem,0.78vw,1rem)];
+  }
+  .contact-way {
+    @apply flex items-center gap-3 sm:border-l sm:border-[#d9e1f4] sm:px-4 sm:first:border-l-0 sm:first:pl-0 lg:gap-[0.9vw] lg:px-[1.3vw];
+  }
+  .contact-way-icon {
+    --icon-size: var(--size-contact-icon);
+  }
+  .contact-way-icon svg {
+    width: 46%;
+    height: 46%;
+  }
+  .contact-way-label {
+    font-size: var(--fs-contact-label);
+    @apply block font-display font-bold text-brand-navy;
+  }
+  .contact-way-value {
+    font-size: var(--fs-contact-value);
+    @apply mt-0.5 block break-words font-display text-brand-slate;
+  }
+  a.contact-way:hover .contact-way-value {
+    @apply text-brand-blue;
+  }
+
+  /* the form card */
+  .contact-card {
+    @apply relative rounded-2xl bg-white p-5 sm:p-7 lg:rounded-[1.3vw] lg:p-[2vw];
+    box-shadow: 0 24px 60px -30px rgb(40 70 170 / 0.45);
+  }
+  .form-grid {
+    @apply mt-5 grid gap-3 sm:grid-cols-2 lg:mt-[1.4vw] lg:gap-[0.8vw];
+  }
+  .field {
+    font-size: var(--fs-field);
+    @apply w-full rounded-lg border border-[#d9e1f4] bg-white px-4 py-3 font-display text-brand-navy outline-none transition-[border-color,box-shadow] placeholder:text-[#7c86a6] focus:border-brand-blue focus:ring-4 focus:ring-[rgb(10_155_255/0.15)] lg:rounded-[0.6vw] lg:px-[1vw] lg:py-[0.75vw];
+  }
+  /* a select that looks like the other fields, with its own small chevron; the placeholder option is grey */
+  .field-select {
+    @apply cursor-pointer appearance-none pr-10 invalid:text-[#7c86a6];
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232e3558' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-position: right 0.9em center;
+    background-repeat: no-repeat;
+    background-size: 1.1em;
+  }
+  .field-select option {
+    @apply text-brand-navy;
+  }
+  .field-area {
+    @apply min-h-[7.5rem] resize-y lg:min-h-[6.4vw];
+  }
+  .form-foot {
+    @apply mt-5 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-5 lg:mt-[1.3vw] lg:gap-[1.3vw];
+  }
+  .form-foot .btn {
+    @apply shrink-0 rounded-xl disabled:cursor-wait disabled:opacity-70 max-sm:w-full max-sm:justify-center max-sm:py-3.5 lg:rounded-[0.7vw];
+  }
+  .form-note {
+    font-size: var(--fs-contact-value);
+    @apply font-display text-brand-slate lg:whitespace-nowrap;
+  }
+
+  /* the contact form in a dialog (components/contact-dialog.tsx): centred over a dimmed, blurred page; on
+     short screens its own content scrolls while the page behind stays still */
+  html.dialog-open {
+    overflow: hidden;
+  }
+  .contact-dialog {
+    @apply m-auto max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] max-w-[40rem] overflow-y-auto overscroll-contain rounded-2xl p-0 lg:max-w-[min(70vw,1280px)] lg:rounded-[1.4vw];
+    background: linear-gradient(135deg, #f7f9ff 0%, #eef2ff 55%, #f3eeff 100%);
+  }
+  .contact-dialog::backdrop {
+    background: rgb(11 27 77 / 0.45);
+    backdrop-filter: blur(4px);
+  }
+  .contact-dialog[open] {
+    animation: dialog-in 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .contact-dialog[open]::backdrop {
+    animation: dialog-fade 0.25s ease-out;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .contact-dialog[open],
+    .contact-dialog[open]::backdrop {
+      animation: none;
+    }
+  }
+  .contact-dialog-body {
+    @apply relative grid gap-6 p-3 sm:p-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:items-center lg:gap-[2.6vw] lg:p-[1.6vw];
+  }
+  .contact-dialog-intro {
+    @apply px-2 pt-4 sm:px-3 lg:px-[1.4vw] lg:pt-0;
+  }
+  /* the dialog is smaller than the section, so its heading and copy run a size down */
+  .contact-dialog .contact-heading {
+    font-size: calc(var(--fs-contact-heading) * 0.72);
+  }
+  .contact-dialog .contact-copy {
+    @apply lg:max-w-none;
+  }
+  /* the form is narrower here than in the section, so its note may wrap */
+  .contact-dialog .form-note {
+    @apply lg:whitespace-normal;
+  }
+
+  /* the dialog on phones: only the form, on one screen without scrolling (the invitation and the ways to reach
+     us are in the contact section; the hidden heading still names the dialog for screen readers). The form sits
+     two fields to a row with slimmer fields */
+  @media (max-width: 639.98px) {
+    .contact-dialog-body {
+      @apply gap-3;
+    }
+    .contact-dialog-intro {
+      @apply hidden;
+    }
+    .contact-dialog .contact-card {
+      @apply p-4;
+    }
+    .contact-dialog .cta-title {
+      @apply text-lg;
+    }
+    .contact-dialog .form-grid {
+      @apply mt-3 grid-cols-2 gap-2.5;
+    }
+    .contact-dialog .field-select,
+    .contact-dialog .field-area {
+      grid-column: 1 / -1;
+    }
+    .contact-dialog .field {
+      @apply rounded-lg px-3 py-2.5 text-sm;
+    }
+    .contact-dialog .field-area {
+      @apply min-h-[5rem];
+    }
+    .contact-dialog .form-foot {
+      @apply mt-3;
+    }
+  }
+  /* room on the title line for the close button */
+  .contact-dialog-close {
+    @apply absolute right-3 top-3 z-10 grid h-9 w-9 shadow-sm place-items-center rounded-full bg-[#eef1ff] text-brand-navy transition-colors hover:bg-brand-gradient hover:text-white sm:right-4 sm:top-4 lg:right-[1.2vw] lg:top-[1.2vw] lg:h-[2.4vw] lg:min-h-9 lg:w-[2.4vw] lg:min-w-9;
+  }
+
   /* the footer: deep navy with soft glows, drawn in CSS so it needs no image */
   .footer {
     background:
@@ -479,7 +959,7 @@
   }
   .footer-link {
     font-size: var(--fs-footer-link);
-    @apply font-display leading-snug text-[#aebbe6] transition-colors hover:text-white;
+    @apply font-display leading-snug text-[#aebbe6] transition-colors hover:text-white max-sm:inline-block max-sm:py-1;
   }
   .footer-social {
     @apply grid place-items-center rounded-full border border-white/25 text-white transition-colors hover:border-white/60 hover:bg-white/10;
@@ -519,6 +999,11 @@
     @apply gap-3 rounded-full shadow-brand;
     padding: var(--btn-lg-py) var(--btn-lg-px);
     font-size: var(--fs-btn-lg);
+  }
+  /* the "A partner throughout" button carries a long label, so it runs a size smaller than .btn-lg; on the dark
+     band it drops the blue glow, which spread like a shine around its edge, and keeps the plain brand gradient */
+  .partner-cta {
+    @apply shadow-none max-sm:w-full max-sm:justify-center max-sm:gap-2 max-sm:px-4 max-sm:text-[min(3.6vw,0.875rem)] sm:px-6 sm:text-[1.0625rem] lg:px-[1.3vw] lg:text-[clamp(0.85rem,1.05vw,1.35rem)];
   }
 
   /* text */
@@ -570,6 +1055,15 @@
   }
 }
 
+@keyframes story-in {
+  from { opacity: 0; transform: translate3d(0, 4px, 0); }
+}
+@keyframes dialog-in {
+  from { opacity: 0; transform: translate3d(0, 12px, 0) scale(0.98); }
+}
+@keyframes dialog-fade {
+  from { opacity: 0; }
+}
 @keyframes float-a {
   0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
   50% { transform: translate3d(0, -10px, 0) rotate(0.5deg); }
