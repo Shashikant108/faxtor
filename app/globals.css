@@ -743,57 +743,44 @@
     font-size: var(--fs-contact-heading);
     @apply font-display font-extrabold leading-[1.04] tracking-tight text-brand-navy;
   }
-  .contact-ribbon {
-    @apply pointer-events-none absolute -left-[11.5vw] top-[24%] -z-[1] hidden w-[14vw] opacity-90 lg:block;
+  .contact-leaves {
+    @apply pointer-events-none absolute bottom-0 left-0 -z-[1] hidden w-[10vw] opacity-90 lg:block;
   }
   .contact-copy {
     @apply copy-sm mt-5 max-w-[620px] lg:mt-[1.4vw] lg:max-w-[38vw];
   }
-  .contact-ways {
-    @apply mt-8 grid gap-4 not-italic sm:grid-cols-3 sm:gap-0 lg:mt-[2.4vw];
+  /* what the first conversation looks like: three small promises in one row, each icon above its words */
+  .contact-promises {
+    @apply mt-8 grid max-w-[34rem] grid-cols-3 gap-3 lg:mt-[2.4vw] lg:max-w-[32vw] lg:gap-[1.4vw];
   }
-  /* in the dialog: the three ways in one row on every screen, each with its icon above its text */
-  .contact-ways-compact {
-    @apply grid-cols-3 gap-0 sm:gap-0;
+  .contact-promise {
+    @apply flex flex-col items-center gap-0.5 text-center;
   }
-  .contact-ways-compact .contact-way {
-    @apply min-w-0 flex-col items-start gap-2 border-l border-[#d9e1f4] px-3 first:border-l-0 first:pl-0 lg:gap-[0.6vw] lg:px-[1vw];
-  }
-  .contact-ways-compact .contact-way-icon {
-    --icon-size: 2.5rem;
-  }
-  .contact-ways-compact .contact-way-label {
-    @apply text-[0.8125rem] lg:text-[clamp(0.78rem,0.85vw,1.1rem)];
-  }
-  .contact-ways-compact .contact-way-value {
-    @apply break-words text-[0.75rem] lg:text-[clamp(0.7rem,0.78vw,1rem)];
-  }
-  .contact-way {
-    @apply flex items-center gap-3 sm:border-l sm:border-[#d9e1f4] sm:px-4 sm:first:border-l-0 sm:first:pl-0 lg:gap-[0.9vw] lg:px-[1.3vw];
-  }
-  .contact-way-icon {
+  .contact-promise-icon {
+    @apply mb-2 lg:mb-[0.6vw];
     --icon-size: var(--size-contact-icon);
   }
-  .contact-way-icon svg {
+  .contact-promise-icon svg {
     width: 46%;
     height: 46%;
   }
-  .contact-way-label {
+  .contact-promise-title {
     font-size: var(--fs-contact-label);
-    @apply block font-display font-bold text-brand-navy;
+    @apply font-display font-bold leading-snug text-brand-navy;
   }
-  .contact-way-value {
+  .contact-promise-note {
     font-size: var(--fs-contact-value);
-    @apply mt-0.5 block break-words font-display text-brand-slate;
-  }
-  a.contact-way:hover .contact-way-value {
-    @apply text-brand-blue;
+    @apply font-display leading-snug text-brand-slate;
   }
 
   /* the form card */
   .contact-card {
     @apply relative rounded-2xl bg-white p-5 sm:p-7 lg:rounded-[1.3vw] lg:p-[2vw];
     box-shadow: 0 24px 60px -30px rgb(40 70 170 / 0.45);
+  }
+  .form-intro {
+    font-size: var(--fs-contact-value);
+    @apply mt-1.5 font-display text-brand-slate lg:mt-[0.4vw];
   }
   .form-grid {
     @apply mt-5 grid gap-3 sm:grid-cols-2 lg:mt-[1.4vw] lg:gap-[0.8vw];
@@ -834,7 +821,10 @@
   }
   .contact-dialog {
     @apply m-auto max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] max-w-[40rem] overflow-y-auto overscroll-contain rounded-2xl p-0 lg:max-w-[min(70vw,1280px)] lg:rounded-[1.4vw];
-    background: linear-gradient(135deg, #f7f9ff 0%, #eef2ff 55%, #f3eeff 100%);
+    /* the same soft waves as the sections behind it (already in the browser cache), over a light gradient */
+    background:
+      url("/backgrounds/soft-waves.webp") center / cover no-repeat,
+      linear-gradient(135deg, #f7f9ff 0%, #eef2ff 55%, #f3eeff 100%);
   }
   .contact-dialog::backdrop {
     background: rgb(11 27 77 / 0.45);
@@ -908,6 +898,56 @@
     @apply absolute right-3 top-3 z-10 grid h-9 w-9 shadow-sm place-items-center rounded-full bg-[#eef1ff] text-brand-navy transition-colors hover:bg-brand-gradient hover:text-white sm:right-4 sm:top-4 lg:right-[1.2vw] lg:top-[1.2vw] lg:h-[2.4vw] lg:min-h-9 lg:w-[2.4vw] lg:min-w-9;
   }
 
+  /* legal pages such as app/privacy/page.tsx: a narrow column for comfortable reading, the text in one card */
+  .legal-page {
+    @apply pb-16 sm:pb-20 lg:pb-[4vw];
+  }
+  .legal-wrap {
+    @apply mx-auto w-full max-w-[56rem] px-gutter pt-8 sm:pt-12 lg:max-w-[min(62vw,64rem)] lg:pt-[2.4vw];
+  }
+  .legal-back {
+    @apply inline-flex items-center gap-2 font-display text-sm font-semibold text-brand-blue transition-colors hover:text-brand-purple;
+  }
+  .legal-title {
+    @apply mt-5 font-display text-[2.25rem] font-extrabold leading-tight tracking-tight text-brand-navy sm:text-[3rem] lg:mt-[1.2vw] lg:text-[clamp(2.5rem,3.4vw,4.5rem)];
+  }
+  .legal-lead {
+    @apply copy-sm mt-2 lg:mt-[0.6vw];
+  }
+  .legal-card {
+    @apply mt-8 rounded-2xl border border-[#e3e8f6] bg-white p-5 font-display text-[0.9375rem] leading-relaxed text-brand-slate sm:p-8 lg:mt-[2vw] lg:rounded-[1.2vw] lg:p-[2.6vw] lg:text-[clamp(0.9rem,0.95vw,1.15rem)];
+    box-shadow: 0 20px 50px -34px rgb(40 70 170 / 0.4);
+  }
+  .legal-card > * + * {
+    @apply mt-4;
+  }
+  /* a page may group each heading with its paragraphs; the heading then sets the space above the group */
+  .legal-card > section {
+    @apply mt-0;
+  }
+  .legal-card section > * + * {
+    @apply mt-4;
+  }
+  .legal-card h2 {
+    @apply mt-10 text-[1.375rem] font-extrabold leading-tight text-brand-navy sm:text-2xl lg:mt-[2.4vw] lg:text-[clamp(1.3rem,1.6vw,2rem)];
+  }
+  .legal-card h3 {
+    @apply mt-7 text-base font-bold text-brand-navy sm:text-lg lg:mt-[1.6vw] lg:text-[clamp(1rem,1.15vw,1.4rem)];
+  }
+  .legal-card h2 + *,
+  .legal-card h3 + * {
+    @apply mt-3;
+  }
+  .legal-card ul {
+    @apply list-disc space-y-1.5 pl-5 marker:text-brand-blue;
+  }
+  .legal-card a {
+    @apply font-semibold text-brand-blue underline-offset-2 hover:underline;
+  }
+  .legal-date {
+    @apply text-sm text-[#7c86a6];
+  }
+
   /* the footer: deep navy with soft glows, drawn in CSS so it needs no image */
   .footer {
     background:
@@ -916,16 +956,41 @@
       radial-gradient(40% 50% at 55% -20%, rgb(60 110 255 / 0.18), transparent 70%),
       linear-gradient(180deg, #0b1a4f 0%, #111a5a 55%, #191d6c 100%);
   }
-  /* a footer link column: on phones a fold-away row with a line under it, from 640px always open
-     (components/footer-accordion.tsx) */
-  .footer-column {
-    @apply border-b border-white/10 py-4 last-of-type:border-b-0 sm:border-0 sm:py-0;
+  /* the footer layout: the brand, then Solutions and Company side by side with Contact across both below them
+     on phones, the three in a row from tablet, and everything in one row with thin lines between from desktop */
+  .footer-grid {
+    @apply grid gap-8 sm:gap-12 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,3fr)] lg:gap-0;
   }
-  .footer-summary {
-    @apply flex cursor-pointer list-none items-center justify-between gap-4 sm:pointer-events-none sm:cursor-auto;
+  .footer-brand {
+    @apply lg:pr-[3vw];
   }
-  .footer-summary::-webkit-details-marker {
-    display: none;
+  .footer-links {
+    @apply grid grid-cols-2 gap-x-4 gap-y-8 border-t border-white/10 pt-6 sm:grid-cols-[1.25fr_0.9fr_1.15fr] sm:gap-x-8 sm:border-0 sm:pt-0 lg:gap-0;
+  }
+  .footer-links > * {
+    @apply lg:border-l lg:border-white/15 lg:px-[2.8vw];
+  }
+  .footer-contact-column {
+    @apply col-span-2 border-t border-white/10 pt-6 sm:col-span-1 sm:border-0 sm:pt-0;
+  }
+  /* on phones the three sit side by side in one row, each icon above its text, with a thin line between them;
+     from tablet they are a list, icon beside text */
+  .footer-contact-list {
+    @apply mt-4 grid grid-cols-3 not-italic sm:grid-cols-1 sm:gap-3 lg:mt-[1.1vw] lg:gap-[0.9vw];
+  }
+  .footer-contact-line {
+    font-size: var(--fs-footer-link);
+    @apply flex items-start gap-3 font-display leading-snug text-[#dbe3ff] transition-colors max-sm:min-w-0 max-sm:flex-col max-sm:items-center max-sm:gap-2 max-sm:border-l max-sm:border-white/15 max-sm:px-1 max-sm:text-center max-sm:text-xs max-sm:first:border-l-0 lg:gap-[0.8vw];
+  }
+  .footer-contact-icon {
+    @apply mt-0.5 h-[18px] w-[18px] shrink-0 text-[#aebbe6] lg:h-[1.15vw] lg:min-h-4 lg:w-[1.15vw] lg:min-w-4;
+  }
+  .footer-bottom {
+    @apply mt-8 flex flex-col gap-3 border-t border-white/15 pt-5 sm:mt-12 sm:flex-row sm:items-center sm:justify-between lg:mt-[2.6vw] lg:pt-[1.2vw];
+  }
+  .footer-legal-link {
+    font-size: var(--fs-footer-sm);
+    @apply font-display text-[#dbe3ff] transition-colors hover:text-white;
   }
 
   /* a footer column title and the short coloured line under it; set the line colour with --accent */
@@ -945,10 +1010,6 @@
     font-size: var(--fs-footer-sm);
     @apply text-[#c9d4f7];
   }
-  .footer-note {
-    font-size: var(--fs-footer-xs);
-    @apply text-[#c9d4f7];
-  }
   .footer-legal {
     font-size: var(--fs-footer-sm);
     @apply leading-relaxed text-[#dbe3ff];
@@ -965,15 +1026,6 @@
     @apply grid place-items-center rounded-full border border-white/25 text-white transition-colors hover:border-white/60 hover:bg-white/10;
     width: var(--size-footer-social);
     height: var(--size-footer-social);
-  }
-  /* a contact item in the bottom bar; from tablet a thin line separates it from the one before */
-  /* a contact in the footer bar: on phones three narrow columns with the icon above the text, from 640px a line */
-  .footer-contact {
-    font-size: var(--fs-footer-sm);
-    @apply border-l border-white/15 px-1 font-display text-[#dbe3ff] first:border-l-0 max-sm:text-[length:var(--fs-footer-xs)] sm:px-6 sm:first:pl-0 lg:px-[1.4vw];
-  }
-  .footer-contact-item {
-    @apply flex flex-col items-center gap-2 text-center sm:flex-row sm:gap-3 sm:text-left lg:gap-[0.8vw];
   }
 
   /* page width and side gutters */

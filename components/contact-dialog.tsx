@@ -69,7 +69,7 @@ export function ContactDialogButton({ children, className, needs }: { children: 
               </svg>
             </button>
             <div className="contact-dialog-intro">
-              <ContactIntro headingId="dialog-contact-heading" compact />
+              <ContactIntro headingId="dialog-contact-heading" />
             </div>
             <ContactForm needs={needs} idPrefix="dialog-contact" />
           </div>

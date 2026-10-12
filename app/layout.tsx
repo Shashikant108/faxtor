@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Caveat, Lexend, Plus_Jakarta_Sans, Quicksand } from "next/font/google";
 import { OffscreenPause } from "@/components/offscreen-pause";
 import { ScrollBackdrop } from "@/components/scroll-backdrop";
+import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { StructuredData } from "@/components/structured-data";
@@ -86,6 +87,7 @@ export default function RootLayout({
         <StructuredData />
         <SiteHeader />
         {children}
+        <SiteFooter />
       </body>
     </html>
   );

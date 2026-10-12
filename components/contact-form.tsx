@@ -53,6 +53,7 @@ export function ContactForm({ needs, idPrefix = "contact" }: { needs: readonly s
       <h3 id={`${idPrefix}-title`} className="cta-title">
         Send us a message
       </h3>
+      <p className="form-intro">Fill in the details and we’ll get back to you within 1–2 business days.</p>
 
       <div className="form-grid">
         <label className="sr-only" htmlFor={`${idPrefix}-name`}>Your name</label>

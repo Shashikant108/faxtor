@@ -14,14 +14,14 @@ import {
 } from "./service-icons";
 
 export const SERVICES = [
-  { title: "Website Development", Art: WebsiteArt, copy: "Modern, mobile-ready websites that showcase your business and convert enquiries." },
-  { title: "Custom Web Applications", Art: WebAppArt, copy: "Solutions built around your workflow, when off-the-shelf tools don’t fit." },
   { title: "ERP Software", Art: ErpArt, copy: "Manage your operations, inventory, purchases, staff and reporting in one system." },
   { title: "CRM Software", Art: CrmArt, copy: "Keep track of leads, follow-ups, sales and customer relationships in one place." },
+  { title: "Custom Web Applications", Art: WebAppArt, copy: "Solutions built around your workflow, when off-the-shelf tools don’t fit." },
   { title: "Business Automation", Art: AutomationArt, copy: "Automate repetitive tasks and reduce manual work across your processes." },
   { title: "WhatsApp Automation", Art: WhatsAppArt, copy: "Send updates, reminders and alerts directly on WhatsApp." },
   { title: "SaaS Development", Art: SaasArt, copy: "Build and launch multi-tenant products that your customers can use and grow with." },
   { title: "Mobile App Development", Art: MobileAppArt, copy: "Android and iOS apps for your customers or field teams, built from one codebase." },
+  { title: "Website Development", Art: WebsiteArt, copy: "Modern, mobile-ready websites that showcase your business and convert enquiries." },
 ];
 
 /**

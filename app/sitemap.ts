@@ -3,5 +3,9 @@ import { SITE_URL } from "@/lib/site-config";
 
 // served as /sitemap.xml; add each new page here as the site grows
 export default function sitemap(): MetadataRoute.Sitemap {
-  return [{ url: SITE_URL, lastModified: new Date(), changeFrequency: "monthly", priority: 1 }];
+  return [
+    { url: SITE_URL, lastModified: new Date(), changeFrequency: "monthly", priority: 1 },
+    { url: `${SITE_URL}/privacy`, lastModified: new Date("2023-07-01"), changeFrequency: "yearly", priority: 0.3 },
+    { url: `${SITE_URL}/terms`, lastModified: new Date("2023-07-18"), changeFrequency: "yearly", priority: 0.3 },
+  ];
 }

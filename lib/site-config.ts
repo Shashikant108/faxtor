@@ -20,14 +20,15 @@ export const SITE_KEYWORDS = [
   "software for SMEs",
 ];
 
-export const CONTACT_HREF = "#contact";
+// section links start with "/" so they also work from other pages (they lead back to that part of the home page)
+export const CONTACT_HREF = "/#contact";
 
 export const NAV_LINKS = [
-  { label: "Solutions", href: "#services" },
-  { label: "Industries", href: "#industries" },
-  { label: "Our Work", href: "#how-we-work" },
-  { label: "About", href: "#why-faxtor" },
-  { label: "Contact", href: "#contact" },
+  { label: "Solutions", href: "/#services" },
+  { label: "Industries", href: "/#industries" },
+  { label: "Our Work", href: "/#how-we-work" },
+  { label: "About", href: "/#why-faxtor" },
+  { label: "Contact", href: "/#contact" },
 ] as const;
 
 export const CONTACT_INFO = {

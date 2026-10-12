@@ -50,24 +50,3 @@ export function PhoneIcon({ className }: IconProps) {
     </svg>
   );
 }
-
-/** "aws" with its smile, drawn in code so the badge needs no image. */
-export function AwsMark({ className }: IconProps) {
-  return (
-    <svg viewBox="0 0 60 36" className={className} aria-hidden="true">
-      <text x="30" y="20" textAnchor="middle" fill="currentColor" fontFamily="Arial, Helvetica, sans-serif" fontSize="22" fontWeight="700" letterSpacing="-0.5">
-        aws
-      </text>
-      <path d="M8 26c12 7 32 7 44 0" fill="none" stroke="#ff9900" strokeWidth="2.6" strokeLinecap="round" />
-      <path d="m47 23.5 5.5 2.3-2 5.4" fill="none" stroke="#ff9900" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-export function ChevronIcon({ className }: IconProps) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
-      <path d="m6 9 6 6 6-6" />
-    </svg>
-  );
-}
