@@ -26,7 +26,7 @@ export function IntegrationsCarousel({ children, label }: { children: ReactNode;
       setPage(max > 0 ? Math.round((track.scrollLeft / max) * (count - 1)) : 0);
     };
 
-    // autoplay: one card every few seconds, back to the start at the end
+    // autoplay: one card every second, back to the start at the end
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     let paused = false;
     let onScreen = false;
@@ -43,7 +43,7 @@ export function IntegrationsCarousel({ children, label }: { children: ReactNode;
       const next = track.scrollLeft + card.getBoundingClientRect().width + parseFloat(getComputedStyle(track).columnGap || "0");
       track.scrollTo({ left: next > max + 2 ? 0 : next, behavior: "smooth" });
     };
-    const timer = window.setInterval(step, 3200);
+    const timer = window.setInterval(step, 1000);
     const pause = () => {
       paused = true;
       window.clearTimeout(resumeTimer);

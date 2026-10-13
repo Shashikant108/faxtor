@@ -29,7 +29,7 @@ function BulbIcon({ className }: IconProps) {
 }
 
 const PROMISES = [
-  { title: "30-minute call", note: "No commitment", Icon: CalendarIcon, tone: "sky" },
+  { title: "Book free 30 min", note: "consultation call", Icon: CalendarIcon, tone: "sky" },
   { title: "Understand", note: "your business", Icon: ChatIcon, tone: "violet" },
   { title: "Explore", note: "the right solution", Icon: BulbIcon, tone: "teal" },
 ];

@@ -29,16 +29,15 @@ const STRENGTHS = [
 ];
 
 /**
- * Section 7, why Faxtor. Four proof cards (four in a row on desktop, two on tablet, a list on phones with the
- * picture left of the text), a labelled divider, then six strengths (six in a row, three on tablet, two on
+ * Section 7, why Faxtor. Four proof cards, each with its picture left of the text (four in a row on desktop, two
+ * on tablet, one on phones), a labelled divider, then six strengths (six in a row, three on tablet, two on
  * phones). Every picture is drawn in code (components/why-icons.tsx); every title and number is real text.
  */
 export function WhyFaxtorSection() {
   return (
     <Fold tone="tint" id="why-faxtor" className="section-clip isolate">
       <div className="relative">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/backgrounds/soft-waves.webp" alt="" width={1774} height={887} data-parallax="0.04" className="section-bg" />
+        <div aria-hidden="true" data-parallax="0.04" className="section-bg logo-glow-bg" />
         <div className="container-page py-14 sm:py-20 lg:py-[3.2vw]">
           <div className="text-center">
             <p className="eyebrow">Why Faxtor</p>

@@ -27,7 +27,9 @@ export async function POST(request: Request) {
     need: text(body.need, "need"),
     message: text(body.message, "message"),
   };
-  if (!inquiry.name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(inquiry.email) || !inquiry.need || !inquiry.message) {
+  // only the name and a contact number are required; an email, when given, has to look like one
+  const phoneDigits = inquiry.phone.replace(/\D/g, "").length;
+  if (!inquiry.name || phoneDigits < 7 || (inquiry.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(inquiry.email))) {
     return NextResponse.json({ error: "invalid" }, { status: 400 });
   }
 

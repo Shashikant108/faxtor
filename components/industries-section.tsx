@@ -92,7 +92,8 @@ const INDUSTRIES = [
 /**
  * Section 4, industries. Ten cards, each an icon and name, a line on what we build for that industry and the
  * modules it usually needs, then a wide "your industry isn't listed" card: four in a row on desktop (the wide
- * card takes the last two places), two on tablet, one on phones.
+ * card takes the last two places), two on tablet. On phones the ten cards become a row to swipe through, with
+ * the wide card below it, so the section stays short.
  */
 export function IndustriesSection() {
   return (
@@ -113,28 +114,33 @@ export function IndustriesSection() {
             </p>
           </div>
 
-          <ul className="industry-grid">
-            {INDUSTRIES.map(({ title, Icon, tone, copy, tags }) => (
-              <li key={title} className="card-glass industry-card">
-                <div className="industry-head">
-                  <span className="industry-icon" data-tone={tone}>
-                    <Icon />
-                  </span>
-                  <h3 className="card-title">{title}</h3>
-                </div>
-                <p className="industry-copy">{copy}</p>
-                <ul className="industry-tags" aria-label={`What we build for ${title}`}>
-                  {tags.map((tag) => (
-                    <li key={tag} className="industry-tag">
-                      {tag}
-                    </li>
-                  ))}
-                </ul>
-              </li>
-            ))}
+          <div className="industry-grid">
+            <ul className="industry-list">
+              {INDUSTRIES.map(({ title, Icon, tone, copy, tags }) => (
+                <li key={title} className="card-glass industry-card">
+                  <div className="industry-head">
+                    <span className="industry-icon" data-tone={tone}>
+                      <Icon />
+                    </span>
+                    <h3 className="card-title">{title}</h3>
+                  </div>
+                  <p className="industry-copy">{copy}</p>
+                  <ul className="industry-tags" data-tone={tone} aria-label={`What we build for ${title}`}>
+                    {tags.map((tag) => (
+                      <li key={tag} className="industry-tag">
+                        {tag}
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+              ))}
+            </ul>
+            <p aria-hidden="true" className="industry-swipe">
+              Swipe to see more <ArrowIcon className="h-[1.1em] w-[1.1em]" />
+            </p>
 
             {/* the industry that is not on the list */}
-            <li className="industry-cta">
+            <div className="industry-cta">
               <div>
                 <p className="eyebrow">Something different in mind?</p>
                 <h3 className="industry-cta-title mt-3 lg:mt-[0.7vw]">
@@ -150,8 +156,8 @@ export function IndustriesSection() {
                 </Link>
               </div>
               <CustomBuildArt className="industry-cta-art" />
-            </li>
-          </ul>
+            </div>
+          </div>
         </div>
       </div>
     </Fold>

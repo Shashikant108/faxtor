@@ -72,8 +72,8 @@ export function ProblemSolutionSection() {
               <img
                 src="/problem-solution/connected-system.webp"
                 alt="The solution, one connected system: bring your key processes together in a single, easy-to-use platform. The Faxtor dashboard on a laptop, connected to quotations and estimates, inventory, orders, customers, invoices, production tracking and reports."
-                width={1681}
-                height={936}
+                width={1536}
+                height={1024}
                 loading="lazy"
                 decoding="async"
                 className="ps-picture"

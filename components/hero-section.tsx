@@ -8,7 +8,7 @@ import { SERVICES } from "./services-section";
 
 const BENEFITS = [
   { label: "Save Time", Icon: SaveTimeIcon, tone: "sky" },
-  { label: "Work Smarter", Icon: WorkSmarterIcon, tone: "violet" },
+  { label: "Save Cost", Icon: WorkSmarterIcon, tone: "violet" },
   { label: "Achieve More", Icon: AchieveMoreIcon, tone: "indigo" },
 ] as const;
 
@@ -48,8 +48,8 @@ export function HeroSection() {
               <p className="copy-lead mt-7 lg:mt-[min(1.2vw,2.4svh)]">Every business works differently.</p>
               <p className="copy-body mt-2 max-w-[720px] lg:max-w-none">
                 {/* on desktop the lines break where the design breaks them */}
-                <span className="lg:block lg:whitespace-nowrap">Faxtor brings your sales, orders, operations and payments together </span>
-                <span className="lg:block lg:whitespace-nowrap">in one powerful system, built around your processes, your teams </span>
+                <span className="lg:block lg:whitespace-nowrap">Faxtor brings <strong className="font-bold">your</strong> sales, orders, operations and payments together </span>
+                <span className="lg:block lg:whitespace-nowrap">in one powerful system, built around <strong className="font-bold">your</strong> processes, <strong className="font-bold">your</strong> teams </span>
                 <span className="lg:block lg:whitespace-nowrap">and the way you work.</span>
               </p>
 

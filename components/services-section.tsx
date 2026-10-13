@@ -1,6 +1,3 @@
-import Link from "next/link";
-import { CONTACT_HREF } from "@/lib/site-config";
-import { ArrowIcon } from "./arrow-icon";
 import { Fold } from "./fold";
 import {
   AutomationArt,
@@ -32,8 +29,7 @@ export function ServicesSection() {
   return (
     <Fold tone="tint" id="services" className="section-clip isolate">
       <div className="relative">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/backgrounds/soft-waves.webp" alt="" width={1774} height={887} data-parallax="0.04" className="section-bg" />
+        <div aria-hidden="true" data-parallax="0.04" className="section-bg logo-glow-bg" />
         <div className="container-page py-14 sm:py-20 lg:py-[3.2vw]">
           <div className="text-center">
             <p className="eyebrow">What we build</p>
@@ -51,22 +47,15 @@ export function ServicesSection() {
           <div className="mt-10 grid gap-3 sm:grid-cols-2 sm:gap-4 lg:mt-[2.2vw] lg:grid-cols-4 lg:gap-[1.15vw]">
             {SERVICES.map(({ title, Art, copy }) => (
               <div key={title} className="card-glass service-card">
-                <span className="service-art">
-                  <Art className="h-full w-full" />
-                </span>
-                <div>
+                <div className="service-head">
+                  <span className="service-art">
+                    <Art className="h-full w-full" />
+                  </span>
                   <h3 className="card-title">{title}</h3>
-                  <p className="card-copy">{copy}</p>
                 </div>
+                <p className="card-copy">{copy}</p>
               </div>
             ))}
-          </div>
-
-          <div className="mt-10 flex justify-center lg:mt-[2.2vw]">
-            <Link href={CONTACT_HREF} className="btn btn-lg">
-              Discuss your requirements
-              <ArrowIcon className="h-5 w-5" />
-            </Link>
           </div>
         </div>
       </div>

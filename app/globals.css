@@ -98,7 +98,7 @@
   --fs-cta-title: 1.375rem;
 
   /* "How we work" steps and "A partner throughout" points */
-  --size-step-art: 5.5rem;
+  --size-step-art: 4.25rem;
   --size-step-badge: 2.25rem;
   --fs-step-num: 0.95rem;
   --fs-step-title: 1.0625rem;
@@ -113,8 +113,8 @@
 
   /* "Why Faxtor" cards and strengths */
   --size-why-art: 5rem;
-  --size-strength-art: 4.75rem;
-  --fs-why-stat: 1.75rem;
+  --size-strength-art: 3.75rem;
+  --fs-why-stat: 1.4rem;
   --fs-why-title: 1.0625rem;
 
   /* contact section */
@@ -148,9 +148,9 @@
     --size-footer-social: 2.75rem;
     --fs-card-title: 1.0625rem;
     --fs-card-copy: 0.9rem;
-    --size-card-art: 5.75rem;
+    --size-card-art: 5rem;
     --fs-cta-title: 1.5rem;
-    --size-step-art: 8.5rem;
+    --size-step-art: 6.5rem;
     --size-step-badge: 3rem;
     --fs-step-num: 1.125rem;
     --fs-step-title: 1.25rem;
@@ -160,10 +160,10 @@
     --size-logo: 2.25rem;
     --fs-logo-name: 0.8125rem;
     --size-logo-arrow: 2.75rem;
-    --size-why-art: 6.75rem;
-    --size-strength-art: 6rem;
-    --fs-why-stat: 2.25rem;
-    --fs-why-title: 1.25rem;
+    --size-why-art: 5.5rem;
+    --size-strength-art: 4.75rem;
+    --fs-why-stat: 1.6rem;
+    --fs-why-title: 1.0625rem;
     --fs-contact-heading: 3.25rem;
     --size-contact-icon: 3rem;
   }
@@ -203,9 +203,9 @@
     --size-footer-social: clamp(2.4rem, 2.9vw, 3.4rem);
     --fs-card-title: clamp(0.95rem, 1.25vw, 1.5rem);
     --fs-card-copy: clamp(0.78rem, 0.98vw, 1.15rem);
-    --size-card-art: clamp(5rem, 7.2vw, 8.5rem);
+    --size-card-art: clamp(4.25rem, 5.6vw, 7rem);
     --fs-cta-title: clamp(1rem, 1.25vw, 1.6rem);
-    --size-step-art: clamp(8rem, 11.2vw, 14rem);
+    --size-step-art: clamp(6rem, 8.4vw, 10.5rem);
     --size-step-badge: clamp(2.6rem, 3.4vw, 4.2rem);
     --fs-step-num: clamp(1rem, 1.45vw, 1.85rem);
     --fs-step-title: clamp(1rem, 1.42vw, 1.9rem);
@@ -216,10 +216,10 @@
     --size-logo: clamp(1.8rem, 2.3vw, 3rem);
     --fs-logo-name: clamp(0.68rem, 0.72vw, 0.95rem);
     --size-logo-arrow: clamp(2.6rem, 3.1vw, 3.8rem);
-    --size-why-art: clamp(6rem, 9.6vw, 12rem);
-    --size-strength-art: clamp(6rem, 10.5vw, 13rem);
-    --fs-why-stat: clamp(1.9rem, 3vw, 4rem);
-    --fs-why-title: clamp(1rem, 1.55vw, 2.05rem);
+    --size-why-art: clamp(4.5rem, 6vw, 8rem);
+    --size-strength-art: clamp(4.75rem, 7.8vw, 9.75rem);
+    --fs-why-stat: clamp(1.25rem, 1.7vw, 2.3rem);
+    --fs-why-title: clamp(0.9rem, 1.1vw, 1.5rem);
     --fs-contact-heading: clamp(2.4rem, 4vw, 5.4rem);
     --size-contact-icon: clamp(2.6rem, 3.3vw, 4.2rem);
     --fs-contact-label: clamp(0.85rem, 0.95vw, 1.25rem);
@@ -431,25 +431,66 @@
     @apply font-display font-extrabold leading-tight tracking-tight text-brand-navy;
   }
 
-  /* a "What we build" card: on phones the picture sits left of the text, from tablet above it */
+  /* a "What we build" card: the picture and the title side by side on top, the line about it below.
+     On phones the picture sits left of both, so the eight cards stay short; the head steps aside there */
   .service-card {
-    @apply grid grid-cols-[auto_minmax(0,1fr)] items-center gap-4 p-4 sm:grid-cols-1 sm:content-start sm:justify-items-center sm:gap-3 sm:px-6 sm:pb-7 sm:pt-6 lg:gap-[0.7vw] lg:px-[2.3vw] lg:pb-[1.9vw] lg:pt-[1.5vw];
+    @apply grid grid-cols-[auto_minmax(0,1fr)] items-center gap-x-3.5 gap-y-1 px-4 py-3.5 sm:flex sm:flex-col sm:items-stretch sm:gap-3 sm:px-5 sm:py-5 lg:gap-[0.8vw] lg:px-[1.4vw] lg:py-[1.3vw];
   }
-  .service-card > div {
-    @apply sm:w-full;
+  /* the backdrop of "What we build" and "Why Faxtor", in the logo's colours kept light: soft yellow, coral
+     and cyan glows over a pale sky wash, with a faint dot grid that fades out towards the edges */
+  .logo-glow-bg {
+    background:
+      radial-gradient(38% 40% at 6% 36%, rgb(255 195 46 / 0.55), transparent 70%),
+      radial-gradient(36% 36% at 24% 70%, rgb(255 138 150 / 0.42), transparent 70%),
+      radial-gradient(42% 44% at 94% 34%, rgb(45 218 255 / 0.48), transparent 70%),
+      radial-gradient(38% 40% at 76% 70%, rgb(21 176 248 / 0.34), transparent 70%),
+      linear-gradient(160deg, rgb(255 243 220) 0%, rgb(226 243 255) 45%, rgb(208 236 255) 100%);
+  }
+  .logo-glow-bg::after {
+    content: "";
+    @apply absolute inset-0;
+    background-image: radial-gradient(rgb(21 120 200 / 0.14) 1px, transparent 1.4px);
+    background-size: 22px 22px;
+    mask-image: radial-gradient(70% 55% at 50% 45%, #000, transparent);
+  }
+  .service-head {
+    @apply contents sm:flex sm:items-center sm:gap-3 lg:gap-[0.8vw];
+  }
+  .service-head .card-title {
+    @apply col-start-2 min-w-0 self-end sm:self-auto;
+  }
+  .service-card .card-copy {
+    @apply col-start-2 mt-0 self-start sm:self-auto;
   }
   .service-art {
-    @apply block shrink-0;
-    width: var(--size-card-art);
-    height: calc(var(--size-card-art) * 0.83);
+    @apply row-span-2 block shrink-0;
+    width: calc(var(--size-card-art) * 0.8);
+    height: calc(var(--size-card-art) * 0.8 * 0.83);
   }
 
-  /* Industries: one card a row on phones, two on tablet, four on desktop; the "not listed" card takes two places */
+  /* Industries: two cards a row on tablet, four on desktop, and the "not listed" card takes two places; the
+     list itself steps aside (display: contents) so its cards sit in the same grid as that card.
+     On phones the cards are a row to swipe through, each a little narrower than the screen so the next one peeks in */
   .industry-grid {
-    @apply mt-8 grid gap-3 sm:grid-cols-2 sm:gap-4 lg:mt-[2vw] lg:grid-cols-4 lg:gap-[1.1vw];
+    @apply mt-8 sm:grid sm:grid-cols-2 sm:gap-4 lg:mt-[2vw] lg:grid-cols-4 lg:gap-[1.1vw];
+  }
+  .industry-list {
+    @apply flex snap-x snap-mandatory items-start gap-3 overflow-x-auto pb-4 pt-1 sm:contents;
+    margin-inline: calc(var(--page-gutter) * -1);
+    padding-inline: var(--page-gutter);
+    scroll-padding-inline: var(--page-gutter);
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+  }
+  .industry-list::-webkit-scrollbar {
+    display: none;
   }
   .industry-card {
-    @apply flex flex-col p-4 sm:p-5 lg:px-[1.3vw] lg:py-[1.2vw];
+    @apply flex w-[84%] shrink-0 snap-start flex-col p-4 sm:w-auto sm:p-5 lg:px-[1.3vw] lg:py-[1.2vw];
+  }
+  /* the hint under the swiping row, phones only */
+  .industry-swipe {
+    @apply mb-5 flex items-center justify-center gap-1.5 font-display text-xs font-semibold text-[#6f84b8] sm:hidden;
   }
   .industry-head {
     @apply flex items-center gap-3 lg:gap-[0.8vw];
@@ -465,12 +506,23 @@
     font-size: var(--fs-card-copy);
     @apply mt-3 font-display leading-snug text-brand-slate lg:mt-[0.8vw];
   }
-  /* the modules an industry usually needs, as small pills at the bottom of its card */
+  /* the modules an industry usually needs, as small chips at the bottom of its card (on phones right under the
+     line about it, since each swiping card keeps its own height); data-tone on the list
+     only lends its colour (via currentColor) to the chips, so the list's own tone background is cleared */
   .industry-tags {
-    @apply mt-auto flex flex-wrap gap-1.5 pt-4 lg:gap-[0.4vw] lg:pt-[1vw];
+    @apply mt-4 flex flex-wrap gap-1.5 border-t border-dashed border-[#dfe5f3] pt-3 sm:mt-auto sm:pt-4 lg:gap-[0.45vw] lg:pt-[1vw];
+    background: none;
   }
   .industry-tag {
-    @apply rounded-full bg-[#eef2fb] px-2.5 py-1 font-display text-[0.72rem] font-semibold leading-tight text-[#4a5a85] lg:px-[0.65vw] lg:py-[0.3vw] lg:text-[clamp(0.62rem,0.72vw,0.9rem)];
+    @apply inline-flex items-center gap-1.5 rounded-md border px-2 py-1 font-display text-[0.72rem] font-semibold leading-tight lg:gap-[0.35vw] lg:rounded-[0.4vw] lg:px-[0.55vw] lg:py-[0.28vw] lg:text-[clamp(0.62rem,0.72vw,0.9rem)];
+    background: color-mix(in srgb, currentColor 6%, white);
+    border-color: color-mix(in srgb, currentColor 20%, transparent);
+  }
+  .industry-tag::before {
+    content: "";
+    @apply h-1.5 w-1.5 shrink-0 rounded-full lg:h-[0.38vw] lg:min-h-1 lg:w-[0.38vw] lg:min-w-1;
+    background: currentColor;
+    box-shadow: 0 0 0 2px color-mix(in srgb, currentColor 18%, transparent);
   }
   /* the card for an industry that is not listed: text and button on the left, the picture on the right */
   .industry-cta {
@@ -637,13 +689,13 @@
     @apply bg-brand-gradient;
   }
 
-  /* "Why Faxtor": four proof cards (on phones the picture sits left of the text), a labelled line,
+  /* "Why Faxtor": four proof cards (the picture left of the text, so the cards stay short), a labelled line,
      then six strengths each standing on a soft round glow */
   .why-cards {
     @apply mt-10 grid gap-3 sm:grid-cols-2 sm:gap-4 lg:mt-[2.2vw] lg:grid-cols-4 lg:gap-[1.5vw];
   }
   .why-card {
-    @apply grid grid-cols-[auto_minmax(0,1fr)] items-center gap-4 p-4 sm:grid-cols-1 sm:justify-items-center sm:gap-2 sm:px-6 sm:pb-5 sm:pt-4 sm:text-center lg:gap-[0.4vw] lg:px-[1.8vw] lg:pb-[1.3vw] lg:pt-[1vw];
+    @apply grid grid-cols-[auto_minmax(0,1fr)] items-center gap-4 p-4 sm:px-5 sm:py-5 lg:gap-[1vw] lg:px-[1.3vw] lg:py-[1.2vw];
   }
   .why-art {
     @apply block shrink-0;
@@ -659,7 +711,7 @@
     @apply font-display font-extrabold leading-tight tracking-tight text-brand-navy;
   }
   .why-copy {
-    font-size: var(--fs-copy);
+    font-size: var(--fs-card-copy);
     @apply mt-1.5 font-display leading-snug text-brand-slate lg:mt-[0.6vw];
   }
   .why-divider {
@@ -686,7 +738,7 @@
 
   /* the contact section: the invitation and ways to reach us, then the form card (beside it on desktop) */
   .contact-grid {
-    @apply relative grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.82fr)] lg:items-center lg:gap-[4vw];
+    @apply relative grid gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1fr)] lg:items-center lg:gap-[3vw];
   }
   .contact-heading {
     font-size: var(--fs-contact-heading);
@@ -753,14 +805,14 @@
     @apply min-h-[7.5rem] resize-y lg:min-h-[6.4vw];
   }
   .form-foot {
-    @apply mt-5 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-5 lg:mt-[1.3vw] lg:gap-[1.3vw];
+    @apply mt-5 flex flex-col items-start gap-3 sm:flex-row-reverse sm:items-center sm:gap-5 lg:mt-[1.3vw] lg:gap-[1.3vw];
   }
   .form-foot .btn {
     @apply shrink-0 rounded-xl disabled:cursor-wait disabled:opacity-70 max-sm:w-full max-sm:justify-center max-sm:py-3.5 lg:rounded-[0.7vw];
   }
   .form-note {
     font-size: var(--fs-contact-value);
-    @apply min-w-0 font-display text-brand-slate;
+    @apply min-w-0 font-display text-brand-slate empty:hidden;
   }
 
   /* the contact form in a dialog (components/contact-dialog.tsx): centred over a dimmed, blurred page; on
@@ -936,10 +988,9 @@
       left: calc((100% - 5vw) * 0.37 + 2.5vw);
     }
   }
-  /* the connected system picture, with rounded corners and a soft shadow; on desktop a thin strip is trimmed off
-     its left and right edges (up to the module labels), so it stands a little taller beside the challenges card */
+  /* the connected system picture, shown as it is, with rounded corners and a soft shadow */
   .ps-picture {
-    @apply block h-auto w-full rounded-2xl object-cover lg:aspect-[1.72] lg:rounded-[1.4vw];
+    @apply block h-auto w-full rounded-2xl lg:rounded-[1.4vw];
     box-shadow: 0 24px 50px -32px rgb(40 70 170 / 0.45);
   }
 
@@ -1126,13 +1177,58 @@
   .trend-draw { stroke-dasharray: 1; animation: trend-draw 3s ease-in-out infinite; }
   .doc-lines { animation: doc-lines 3s ease-in-out infinite; }
 
+  /* the "How we work" pictures (components/process-icons.tsx): typing dots, floating blocks, code being
+     written, a turning gear, rising bars, a pushing arrow and a swaying plant; art-d2..d5 stagger a set */
+  .art-type { animation: art-type 1.4s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+  .art-float { animation: art-float 3.2s ease-in-out infinite; }
+  .art-line { animation: art-line 3s ease-in-out infinite; transform-box: fill-box; transform-origin: left; }
+  .art-code { animation: art-code 3.6s ease-in-out infinite; transform-box: fill-box; transform-origin: left; }
+  .art-spin { animation: clock-spin 6s linear infinite; transform-box: view-box; transform-origin: 101px 68px; }
+  .art-rise { animation: art-rise 2.8s ease-in-out infinite; transform-box: fill-box; transform-origin: bottom; }
+  .art-arrow { animation: art-arrow 2.8s ease-in-out infinite; }
+  .art-sway { animation: art-sway 3.4s ease-in-out infinite; transform-box: view-box; transform-origin: 100px 68px; }
+  .art-d2 { animation-delay: 0.18s; }
+  .art-d3 { animation-delay: 0.36s; }
+  .art-d4 { animation-delay: 0.54s; }
+  .art-d5 { animation-delay: 0.72s; }
+
   @media (prefers-reduced-motion: reduce) {
+    .art-type, .art-float, .art-line, .art-code, .art-spin, .art-rise, .art-arrow, .art-sway,
     .dot-blink, .clock-hand, .bell-ring, .bar-a, .bar-b, .bar-c, .coin-bob, .trend-draw, .doc-lines {
       animation: none;
     }
   }
 }
 
+@keyframes art-type {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.6; }
+  30% { transform: translateY(-2.5px); opacity: 1; }
+}
+@keyframes art-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+@keyframes art-line {
+  0%, 100% { transform: scaleX(1); }
+  50% { transform: scaleX(0.6); }
+}
+@keyframes art-code {
+  0% { transform: scaleX(0); }
+  35%, 85% { transform: scaleX(1); }
+  100% { transform: scaleX(0); }
+}
+@keyframes art-rise {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(0.7); }
+}
+@keyframes art-arrow {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(2px, -2px); }
+}
+@keyframes art-sway {
+  0%, 100% { transform: rotate(-4deg); }
+  50% { transform: rotate(4deg); }
+}
 @keyframes dot-blink {
   0%, 100% { opacity: 0.45; }
   50% { opacity: 1; }
