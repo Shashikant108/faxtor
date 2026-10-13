@@ -226,55 +226,55 @@ export default function GarmentManufacturingPage() {
           <div aria-hidden="true" data-parallax="0.1" className="hero-bg" />
           <div aria-hidden="true" className="header-space" />
           <div className="container-page pb-12 pt-12 sm:pb-16 sm:pt-16 lg:pb-[2.6vw] lg:pt-[5vw]">
-            {/* the picture sits right of the words on desktop, below them on phones and tablets */}
-            <div className="about-split">
-              <div>
-                <p className="eyebrow">For garment &amp; apparel manufacturers</p>
-                <span aria-hidden="true" className="eyebrow-line mt-3 lg:mt-[0.5vw]" />
-                <h1 className="about-title mt-6 lg:mt-[1.4vw]">
-                  See every order, job &amp; payment <span className="text-gradient">in one screen.</span>
-                </h1>
-                <p className="about-copy">
-                  Custom software that runs your factory end to end: from order intake and design to production, job workers,
-                  fabric, dispatch and agent payments.
-                </p>
-                <div className="gm-actions">
-                  <ContactDialogButton needs={needs} className="btn btn-lg btn-fit">
-                    Book free 30 min consultation call
-                    <ArrowIcon className="h-5 w-5" />
-                  </ContactDialogButton>
-                  <a href={WHATSAPP_HREF} target="_blank" rel="noopener noreferrer" className="gm-whatsapp">
-                    <WhatsAppIcon className="h-5 w-5" />
-                    WhatsApp us
-                  </a>
-                </div>
-
-                {/* the brands, in a row like the home hero's benefits: separated by thin lines, without icons */}
-                <div className="gm-trust">
-                  <p className="gm-trust-label">Trusted by garment brands</p>
-                  <ul className="gm-brands">
-                    {BRANDS.map(({ name, sub }) => (
-                      <li key={name} className="gm-brand">
-                        <span className="gm-brand-name">{name}</span>
-                        {sub && <span className="gm-brand-sub">{sub}</span>}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+            {/* the words centred on top, the picture below them, and the brands under the picture */}
+            <div className="gm-hero">
+              <p className="eyebrow">For garment &amp; apparel manufacturers</p>
+              <span aria-hidden="true" className="eyebrow-line mx-auto mt-3 lg:mt-[0.5vw]" />
+              <h1 className="about-title gm-hero-title mt-6 lg:mt-[1.4vw]">
+                See every order, job &amp; payment <span className="text-gradient">in one screen.</span>
+              </h1>
+              <p className="about-copy mx-auto">
+                Custom software that runs your factory end to end: from order intake and design to production, job workers,
+                fabric, dispatch and agent payments.
+              </p>
+              <div className="gm-actions">
+                <ContactDialogButton needs={needs} className="btn btn-lg btn-fit">
+                  Discuss your requirements
+                  <ArrowIcon className="h-5 w-5" />
+                </ContactDialogButton>
+                <a href={WHATSAPP_HREF} target="_blank" rel="noopener noreferrer" className="gm-whatsapp">
+                  <span aria-hidden="true" className="gm-whatsapp-badge">
+                    <WhatsAppIcon className="h-[60%] w-[60%]" />
+                  </span>
+                  WhatsApp us
+                </a>
               </div>
-              {/* the first thing on screen, so it loads straight away */}
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/industries/garment-hero.webp"
-                alt="Faxtor for garment factories: a laptop and phone showing the Faxtor dashboard with total orders, production, dispatch, payments due and recent orders, beside fabric rolls and a measuring tape; manage orders, track production, control inventory and handle payments, from raw material to production, dispatch and happy customers."
-                width={1536}
-                height={1024}
-                fetchPriority="high"
-                decoding="async"
-                className="gm-hero-picture"
-              />
             </div>
 
+            {/* the first thing on screen, so it loads straight away */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/industries/garment-dashboard.webp"
+              alt="The Faxtor dashboard for a garment factory on a laptop and a phone: open orders, pieces on the floor, fabric in stock and receivables; the production floor by stage, orders due this week, karigar load and fabric alerts; on the phone, one order's production with each component's master and the cost per piece."
+              width={1639}
+              height={959}
+              fetchPriority="high"
+              decoding="async"
+              className="gm-hero-picture"
+            />
+
+            {/* the brands in one row under the picture, the label beside them (above them on phones) */}
+            <div className="gm-trust">
+              <p className="gm-trust-label">Trusted by garment brands</p>
+              <ul className="gm-brands">
+                {BRANDS.map(({ name, sub }) => (
+                  <li key={name} className="gm-brand">
+                    <span className="gm-brand-name">{name}</span>
+                    {sub && <span className="gm-brand-sub">{sub}</span>}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       </Fold>
@@ -340,8 +340,9 @@ export default function GarmentManufacturingPage() {
       {/* 3. one order through the modules */}
       <Fold tone="tint" className="section-clip isolate">
         <div className="relative">
-          {/* the "What we build" backdrop, in the logo's colours */}
-          <div aria-hidden="true" data-parallax="0.04" className="section-bg logo-glow-bg" />
+          {/* the soft waves picture, like the sections around it */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/backgrounds/soft-waves.webp" alt="" width={1774} height={887} data-parallax="0.04" className="section-bg" />
           <div className="container-page py-14 sm:py-20 lg:py-[3vw]">
             <div className="text-center">
               <p className="eyebrow">Modules included</p>

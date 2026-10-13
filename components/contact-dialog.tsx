@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type MouseEvent, type ReactNode } from "react";
+import { useEffect, useId, useRef, useState, type MouseEvent, type ReactNode } from "react";
 import { flushSync } from "react-dom";
 import { CONTACT_HREF } from "@/lib/site-config";
 import { ContactForm } from "./contact-form";
@@ -18,6 +18,8 @@ import { ContactIntro } from "./contact-intro";
 export function ContactDialogButton({ children, className, needs }: { children: ReactNode; className?: string; needs: readonly string[] }) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [mounted, setMounted] = useState(false);
+  // several buttons on a page (the header's and the hero's) each have a dialog, so their ids must differ
+  const uid = useId().replace(/:/g, "");
 
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -53,7 +55,7 @@ export function ContactDialogButton({ children, className, needs }: { children: 
       <dialog
         ref={dialogRef}
         className="contact-dialog"
-        aria-labelledby="dialog-contact-heading"
+        aria-labelledby={`dialog-contact-heading-${uid}`}
         // Lenis must not take the wheel inside the dialog, so its own content scrolls on small screens
         data-lenis-prevent=""
         onClick={(event) => {
@@ -69,9 +71,9 @@ export function ContactDialogButton({ children, className, needs }: { children: 
               </svg>
             </button>
             <div className="contact-dialog-intro">
-              <ContactIntro headingId="dialog-contact-heading" />
+              <ContactIntro headingId={`dialog-contact-heading-${uid}`} />
             </div>
-            <ContactForm needs={needs} idPrefix="dialog-contact" />
+            <ContactForm needs={needs} idPrefix={`dialog-contact-${uid}`} />
           </div>
         )}
       </dialog>
