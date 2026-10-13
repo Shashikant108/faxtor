@@ -27,7 +27,7 @@ export const NAV_LINKS = [
   { label: "Solutions", href: "/#services" },
   { label: "Industries", href: "/#industries" },
   { label: "Our Work", href: "/#how-we-work" },
-  { label: "About", href: "/#why-faxtor" },
+  { label: "About Us", href: "/about" },
   { label: "Contact", href: "/#contact" },
 ] as const;
 

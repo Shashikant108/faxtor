@@ -724,13 +724,128 @@
   }
 
   /* "A partner throughout": a deep band with soft glows; the laptop sits right of the text from desktop */
-  .partner {
+  .partner,
+  .about-dark {
     background:
       radial-gradient(45% 70% at 92% 10%, rgb(124 92 255 / 0.45), transparent 70%),
       radial-gradient(40% 60% at 70% 75%, rgb(50 110 255 / 0.3), transparent 70%),
       radial-gradient(50% 60% at 0% 100%, rgb(70 60 200 / 0.35), transparent 70%),
       linear-gradient(180deg, #0a1440 0%, #0f1a52 60%, #151c63 100%);
   }
+  /* ==== About Us page (app/about/page.tsx) ==== */
+  /* each part: text and picture side by side on desktop, the picture below the text on phones and tablets;
+     about-split-flip puts the picture first on desktop */
+  .about-split {
+    @apply grid items-center gap-10 sm:gap-12 lg:grid-cols-2 lg:gap-[4vw];
+  }
+  .about-split-flip > :last-child {
+    @apply lg:order-first;
+  }
+  .about-title {
+    @apply font-display font-extrabold leading-[1.04] tracking-tight text-brand-navy;
+    font-size: clamp(2.1rem, 9vw, 3rem);
+  }
+  @media (min-width: 1024px) {
+    .about-title {
+      font-size: clamp(2.6rem, 3.9vw, 5rem);
+    }
+  }
+  .about-copy {
+    font-size: var(--fs-copy);
+    @apply mt-4 max-w-[38rem] font-display leading-relaxed text-brand-slate lg:mt-[1vw] lg:max-w-[40vw];
+  }
+  .about-art {
+    @apply mx-auto block h-auto w-full max-w-[560px] lg:max-w-none;
+  }
+  /* a picture kept a little smaller on desktop so its part stays short (the whiteboard, the AI chip, the team) */
+  .about-art-sm {
+    @apply lg:max-w-[34vw];
+  }
+  /* the figures under a heading: three in a row, or four (two by two on phones) */
+  .about-stats {
+    @apply mt-8 grid grid-cols-3 gap-3 lg:mt-[2vw] lg:gap-[1vw];
+  }
+  .about-stats-4 {
+    @apply grid-cols-2 sm:grid-cols-4;
+  }
+  .about-stat {
+    @apply rounded-2xl border border-white/80 bg-white/80 px-3 py-3 lg:rounded-[1vw] lg:px-[1vw] lg:py-[0.9vw];
+    box-shadow: 0 10px 28px -18px rgb(40 70 170 / 0.35);
+  }
+  .about-stat-value {
+    @apply text-gradient w-fit font-display font-extrabold leading-none;
+    font-size: clamp(1.3rem, 5.4vw, 1.75rem);
+  }
+  .about-stat-label {
+    @apply mt-1.5 font-display text-xs leading-snug text-brand-slate lg:mt-[0.4vw] lg:text-[clamp(0.7rem,0.8vw,1rem)];
+  }
+  /* four figures share the width, so theirs run smaller, and a word like "Long-term" stays on one line */
+  .about-stats-4 .about-stat-value {
+    @apply whitespace-nowrap sm:text-[1.3rem];
+  }
+  @media (min-width: 1024px) {
+    .about-stat-value {
+      font-size: clamp(1.4rem, 2vw, 2.6rem);
+    }
+    .about-stats-4 .about-stat-value {
+      font-size: clamp(0.95rem, 1.4vw, 2rem);
+    }
+  }
+  /* the four philosophy points under the centred heading: four in a row on desktop, two by two on tablet */
+  .about-points {
+    @apply mt-10 grid gap-3 sm:grid-cols-2 sm:gap-4 lg:mt-[2.4vw] lg:grid-cols-4 lg:gap-[1.15vw];
+  }
+  .about-point {
+    @apply p-5 lg:p-[1.4vw];
+  }
+  .about-point-icon {
+    --icon-size: 2.75rem;
+  }
+  @media (min-width: 1024px) {
+    .about-point-icon {
+      --icon-size: clamp(2.5rem, 3vw, 3.6rem);
+    }
+  }
+  /* the industries we work with, under the centred heading: four in a row on desktop, two across on tablet and
+     phones (one on the narrowest); each tile is a row with the icon beside the name */
+  .about-tiles {
+    @apply mt-10 grid grid-cols-2 gap-2.5 max-[359px]:grid-cols-1 sm:gap-3 lg:mt-[2.4vw] lg:grid-cols-4 lg:gap-[1vw];
+  }
+  .about-tile {
+    @apply flex items-center gap-2.5 p-3 sm:gap-3 sm:p-4 lg:gap-[0.8vw] lg:p-[1.1vw];
+  }
+  .about-tile .industry-icon {
+    @apply max-sm:h-9 max-sm:w-9;
+  }
+  .about-tile-name {
+    font-size: var(--fs-card-copy);
+    @apply font-display font-semibold leading-snug text-brand-navy;
+  }
+  .about-link {
+    font-size: var(--fs-copy);
+    @apply mt-6 inline-flex items-center gap-2 font-display font-semibold text-[#1b7cf0] transition-[gap] duration-200 hover:gap-3 lg:mt-[1.4vw];
+  }
+  .about-link-light {
+    @apply text-[#7cc4ff];
+  }
+  /* the closing invitation: text and buttons on the left, the build picture on the right */
+  .about-cta {
+    @apply grid items-center gap-8 rounded-3xl border border-white/80 p-6 sm:p-10 lg:grid-cols-[1.5fr_1fr] lg:gap-[3vw] lg:rounded-[1.6vw] lg:px-[3vw] lg:py-[2.6vw];
+    background: linear-gradient(135deg, rgb(238 236 255 / 0.95) 0%, rgb(230 238 255 / 0.9) 55%, rgb(244 236 255 / 0.9) 100%);
+    box-shadow: 0 10px 28px -18px rgb(40 70 170 / 0.35);
+  }
+  .about-cta-actions {
+    @apply mt-6 flex flex-col gap-3 sm:flex-row sm:items-center lg:mt-[1.4vw] lg:gap-[1vw];
+  }
+  .about-ghost {
+    padding: var(--btn-sm-py) var(--btn-sm-px);
+    font-size: var(--fs-btn-sm);
+    @apply inline-flex items-center justify-center rounded-full border border-[#c9d3ee] bg-white font-display font-light leading-tight text-brand-navy transition-colors hover:border-[#9fb0e0];
+  }
+  .about-cta-art {
+    @apply mx-auto block h-auto w-full max-w-[300px] lg:max-w-none;
+  }
+
   .partner-waves {
     @apply pointer-events-none absolute inset-0 -z-10 h-full w-full;
   }
@@ -1348,7 +1463,14 @@
     animation-delay: calc(var(--i, 0) * 1.2s);
   }
 
+  /* the About Us pictures (components/about-art.tsx): sticky notes and team cards that float, a pulsing chip
+     glow and light running along the circuit lines */
+  .ab-note, .ab-bob { animation: art-float 4.5s ease-in-out infinite; }
+  .ab-pulse { animation: ab-pulse 3.6s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+  .ab-flow { stroke-dasharray: 0.18 0.82; animation: ab-flow 2.8s linear infinite; }
+
   @media (prefers-reduced-motion: reduce) {
+    .ab-note, .ab-bob, .ab-pulse, .ab-flow,
     .pi-turn, .pi-bob, .pi-cycle, .pi-beat, .partner-icon::after,
     .dv-bar, .dv-donut, .dv-pill, .dv-sweep, .dv-pick, .dv-float, .dv-sway,
     .art-type, .art-float, .art-line, .art-code, .art-spin, .art-arrow, .art-sway,
@@ -1358,6 +1480,14 @@
   }
 }
 
+@keyframes ab-pulse {
+  0%, 100% { opacity: 0.35; transform: scale(0.94); }
+  50% { opacity: 0.6; transform: scale(1.06); }
+}
+@keyframes ab-flow {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
 @keyframes pi-bob {
   0%, 100% { transform: translateY(0) rotate(0deg); }
   50% { transform: translateY(-3px) rotate(-8deg); }

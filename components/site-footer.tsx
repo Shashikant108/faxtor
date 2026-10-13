@@ -26,7 +26,7 @@ const COLUMNS = [
     title: "Company",
     accent: "#e366d6",
     links: [
-      { label: "About Us", href: "/#why-faxtor" },
+      { label: "About Us", href: "/about" },
       { label: "Our Work", href: "/#how-we-work" },
       { label: "Industries", href: "/#industries" },
       { label: "Careers", href: "#" },
