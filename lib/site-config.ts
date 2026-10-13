@@ -37,6 +37,9 @@ export const CONTACT_INFO = {
   phone: "+91 88618 30244",
 } as const;
 
+// a chat on WhatsApp with the number above (country code, no spaces or plus sign)
+export const WHATSAPP_HREF = "https://wa.me/918861830244";
+
 // TODO: replace "#" with the real profile links
 export const SOCIAL_LINKS = [
   { label: "LinkedIn", href: "#", network: "linkedin" },

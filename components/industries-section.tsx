@@ -28,6 +28,8 @@ const INDUSTRIES = [
     title: "Manufacturing & Production",
     Icon: ManufacturingIcon,
     tone: "violet",
+    // the industries that have their own page open it from their card
+    href: "/industries/manufacturing",
     copy: "Production planning, inventory, procurement and supplier management.",
     tags: ["Production Planning", "Inventory", "Procurement", "Work Orders"],
   },
@@ -116,13 +118,23 @@ export function IndustriesSection() {
 
           <div className="industry-grid">
             <ul className="industry-list">
-              {INDUSTRIES.map(({ title, Icon, tone, copy, tags }) => (
+              {INDUSTRIES.map(({ title, Icon, tone, copy, tags, href }) => (
                 <li key={title} className="card-glass industry-card">
                   <div className="industry-head">
                     <span className="industry-icon" data-tone={tone}>
                       <Icon />
                     </span>
-                    <h3 className="card-title">{title}</h3>
+                    <h3 className="card-title">
+                      {/* the link covers the whole card (industry-link), while the title stays the link's text */}
+                      {href ? (
+                        <Link href={href} className="industry-link">
+                          {title}
+                          <ArrowIcon className="industry-link-arrow" />
+                        </Link>
+                      ) : (
+                        title
+                      )}
+                    </h3>
                   </div>
                   <p className="industry-copy">{copy}</p>
                   <ul className="industry-tags" data-tone={tone} aria-label={`What we build for ${title}`}>

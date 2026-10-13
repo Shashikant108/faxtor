@@ -1,28 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import {
-  AiChipArt,
-  ApproachBoardArt,
   BuildRightIcon,
-  HeroTeamArt,
   PartnerIcon,
   SimpleIcon,
-  TeamCardsArt,
   UnderstandIcon,
 } from "@/components/about-art";
 import { ArrowIcon } from "@/components/arrow-icon";
 import { Fold } from "@/components/fold";
-import {
-  ConstructionIcon,
-  CustomBuildArt,
-  EducationIcon,
-  FinanceIcon,
-  ManufacturingIcon,
-  MembershipIcon,
-  RealEstateIcon,
-  RetailIcon,
-  TelecomIcon,
-} from "@/components/industry-icons";
+import { TECH_STACK } from "@/components/tech-logos";
 import { CONTACT_HREF, CONTACT_INFO } from "@/lib/site-config";
 
 const DESCRIPTION =
@@ -55,23 +41,25 @@ const PRINCIPLES = [
   { title: "Keep it simple", Icon: SimpleIcon, tone: "amber", copy: "Practical, scalable and easy for your team to use." },
 ];
 
+// the nine industries, each with its photo (public/about/industries/*.webp, about 440 x 210)
 const INDUSTRY_TILES = [
-  { name: "Education & Training", Icon: EducationIcon, tone: "sky" },
-  { name: "Manufacturing", Icon: ManufacturingIcon, tone: "violet" },
-  { name: "Retail & E‑commerce", Icon: RetailIcon, tone: "rose" },
-  { name: "Financial Services", Icon: FinanceIcon, tone: "teal" },
-  { name: "Real Estate", Icon: RealEstateIcon, tone: "indigo" },
-  { name: "Construction", Icon: ConstructionIcon, tone: "amber" },
-  { name: "Telecom & Field Services", Icon: TelecomIcon, tone: "violet" },
-  { name: "Memberships & Networks", Icon: MembershipIcon, tone: "rose" },
+  { name: "Education & EdTech", photo: "education" },
+  { name: "Manufacturing", photo: "manufacturing", href: "/industries/manufacturing" },
+  { name: "Retail & D2C", photo: "retail" },
+  { name: "Loan Disbursement", photo: "loans" },
+  { name: "Religious Organizations", photo: "religious" },
+  { name: "Real Estate", photo: "real-estate" },
+  { name: "Construction", photo: "construction" },
+  { name: "Rental & Subscription", photo: "rental" },
+  { name: "Custom Workflows", photo: "workflows" },
 ];
 
 /**
- * The About Us page. Seven parts: who we are with three figures, our approach (dark), our philosophy (its heading
- * centred over a row of four points), what we do (its heading centred over eight industries), our AI capabilities
- * (dark), our team with four figures, and an invitation to talk. The others put the text first and its picture
- * beside it on desktop (below it on phones). Every picture
- * is drawn in code (components/about-art.tsx and the home page's art), so the page needs no photos.
+ * The About Us page. Eight parts: who we are with three figures, our approach (dark), our philosophy (its heading
+ * centred over a row of four points), what we do (nine industries, each a photo over its name), our AI capabilities
+ * (dark), the technologies we build with, our team with four figures, and an invitation to talk. The others put the text first and its picture
+ * beside it on desktop (below it on phones). Its pictures are photos (public/about), and the
+ * small icons are drawn in code (components/about-art.tsx and the home page's art).
  */
 export default function AboutPage() {
   return (
@@ -79,10 +67,11 @@ export default function AboutPage() {
       {/* 1. who we are */}
       <Fold tone="light" className="section-clip isolate">
         <div className="relative">
-          <div aria-hidden="true" data-parallax="0.04" className="section-bg logo-glow-bg" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/backgrounds/soft-waves.webp" alt="" width={1774} height={887} data-parallax="0.04" className="section-bg" />
           <div aria-hidden="true" className="header-space" />
           <div className="container-page about-split pb-14 pt-8 sm:pb-20 sm:pt-12 lg:pb-[3.4vw] lg:pt-[2.4vw]">
-            <div>
+            <div className="about-center-sm">
               <p className="eyebrow">About Faxtor</p>
               <span aria-hidden="true" className="eyebrow-line mt-3 lg:mt-[0.5vw]" />
               <h1 className="about-title mt-6 lg:mt-[1.4vw]">
@@ -103,7 +92,16 @@ export default function AboutPage() {
                 ))}
               </dl>
             </div>
-            <HeroTeamArt className="about-art" />
+            {/* the team at work, the photo on its own soft frame (public/about/about-team.webp) */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/about/about-team.webp"
+              alt="The Faxtor team working together on a laptop"
+              width={1536}
+              height={1024}
+              fetchPriority="high"
+              className="about-art about-hero-art about-blend-photo"
+            />
           </div>
         </div>
       </Fold>
@@ -123,7 +121,16 @@ export default function AboutPage() {
               training and ongoing support so you get real value from day one.
             </p>
           </div>
-          <ApproachBoardArt className="about-art about-art-sm" />
+          {/* our steps on a whiteboard (public/about/about-approach.webp), cut to the photo itself */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/about/about-approach.webp"
+            alt="Sticky notes on a whiteboard for our steps: understand, plan, build, deploy and support"
+            width={1294}
+            height={958}
+            loading="lazy"
+            className="about-art about-art-sm about-photo"
+          />
         </div>
       </Fold>
 
@@ -148,10 +155,13 @@ export default function AboutPage() {
             <ul className="about-points">
               {PRINCIPLES.map(({ title, Icon, tone, copy }) => (
                 <li key={title} className="card-glass about-point">
-                  <span className="tone-icon about-point-icon" data-tone={tone}>
-                    <Icon />
-                  </span>
-                  <h3 className="card-title mt-3 lg:mt-[0.8vw]">{title}</h3>
+                  {/* the icon and the title side by side, the copy below */}
+                  <div className="about-point-head">
+                    <span className="tone-icon about-point-icon" data-tone={tone}>
+                      <Icon />
+                    </span>
+                    <h3 className="card-title">{title}</h3>
+                  </div>
                   <p className="card-copy">{copy}</p>
                 </li>
               ))}
@@ -164,17 +174,17 @@ export default function AboutPage() {
       <Fold tone="tint" className="section-clip isolate">
         <div className="relative">
           <div aria-hidden="true" data-parallax="0.04" className="section-bg logo-glow-bg" />
-          <div className="container-page py-14 sm:py-20 lg:py-[3.4vw]">
-            <div className="text-center">
+          {/* the words left and the nine industries right on desktop; the industries below the words on phones */}
+          <div className="container-page about-split py-14 sm:py-20 lg:py-[3.4vw]">
+            <div className="about-what about-center-sm">
               <p className="eyebrow">What we do</p>
-              <span aria-hidden="true" className="eyebrow-line mx-auto mt-3 lg:mt-[0.5vw]" />
+              <span aria-hidden="true" className="eyebrow-line mt-3 lg:mt-[0.5vw]" />
               <h2 className="heading-section mt-6 lg:mt-[1.4vw]">
                 We solve real <span className="text-gradient">business problems.</span>
               </h2>
-              {/* on desktop the copy runs in two lines */}
-              <p className="about-copy mx-auto lg:max-w-none">
-                <span className="lg:block">Whether it is a founder running operations on Excel or an admin team buried under </span>
-                <span className="lg:block">WhatsApp messages, we turn chaos into clarity, whatever the industry.</span>
+              <p className="about-copy">
+                Whether it is a founder running operations on Excel or an admin team buried under WhatsApp messages, we turn
+                chaos into clarity, whatever the industry.
               </p>
               <Link href="/#services" className="about-link">
                 Explore our solutions
@@ -182,12 +192,19 @@ export default function AboutPage() {
               </Link>
             </div>
             <ul className="about-tiles" aria-label="Industries we work with">
-              {INDUSTRY_TILES.map(({ name, Icon, tone }) => (
-                <li key={name} className="card-glass about-tile">
-                  <span className="industry-icon" data-tone={tone}>
-                    <Icon />
-                  </span>
-                  <span className="about-tile-name">{name}</span>
+              {INDUSTRY_TILES.map(({ name, photo, href }) => (
+                <li key={name} className="card-glass about-tile relative">
+                  {/* the name under it says what it shows */}
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={`/about/industries/${photo}.webp`} alt="" width={440} height={210} loading="lazy" className="about-tile-photo" />
+                  {href ? (
+                    <Link href={href} className="about-tile-name industry-link">
+                      {name}
+                      <ArrowIcon className="industry-link-arrow" />
+                    </Link>
+                  ) : (
+                    <span className="about-tile-name">{name}</span>
+                  )}
                 </li>
               ))}
             </ul>
@@ -214,17 +231,53 @@ export default function AboutPage() {
               <ArrowIcon className="h-[1.1em] w-[1.1em]" />
             </Link>
           </div>
-          <AiChipArt className="about-art about-art-sm" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/about/about-ai.webp"
+            alt="A robotic hand touching a glowing AI cube surrounded by charts, data and settings panels"
+            width={1660}
+            height={929}
+            loading="lazy"
+            className="about-art about-photo"
+          />
         </div>
       </Fold>
 
-      {/* 6. our team */}
+      {/* 6. our technology */}
+      <Fold tone="light" className="section-clip isolate">
+        <div className="relative">
+          <div aria-hidden="true" data-parallax="0.04" className="section-bg logo-glow-bg" />
+          <div className="container-page about-split py-12 sm:py-16 lg:py-[2.4vw]">
+            <div className="about-center-sm">
+              <p className="eyebrow">Our technology</p>
+              <span aria-hidden="true" className="eyebrow-line mt-3 lg:mt-[0.5vw]" />
+              <h2 className="heading-section mt-6 lg:mt-[1.4vw]">
+                Built with modern, <span className="text-gradient">reliable technologies.</span>
+              </h2>
+              <p className="about-copy">
+                We use proven technologies and secure cloud infrastructure to build scalable, high-performing software
+                platforms that stay fast and dependable as your business grows.
+              </p>
+            </div>
+            <ul className="about-tech" aria-label="Technologies we build with">
+              {TECH_STACK.map(({ name, Logo }) => (
+                <li key={name} className="card-glass about-tech-item">
+                  <Logo className="about-tech-logo" />
+                  <span className="about-tech-name">{name}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </Fold>
+
+      {/* 7. our team */}
       <Fold tone="light" className="section-clip isolate">
         <div className="relative">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/backgrounds/soft-waves.webp" alt="" width={1774} height={887} data-parallax="0.04" className="section-bg" />
           <div className="container-page about-split py-12 sm:py-16 lg:py-[2.4vw]">
-            <div>
+            <div className="about-center-sm">
               <p className="eyebrow">Our team</p>
               <span aria-hidden="true" className="eyebrow-line mt-3 lg:mt-[0.5vw]" />
               <h2 className="heading-section mt-6 lg:mt-[1.4vw]">
@@ -244,34 +297,53 @@ export default function AboutPage() {
                 ))}
               </dl>
             </div>
-            <TeamCardsArt className="about-art about-art-sm" />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/about/about-our-team.webp"
+              alt="A Faxtor team member at work on a laptop in our office"
+              width={1536}
+              height={1024}
+              loading="lazy"
+              className="about-art about-blend-photo"
+            />
           </div>
         </div>
       </Fold>
 
-      {/* 7. let's build together */}
-      <Fold tone="tint" className="isolate">
-        <div className="container-page pb-16 pt-4 sm:pb-24 lg:pb-[4vw] lg:pt-[1vw]">
-          <div className="about-cta">
-            <div>
-              <p className="eyebrow">Let’s build together</p>
-              <h2 className="heading-section mt-4 lg:mt-[1vw]">
-                Have a business challenge <span className="text-gradient">we can help with?</span>
-              </h2>
-              <p className="about-copy">
-                Tell us what you are trying to improve, automate or build. We would love to learn about your business.
-              </p>
-              <div className="about-cta-actions">
-                <Link href={CONTACT_HREF} className="btn btn-sm btn-fit">
-                  Book free 30 min consultation call
-                  <ArrowIcon className="h-[1.1em] w-[1.1em]" />
-                </Link>
-                <a href={`mailto:${CONTACT_INFO.email}`} className="about-ghost">
-                  Get in touch
-                </a>
+      {/* 8. let's build together */}
+      <Fold tone="tint" className="section-clip isolate">
+        <div className="relative">
+          <div aria-hidden="true" data-parallax="0.04" className="section-bg logo-glow-bg" />
+          <div className="container-page py-14 sm:py-20 lg:py-[3.4vw]">
+            <div className="about-cta">
+              <div className="about-center-sm">
+                <p className="eyebrow">Let’s build together</p>
+                <h2 className="heading-section mt-4 lg:mt-[1vw]">
+                  Have a business challenge <span className="text-gradient">we can help with?</span>
+                </h2>
+                <p className="about-copy">
+                  Tell us what you are trying to improve, automate or build. We would love to learn about your business.
+                </p>
+                <div className="about-cta-actions">
+                  <Link href={CONTACT_HREF} className="btn btn-sm btn-fit">
+                    Book free 30 min consultation call
+                    <ArrowIcon className="h-[1.1em] w-[1.1em]" />
+                  </Link>
+                  <a href={`mailto:${CONTACT_INFO.email}`} className="about-ghost">
+                    Get in touch
+                  </a>
+                </div>
               </div>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/about/about-build.webp"
+                alt="App windows with code and a checklist of finished tasks"
+                width={1774}
+                height={887}
+                loading="lazy"
+                className="about-cta-art"
+              />
             </div>
-            <CustomBuildArt className="about-cta-art" />
           </div>
         </div>
       </Fold>

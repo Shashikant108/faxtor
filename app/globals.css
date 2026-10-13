@@ -352,7 +352,6 @@
      (never see-through over the content behind it) */
   .site-header {
     @apply fixed inset-x-0 top-0 z-50 border-b border-white/60 bg-white/80 backdrop-blur-md;
-    box-shadow: 0 10px 30px -20px rgb(30 60 150 / 0.4);
   }
   /* the room the fixed header takes at the top of the hero */
   .header-space {
@@ -499,7 +498,21 @@
     display: none;
   }
   .industry-card {
-    @apply flex w-[84%] shrink-0 snap-start flex-col p-4 sm:w-auto sm:p-5 lg:px-[1.3vw] lg:py-[1.2vw];
+    @apply relative flex w-[84%] shrink-0 snap-start flex-col p-4 sm:w-auto sm:p-5 lg:px-[1.3vw] lg:py-[1.2vw];
+  }
+  /* an industry with its own page: the whole card opens it, and a small arrow beside the title says so */
+  .industry-link {
+    @apply inline-flex items-center gap-1.5 transition-colors hover:text-brand-blue lg:gap-[0.4vw];
+  }
+  .industry-link::after {
+    content: "";
+    @apply absolute inset-0 rounded-[inherit];
+  }
+  .industry-link-arrow {
+    @apply h-[0.9em] w-[0.9em] shrink-0 text-brand-blue transition-transform;
+  }
+  .industry-card:hover .industry-link-arrow {
+    @apply translate-x-0.5;
   }
   /* the hint under the swiping row, phones only */
   .industry-swipe {
@@ -732,6 +745,426 @@
       radial-gradient(50% 60% at 0% 100%, rgb(70 60 200 / 0.35), transparent 70%),
       linear-gradient(180deg, #0a1440 0%, #0f1a52 60%, #151c63 100%);
   }
+  /* ==== Garment manufacturing page (app/industries/manufacturing/page.tsx) ==== */
+  /* the hero picture (public/industries/garment-hero.webp): rounded like the cards, on a soft shadow; on desktop
+     about two fifths of the screen wide, against the right edge of its column */
+  .gm-hero-picture {
+    @apply mx-auto block h-auto w-full max-w-[560px] rounded-2xl lg:ml-auto lg:mr-0 lg:max-w-[39vw] lg:rounded-[1.4vw];
+    box-shadow: 0 30px 60px -32px rgb(15 70 70 / 0.4);
+  }
+  /* the hero's two buttons, side by side from tablet up; the main button takes a soft neutral shadow in place of
+     the home page's blue glow, which would fight the teal of the hero picture */
+  .gm-actions {
+    @apply mt-8 flex flex-col gap-3 sm:flex-row sm:items-center lg:mt-[2vw] lg:gap-[1vw];
+  }
+  .gm-actions .btn {
+    box-shadow: 0 12px 24px -14px rgb(15 50 70 / 0.45);
+  }
+  .gm-whatsapp {
+    padding: var(--btn-lg-py) var(--btn-lg-px);
+    font-size: var(--fs-btn-lg);
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-[#bfe9d0] bg-white font-display font-light leading-tight text-[#128c4a] transition-colors hover:border-[#25d366] hover:bg-[#f2fcf6];
+  }
+  /* the brands under the hero's buttons, in a row like the home hero's benefits: centred names, a thin line
+     between them, no icons */
+  .gm-trust {
+    @apply mt-10 lg:mt-[min(2.6vw,5svh)];
+  }
+  .gm-trust-label {
+    @apply font-display text-xs font-extrabold uppercase tracking-[0.3em] text-[#8a95b8] lg:text-[clamp(0.65rem,0.72vw,0.95rem)];
+  }
+  .gm-brands {
+    @apply mt-5 flex items-stretch lg:mt-[1.4vw];
+  }
+  .gm-brand {
+    @apply flex w-1/3 flex-col items-center justify-center gap-1.5 px-1 py-1 text-center sm:w-auto sm:px-10 lg:gap-[0.4vw] lg:px-[3vw] lg:py-[0.3vw];
+  }
+  .gm-brand:first-child {
+    @apply sm:pl-0;
+  }
+  .gm-brand + .gm-brand {
+    @apply border-l border-brand-divider;
+  }
+  .gm-brand-name {
+    @apply font-display text-lg font-extrabold uppercase leading-none tracking-[0.06em] text-brand-navy sm:text-xl lg:text-[clamp(1.1rem,1.45vw,1.9rem)];
+  }
+  .gm-brand-sub {
+    @apply font-display text-[0.66rem] font-semibold uppercase tracking-[0.22em] text-brand-slate sm:text-xs lg:text-[clamp(0.6rem,0.68vw,0.9rem)];
+  }
+
+  /* what goes wrong today: each row the problem, an arrow, then the fix; on phones and tablets they stack and the
+     arrow points down */
+  .gm-compare {
+    @apply mt-10 rounded-2xl border border-white/80 bg-white/75 p-4 sm:p-6 lg:mt-[2.4vw] lg:rounded-[1.4vw] lg:px-[2vw] lg:py-[1.4vw];
+    box-shadow: 0 10px 28px -18px rgb(40 70 170 / 0.35);
+  }
+  .gm-compare-head {
+    @apply hidden lg:grid lg:grid-cols-[1fr_auto_1fr] lg:items-center lg:gap-[2vw] lg:pb-[0.8vw];
+  }
+  .gm-compare-head > span:last-child {
+    @apply justify-self-start;
+  }
+  .gm-compare-head > span:first-child {
+    @apply justify-self-start;
+  }
+  .gm-compare-head > span:nth-child(2) {
+    width: var(--size-gm-arrow);
+  }
+  .gm-compare-row {
+    @apply grid gap-2 border-b border-[#edf0f7] py-2.5 last:border-b-0 lg:grid-cols-[1fr_auto_1fr] lg:items-center lg:gap-[2vw] lg:py-[0.45vw];
+  }
+  .gm-compare-cell {
+    @apply flex items-start gap-3 rounded-xl p-3 lg:gap-[1vw] lg:rounded-[0.9vw] lg:px-[0.9vw] lg:py-[0.65vw];
+  }
+  .gm-before {
+    background: linear-gradient(160deg, rgb(255 236 240 / 0.9) 0%, rgb(255 245 247 / 0.6) 100%);
+  }
+  .gm-after {
+    background: linear-gradient(160deg, rgb(232 240 255 / 0.9) 0%, rgb(245 248 255 / 0.6) 100%);
+  }
+  .gm-compare-icon {
+    @apply bg-white shadow-sm;
+    --icon-size: 2.6rem;
+  }
+  .gm-compare-arrow {
+    @apply mx-auto grid place-items-center rounded-full text-white;
+    width: var(--size-gm-arrow);
+    height: var(--size-gm-arrow);
+    background: var(--gradient-brand);
+    box-shadow: var(--shadow-brand-sm);
+  }
+  .gm-compare-row,
+  .gm-compare-head {
+    --size-gm-arrow: 2.25rem;
+  }
+  @media (min-width: 1024px) {
+    .gm-compare-icon {
+      --icon-size: clamp(2.5rem, 2.9vw, 3.6rem);
+    }
+    .gm-compare-row,
+    .gm-compare-head {
+      --size-gm-arrow: clamp(2.2rem, 2.6vw, 3.2rem);
+    }
+  }
+
+  /* one order through the modules (components/industry-pages/garment-modules.tsx): the stages beside the order
+     card on desktop, the two the same height (the stages share it out); on phones and tablets the stages are a row
+     to swipe above it */
+  .gm-modules {
+    @apply mt-10 grid gap-5 lg:mt-[2.4vw] lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-stretch lg:gap-[2.4vw];
+  }
+  .gm-stages {
+    @apply flex snap-x snap-mandatory gap-2.5 overflow-x-auto pb-2 lg:flex-col lg:gap-[0.5vw] lg:overflow-visible lg:pb-0;
+    margin-inline: calc(var(--page-gutter) * -1);
+    padding-inline: var(--page-gutter);
+    scroll-padding-inline: var(--page-gutter);
+    scrollbar-width: none;
+  }
+  .gm-stages::-webkit-scrollbar {
+    display: none;
+  }
+  @media (min-width: 1024px) {
+    .gm-stages {
+      margin-inline: 0;
+      padding-inline: 0;
+    }
+  }
+  .gm-stages > li {
+    @apply shrink-0 snap-start lg:flex lg:flex-1;
+  }
+  /* the stages as glass cards on the light backdrop */
+  .gm-stage {
+    @apply relative flex h-full w-full items-center gap-3 overflow-hidden rounded-xl border border-white/80 bg-white/55 p-3 text-left transition-[background,box-shadow] hover:bg-white/80 lg:gap-[0.9vw] lg:rounded-[0.9vw] lg:px-[1vw] lg:py-[0.6vw];
+  }
+  /* the stage on show: solid white, lifted, with a blue bar down its left edge */
+  .gm-stage[aria-pressed="true"] {
+    @apply bg-white;
+    box-shadow: inset 3px 0 0 #1b8cff, 0 14px 30px -18px rgb(40 70 170 / 0.45);
+  }
+  .gm-stage:not([aria-pressed="true"]) .gm-stage-desc {
+    @apply opacity-75;
+  }
+  /* while it plays by itself, a thin line along the bottom of the stage on show fills until the next one */
+  .gm-stage-timer {
+    @apply absolute bottom-0 left-0 h-0.5 w-full origin-left;
+    background: var(--gradient-brand);
+    animation: gm-timer linear forwards;
+  }
+  .gm-stage-no {
+    @apply shrink-0 font-display text-sm font-extrabold text-[#9aa6c8] lg:text-[clamp(0.75rem,0.85vw,1.1rem)];
+  }
+  .gm-stage[aria-pressed="true"] .gm-stage-no {
+    @apply text-[#7b5cff];
+  }
+  .gm-stage-icon {
+    @apply grid h-10 w-10 shrink-0 place-items-center rounded-xl lg:h-[2.6vw] lg:min-h-9 lg:w-[2.6vw] lg:min-w-9 lg:rounded-[0.7vw];
+  }
+  .gm-stage-icon svg {
+    @apply h-1/2 w-1/2;
+  }
+  .gm-stage-name {
+    @apply block font-display text-sm font-bold text-brand-navy lg:text-[clamp(0.85rem,1vw,1.3rem)];
+  }
+  /* on phones and tablets the stages are compact chips; the order card below says what each does */
+  .gm-stage-desc {
+    @apply mt-0.5 line-clamp-2 hidden font-display text-xs leading-snug text-brand-slate lg:block lg:text-[clamp(0.7rem,0.8vw,1rem)];
+  }
+  @media (max-width: 1023.98px) {
+    .gm-stage {
+      @apply whitespace-nowrap py-2.5 pr-4;
+    }
+    .gm-stage-icon {
+      @apply h-8 w-8 rounded-lg;
+    }
+  }
+  .gm-order {
+    @apply flex flex-col rounded-2xl border border-white/80 bg-white p-5 text-brand-navy sm:p-6 lg:rounded-[1.3vw] lg:px-[1.6vw] lg:py-[1.3vw];
+    box-shadow: 0 24px 60px -30px rgb(40 70 170 / 0.45);
+  }
+  .gm-order-head {
+    @apply flex flex-wrap items-start justify-between gap-3;
+  }
+  .gm-order-no {
+    @apply font-display text-xs font-extrabold uppercase tracking-[0.2em] text-[#8a95b8] lg:text-[clamp(0.65rem,0.75vw,0.95rem)];
+  }
+  .gm-order-title {
+    @apply mt-1 font-display text-base font-bold lg:text-[clamp(0.9rem,1.1vw,1.4rem)];
+  }
+  .gm-order-status {
+    @apply rounded-full bg-[#e8f0ff] px-3 py-1 font-display text-[0.7rem] font-extrabold uppercase tracking-[0.12em] text-[#2563eb] lg:text-[clamp(0.6rem,0.7vw,0.9rem)];
+  }
+  .gm-order-status[data-done] {
+    @apply bg-[#22c55e] text-white;
+  }
+  .gm-progress {
+    @apply mt-4 grid grid-cols-6 gap-1.5 lg:mt-[0.8vw];
+  }
+  .gm-progress > span {
+    @apply h-1.5 rounded-full bg-[#e9edf8] transition-colors duration-500;
+  }
+  .gm-progress > span[data-on] {
+    background: var(--gradient-brand);
+  }
+  .gm-panes {
+    @apply grid;
+  }
+  .gm-pane {
+    @apply invisible opacity-0 transition-opacity duration-300;
+    grid-area: 1 / 1;
+  }
+  .gm-pane[data-on] {
+    @apply visible opacity-100;
+  }
+  .gm-order-stage {
+    @apply mt-5 flex items-center gap-3 lg:mt-[0.9vw] lg:gap-[0.9vw];
+  }
+  .gm-order-stage-name {
+    @apply font-display text-lg font-extrabold lg:text-[clamp(1rem,1.3vw,1.7rem)];
+  }
+  .gm-rows {
+    @apply mt-4 divide-y divide-[#edf0f7] rounded-xl border border-[#edf0f7] lg:mt-[0.8vw] lg:rounded-[0.8vw];
+  }
+  .gm-row {
+    @apply flex items-baseline justify-between gap-4 px-4 py-2.5 lg:px-[1vw] lg:py-[0.42vw];
+  }
+  .gm-row dt {
+    font-size: var(--fs-card-copy);
+    @apply shrink-0 font-display text-brand-slate;
+  }
+  .gm-row dd {
+    font-size: var(--fs-card-copy);
+    @apply text-right font-display font-semibold text-brand-navy;
+  }
+  .gm-row dd[data-flag="warn"] {
+    @apply text-[#e5484d];
+  }
+  .gm-row dd[data-flag="ok"] {
+    @apply text-[#16a34a];
+  }
+  .gm-note {
+    font-size: var(--fs-card-copy);
+    @apply mt-4 flex items-start gap-2 rounded-xl bg-[#f3f6fd] px-4 py-3 font-display leading-snug text-brand-slate lg:mt-[0.8vw] lg:rounded-[0.8vw] lg:px-[1vw] lg:py-[0.55vw];
+  }
+  .gm-note-icon {
+    @apply mt-0.5 h-4 w-4 shrink-0 text-[#2563eb] lg:h-[1.1vw] lg:min-h-4 lg:w-[1.1vw] lg:min-w-4;
+  }
+  .gm-order-nav {
+    @apply mt-5 flex items-center justify-between gap-3 lg:mt-auto lg:pt-[1vw];
+  }
+  .gm-nav-btn {
+    @apply inline-flex items-center gap-2 rounded-full border border-[#dfe5f3] px-4 py-2.5 font-display text-sm font-semibold text-brand-navy transition-colors hover:border-[#9fb0e0] lg:px-[1.1vw] lg:py-[0.6vw] lg:text-[clamp(0.8rem,0.9vw,1.15rem)];
+  }
+  .gm-nav-next {
+    @apply border-transparent text-white;
+    background: var(--gradient-brand);
+  }
+
+  /* results: four cards in a row on desktop, two by two below that (one on the narrowest phones) */
+  .gm-results {
+    @apply mt-10 grid grid-cols-2 gap-2.5 max-[359px]:grid-cols-1 sm:gap-4 lg:mt-[2.4vw] lg:grid-cols-4 lg:gap-[1.15vw];
+  }
+  .gm-result {
+    @apply p-4 sm:p-5 lg:p-[1.4vw];
+  }
+  /* the icon and the figure side by side; on a narrow card a long figure wraps below the icon */
+  .gm-result-head {
+    @apply flex flex-wrap items-center gap-x-2 gap-y-2 sm:gap-x-2.5 lg:gap-x-[0.9vw];
+  }
+  .gm-result-icon {
+    --icon-size: 1.9rem;
+  }
+  .gm-result-value {
+    @apply text-gradient w-fit whitespace-nowrap font-display font-extrabold leading-none;
+    font-size: clamp(1rem, 4.4vw, 2rem);
+  }
+  @media (min-width: 640px) {
+    .gm-result-icon {
+      --icon-size: 2.6rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    .gm-result-icon {
+      --icon-size: clamp(2.5rem, 3vw, 3.6rem);
+    }
+    .gm-result-value {
+      font-size: clamp(1.5rem, 2.1vw, 2.8rem);
+    }
+  }
+  .gm-result .card-title {
+    @apply mt-3 lg:mt-[0.9vw];
+  }
+  /* a client's story beside their words */
+  .gm-journey {
+    @apply mt-6 grid gap-6 rounded-2xl border border-white/80 p-5 sm:p-8 lg:mt-[1.6vw] lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] lg:items-center lg:gap-[3vw] lg:rounded-[1.4vw] lg:px-[2.4vw] lg:py-[2vw];
+    background: linear-gradient(135deg, rgb(238 236 255 / 0.95) 0%, rgb(230 238 255 / 0.9) 55%, rgb(244 236 255 / 0.9) 100%);
+    box-shadow: 0 10px 28px -18px rgb(40 70 170 / 0.35);
+  }
+  /* the client's figures: one soft white strip in three, a thin line between them, the figures in the brand
+     gradient */
+  .gm-proof {
+    @apply mt-6 grid grid-cols-3 divide-x divide-[#dfe5f5] rounded-2xl border border-white/80 bg-white/70 py-3 lg:mt-[1.6vw] lg:rounded-[1vw] lg:py-[0.9vw];
+  }
+  .gm-proof-item {
+    @apply px-2 text-center sm:px-4 lg:px-[1vw];
+  }
+  .gm-proof-value {
+    @apply text-gradient mx-auto w-fit font-display font-extrabold leading-none;
+    font-size: clamp(1.05rem, 4.6vw, 1.6rem);
+  }
+  .gm-proof-label {
+    @apply mt-1.5 font-display text-xs leading-snug text-brand-slate lg:mt-[0.4vw] lg:text-[clamp(0.7rem,0.8vw,1rem)];
+  }
+  @media (min-width: 1024px) {
+    .gm-proof-value {
+      font-size: clamp(1.3rem, 1.8vw, 2.4rem);
+    }
+  }
+  /* the owner's words: on desktop as tall as the story beside it, the quote large and the name at the foot */
+  .gm-quote {
+    @apply relative flex flex-col rounded-2xl p-6 text-white sm:p-8 lg:self-stretch lg:rounded-[1.2vw] lg:p-[2.4vw];
+    background:
+      radial-gradient(60% 70% at 90% 10%, rgb(124 92 255 / 0.45), transparent 70%),
+      linear-gradient(160deg, #0d1850 0%, #151c63 100%);
+    box-shadow: 0 30px 60px -30px rgb(20 30 110 / 0.6);
+  }
+  .gm-quote-mark {
+    @apply h-10 w-10 text-[#7cc4ff] lg:h-[3vw] lg:min-h-8 lg:w-[3vw] lg:min-w-8;
+  }
+  .gm-quote-text {
+    font-size: clamp(1.05rem, 4.4vw, 1.3rem);
+    @apply mt-4 font-display font-medium leading-relaxed text-[#eef2ff] lg:mb-[1.6vw] lg:mt-[1.2vw];
+  }
+  @media (min-width: 1024px) {
+    .gm-quote-text {
+      font-size: clamp(1.05rem, 1.3vw, 1.75rem);
+    }
+  }
+  .gm-quote-by {
+    font-size: var(--fs-card-copy);
+    @apply mt-6 flex items-center gap-3 border-t border-white/15 pt-5 font-display lg:mt-auto lg:gap-[0.8vw] lg:pt-[1.4vw];
+  }
+  .gm-quote-avatar {
+    @apply grid h-11 w-11 shrink-0 place-items-center rounded-full font-display text-sm font-extrabold text-white lg:h-[2.8vw] lg:min-h-10 lg:w-[2.8vw] lg:min-w-10;
+    background: var(--gradient-brand);
+  }
+
+  /* common questions: one list on a white card, a thin line between questions, a chevron that turns over when
+     a question opens and the open question in the brand blue, underlined; the answer slides open where the
+     browser can animate it */
+  .gm-faqs {
+    @apply mx-auto mt-10 max-w-[52rem] rounded-2xl border border-white/80 bg-white/85 px-5 sm:px-8 lg:mt-[2.4vw] lg:max-w-[56vw] lg:rounded-[1.2vw] lg:px-[2vw];
+    box-shadow: 0 10px 28px -18px rgb(40 70 170 / 0.35);
+  }
+  .gm-faq {
+    @apply border-b border-[#e9edf7] last:border-b-0;
+  }
+  .gm-faq summary {
+    @apply flex cursor-pointer list-none items-center justify-between gap-4 py-5 font-display font-bold text-brand-navy transition-colors hover:text-brand-blue lg:py-[1.2vw];
+    font-size: var(--fs-item);
+  }
+  .gm-faq summary::-webkit-details-marker {
+    display: none;
+  }
+  .gm-faq[open] .gm-faq-q {
+    @apply font-semibold text-[#2d8cf0] underline decoration-[#2d8cf0]/40 decoration-1 underline-offset-[6px];
+  }
+  .gm-faq-chevron {
+    @apply h-5 w-5 shrink-0 text-[#1b7cf0] transition-transform duration-300 lg:h-[1.3vw] lg:min-h-5 lg:w-[1.3vw] lg:min-w-5;
+  }
+  .gm-faq[open] .gm-faq-chevron {
+    transform: rotate(180deg);
+  }
+  .gm-faq p {
+    font-size: var(--fs-card-copy);
+    @apply pb-5 pr-8 font-display leading-relaxed text-brand-slate lg:pb-[1.2vw] lg:pr-[3vw];
+  }
+  @supports (interpolate-size: allow-keywords) {
+    .gm-faq {
+      interpolate-size: allow-keywords;
+    }
+    .gm-faq::details-content {
+      @apply h-0 overflow-hidden;
+      transition: height 0.3s ease, content-visibility 0.3s allow-discrete;
+    }
+    .gm-faq[open]::details-content {
+      @apply h-auto;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .gm-faq::details-content,
+    .gm-faq-chevron {
+      transition: none;
+    }
+  }
+
+  /* the services, in the home page's cards: three in a row on desktop, two on tablet */
+  .gm-services {
+    @apply mt-10 grid gap-3 sm:grid-cols-2 sm:gap-4 lg:mt-[2.4vw] lg:grid-cols-3 lg:gap-[1.15vw];
+  }
+  .gm-others {
+    @apply mt-10 text-center lg:mt-[2.4vw];
+  }
+  /* wraps on phones and tablets; one row from wide desktops, the chips a touch tighter so all of them fit */
+  .gm-others-list {
+    @apply mt-4 flex flex-wrap justify-center gap-2 lg:mt-[1vw] lg:gap-[0.6vw] xl:flex-nowrap xl:gap-[0.4vw];
+  }
+  .gm-other {
+    @apply transition-transform hover:-translate-y-0.5 xl:px-[0.45vw] xl:text-[clamp(0.55rem,0.7vw,0.88rem)];
+  }
+  /* on phones: two to a row, of equal width (a name too long for its half wraps inside its chip), and the two
+     long names last, each across the row */
+  @media (max-width: 639px) {
+    .gm-others-list {
+      @apply grid grid-cols-2;
+    }
+    .gm-others-list .gm-other {
+      @apply h-full justify-center whitespace-normal text-center;
+    }
+    .gm-other-wide {
+      @apply col-span-2 justify-self-center;
+    }
+  }
+
   /* ==== About Us page (app/about/page.tsx) ==== */
   /* each part: text and picture side by side on desktop, the picture below the text on phones and tablets;
      about-split-flip puts the picture first on desktop */
@@ -761,6 +1194,20 @@
   .about-art-sm {
     @apply lg:max-w-[34vw];
   }
+  /* the hero photo: a little narrower than its column on desktop, against the right edge in line with the page's
+     edge */
+  .about-hero-art {
+    @apply lg:ml-auto lg:mr-0 lg:max-w-[40vw];
+  }
+  /* a picture on its own near-white ground (the hero and team photos): multiplied, that ground melts into the
+     background behind it, and its corners are rounded like the cards */
+  .about-blend-photo {
+    @apply rounded-2xl mix-blend-multiply lg:rounded-[1.4vw];
+  }
+  /* a photo on a dark section, with rounded corners like the cards */
+  .about-photo {
+    @apply rounded-xl lg:rounded-[1.2vw];
+  }
   /* the figures under a heading: three in a row, or four (two by two on phones) */
   .about-stats {
     @apply mt-8 grid grid-cols-3 gap-3 lg:mt-[2vw] lg:gap-[1vw];
@@ -773,7 +1220,7 @@
     box-shadow: 0 10px 28px -18px rgb(40 70 170 / 0.35);
   }
   .about-stat-value {
-    @apply text-gradient w-fit font-display font-extrabold leading-none;
+    @apply w-fit font-display font-extrabold leading-none text-brand-navy;
     font-size: clamp(1.3rem, 5.4vw, 1.75rem);
   }
   .about-stat-label {
@@ -798,26 +1245,77 @@
   .about-point {
     @apply p-5 lg:p-[1.4vw];
   }
+  .about-point-head {
+    @apply mb-2 flex items-center gap-3 lg:mb-[0.6vw] lg:gap-[0.8vw];
+  }
   .about-point-icon {
     --icon-size: 2.75rem;
+    @apply shrink-0;
   }
   @media (min-width: 1024px) {
     .about-point-icon {
       --icon-size: clamp(2.5rem, 3vw, 3.6rem);
     }
   }
-  /* the industries we work with, under the centred heading: four in a row on desktop, two across on tablet and
-     phones (one on the narrowest); each tile is a row with the icon beside the name */
+  /* the words of the hero, what we do, our technology, our team and the closing invitation: centred over their
+     picture on phones and tablets, like the philosophy heading */
+  @media (max-width: 1023px) {
+    .about-center-sm {
+      @apply text-center;
+    }
+    .about-center-sm .eyebrow-line,
+    .about-center-sm .about-copy {
+      @apply mx-auto;
+    }
+    /* the figures keep their own left-aligned cards; the buttons sit in the middle */
+    .about-center-sm .about-stats {
+      @apply text-left;
+    }
+    .about-center-sm .about-cta-actions {
+      @apply sm:justify-center;
+    }
+  }
+  /* what we do, the words: on desktop a size up, so they stand level with the nine industries beside them */
+  @media (min-width: 1024px) {
+    .about-what .heading-section {
+      font-size: clamp(2rem, 3.3vw, 4.8rem);
+    }
+    .about-what .about-copy {
+      font-size: clamp(0.9rem, 1.2vw, 1.6rem);
+    }
+    .about-what .about-link {
+      font-size: clamp(0.9rem, 1.15vw, 1.5rem);
+    }
+  }
+  /* what we do: nine industries, each a photo over its name, centred; three in a row from tablet up (kept
+     compact, against the right on desktop), two on phones, one on the narrowest */
   .about-tiles {
-    @apply mt-10 grid grid-cols-2 gap-2.5 max-[359px]:grid-cols-1 sm:gap-3 lg:mt-[2.4vw] lg:grid-cols-4 lg:gap-[1vw];
+    @apply grid grid-cols-2 gap-2.5 max-[359px]:grid-cols-1 sm:mx-auto sm:max-w-[620px] sm:grid-cols-3 sm:gap-3 lg:ml-auto lg:mr-0 lg:max-w-[42vw] lg:gap-[0.8vw];
   }
   .about-tile {
-    @apply flex items-center gap-2.5 p-3 sm:gap-3 sm:p-4 lg:gap-[0.8vw] lg:p-[1.1vw];
+    @apply flex flex-col overflow-hidden p-0 text-center transition-transform duration-200 hover:-translate-y-0.5;
   }
-  .about-tile .industry-icon {
-    @apply max-sm:h-9 max-sm:w-9;
+  .about-tile-photo {
+    @apply block aspect-[440/170] h-auto w-full object-cover;
   }
   .about-tile-name {
+    @apply flex items-center justify-center px-2 py-2 font-display text-xs font-semibold leading-snug text-brand-navy sm:py-2.5 lg:px-[0.5vw] lg:py-[0.5vw] lg:text-[clamp(0.66rem,0.72vw,0.95rem)];
+  }
+  /* on phones the label is too narrow for the arrow; the whole card still opens the page */
+  .about-tile .industry-link-arrow {
+    @apply max-sm:hidden;
+  }
+  /* our technology: eight marks, each over its name; four in a row from tablet up, two on phones */
+  .about-tech {
+    @apply grid grid-cols-2 gap-2.5 sm:grid-cols-4 sm:gap-3 lg:gap-[0.9vw];
+  }
+  .about-tech-item {
+    @apply flex flex-col items-center justify-center gap-2 px-2 py-4 text-center transition-transform duration-200 hover:-translate-y-1 sm:py-5 lg:gap-[0.6vw] lg:py-[1.3vw];
+  }
+  .about-tech-logo {
+    @apply h-9 w-auto max-w-[70%] lg:h-[2.6vw];
+  }
+  .about-tech-name {
     font-size: var(--fs-card-copy);
     @apply font-display font-semibold leading-snug text-brand-navy;
   }
@@ -830,9 +1328,7 @@
   }
   /* the closing invitation: text and buttons on the left, the build picture on the right */
   .about-cta {
-    @apply grid items-center gap-8 rounded-3xl border border-white/80 p-6 sm:p-10 lg:grid-cols-[1.5fr_1fr] lg:gap-[3vw] lg:rounded-[1.6vw] lg:px-[3vw] lg:py-[2.6vw];
-    background: linear-gradient(135deg, rgb(238 236 255 / 0.95) 0%, rgb(230 238 255 / 0.9) 55%, rgb(244 236 255 / 0.9) 100%);
-    box-shadow: 0 10px 28px -18px rgb(40 70 170 / 0.35);
+    @apply grid items-center gap-8 lg:grid-cols-[1.5fr_1fr] lg:gap-[3vw];
   }
   .about-cta-actions {
     @apply mt-6 flex flex-col gap-3 sm:flex-row sm:items-center lg:mt-[1.4vw] lg:gap-[1vw];
@@ -842,8 +1338,11 @@
     font-size: var(--fs-btn-sm);
     @apply inline-flex items-center justify-center rounded-full border border-[#c9d3ee] bg-white font-display font-light leading-tight text-brand-navy transition-colors hover:border-[#9fb0e0];
   }
+  /* the picture comes on its own lavender ground: multiplied and faded out at its edges, it melts into the page */
   .about-cta-art {
-    @apply mx-auto block h-auto w-full max-w-[300px] lg:max-w-none;
+    @apply mx-auto block h-auto w-full max-w-[460px] mix-blend-multiply lg:max-w-none;
+    -webkit-mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 62%, transparent 100%);
+    mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 62%, transparent 100%);
   }
 
   .partner-waves {
@@ -1511,14 +2010,17 @@
     animation-delay: calc(var(--i, 0) * 1.2s);
   }
 
-  /* the About Us pictures (components/about-art.tsx): sticky notes and team cards that float, a pulsing chip
-     glow and light running along the circuit lines */
-  .ab-note, .ab-bob { animation: art-float 4.5s ease-in-out infinite; }
-  .ab-pulse { animation: ab-pulse 3.6s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
-  .ab-flow { stroke-dasharray: 0.18 0.82; animation: ab-flow 2.8s linear infinite; }
+  /* what goes wrong today, garment page: in each row the problem's icon shudders, the arrow pushes on (down on
+     phones and tablets) and the fix's icon pops up, one after the other; --i staggers the rows into a wave */
+  .gm-before .gm-compare-icon svg { animation: gm-shudder 3.6s ease-in-out infinite; animation-delay: calc(var(--i, 0) * 0.9s); }
+  .gm-compare-arrow { animation: gm-push-down 3.6s ease-in-out infinite; animation-delay: calc(var(--i, 0) * 0.9s); }
+  .gm-after .gm-compare-icon svg { animation: gm-pop 3.6s ease-in-out infinite; animation-delay: calc(var(--i, 0) * 0.9s); }
+  @media (min-width: 1024px) {
+    .gm-compare-arrow { animation-name: gm-push-right; }
+  }
 
   @media (prefers-reduced-motion: reduce) {
-    .ab-note, .ab-bob, .ab-pulse, .ab-flow,
+    .gm-before .gm-compare-icon svg, .gm-compare-arrow, .gm-after .gm-compare-icon svg, .gm-stage-timer,
     .pi-turn, .pi-bob, .pi-cycle, .pi-beat, .partner-icon::after,
     .dv-bar, .dv-donut, .dv-pill, .dv-sweep, .dv-pick, .dv-float, .dv-sway,
     .art-type, .art-float, .art-line, .art-code, .art-spin, .art-arrow, .art-sway,
@@ -1528,13 +2030,26 @@
   }
 }
 
-@keyframes ab-pulse {
-  0%, 100% { opacity: 0.35; transform: scale(0.94); }
-  50% { opacity: 0.6; transform: scale(1.06); }
+@keyframes gm-timer {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
 }
-@keyframes ab-flow {
-  from { stroke-dashoffset: 1; }
-  to { stroke-dashoffset: 0; }
+@keyframes gm-shudder {
+  0%, 22%, 100% { transform: rotate(0deg); }
+  4%, 12% { transform: rotate(-12deg); }
+  8%, 16% { transform: rotate(12deg); }
+}
+@keyframes gm-push-right {
+  0%, 22%, 50%, 100% { transform: translateX(0); }
+  34% { transform: translateX(6px); }
+}
+@keyframes gm-push-down {
+  0%, 22%, 50%, 100% { transform: translateY(0); }
+  34% { transform: translateY(5px); }
+}
+@keyframes gm-pop {
+  0%, 44%, 72%, 100% { transform: scale(1); }
+  56% { transform: scale(1.22); }
 }
 @keyframes pi-bob {
   0%, 100% { transform: translateY(0) rotate(0deg); }
