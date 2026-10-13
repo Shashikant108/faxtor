@@ -2,13 +2,13 @@ import { preload } from "react-dom";
 import { ArrowIcon } from "./arrow-icon";
 import { ContactDialogButton } from "./contact-dialog";
 import { Fold } from "./fold";
-import { AchieveMoreIcon, SaveTimeIcon, WorkSmarterIcon } from "./benefit-icons";
+import { AchieveMoreIcon, SaveCostIcon, SaveTimeIcon } from "./benefit-icons";
 import { HeroVideo } from "./hero-video";
 import { SERVICES } from "./services-section";
 
 const BENEFITS = [
   { label: "Save Time", Icon: SaveTimeIcon, tone: "sky" },
-  { label: "Save Cost", Icon: WorkSmarterIcon, tone: "violet" },
+  { label: "Save Cost", Icon: SaveCostIcon, tone: "violet" },
   { label: "Achieve More", Icon: AchieveMoreIcon, tone: "indigo" },
 ] as const;
 
@@ -55,9 +55,9 @@ export function HeroSection() {
 
               <ContactDialogButton
                 needs={SERVICES.map((service) => service.title)}
-                className="btn btn-lg mx-auto mt-9 flex w-fit sm:mx-0 sm:inline-flex lg:mt-[min(2.4vw,3.4svh)]"
+                className="btn btn-lg btn-fit mx-auto mt-9 flex w-fit sm:mx-0 sm:inline-flex lg:mt-[min(2.4vw,3.4svh)]"
               >
-                Discuss your requirements
+                Book free 30 min consultation call
                 <ArrowIcon className="h-5 w-5" />
               </ContactDialogButton>
             </div>

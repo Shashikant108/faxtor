@@ -36,7 +36,7 @@ const INDUSTRIES = [
     Icon: RetailIcon,
     tone: "rose",
     copy: "Product catalogue, inventory, orders and customer management.",
-    tags: ["Product Catalogue", "Order Management", "Inventory", "Customer Management"],
+    tags: ["Product Catalogue", "Order Management", "Inventory", "Customers"],
   },
   {
     title: "Import Export & Trading",
@@ -71,7 +71,7 @@ const INDUSTRIES = [
     Icon: TelecomIcon,
     tone: "violet",
     copy: "Service requests, assignments, technician tracking and customer updates.",
-    tags: ["Service Management", "Work Assignments", "Field Staff Tracking", "Complaint Management"],
+    tags: ["Service Management", "Work Assignments", "Field Staff Tracking", "Complaints"],
   },
   {
     title: "SaaS & Digital Platforms",
@@ -85,7 +85,7 @@ const INDUSTRIES = [
     Icon: MembershipIcon,
     tone: "rose",
     copy: "Members, events, referrals and commission tracking.",
-    tags: ["Member Management", "Event Management", "Referrals & Commissions", "Renewals"],
+    tags: ["Members", "Event Management", "Referrals", "Renewals"],
   },
 ];
 
@@ -150,8 +150,8 @@ export function IndustriesSection() {
                 <p className="industry-copy max-w-[30rem]">
                   Tell us about your workflow, and we’ll design a custom solution that fits your processes and your goals.
                 </p>
-                <Link href={CONTACT_HREF} className="btn btn-sm mt-5 lg:mt-[1.2vw]">
-                  Discuss your requirements
+                <Link href={CONTACT_HREF} className="btn btn-sm btn-fit mt-5 lg:mt-[1.2vw]">
+                  Book free 30 min consultation call
                   <ArrowIcon className="h-[1.1em] w-[1.1em]" />
                 </Link>
               </div>

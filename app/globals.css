@@ -270,30 +270,43 @@
     background: linear-gradient(180deg, rgb(var(--bd-top)) 0%, rgb(var(--bd-bottom)) 100%);
   }
 
-  /* tones for round icons and chips: set data-tone="sky | violet | indigo | rose | amber" */
+  /* tones for round icons and chips: set data-tone="sky | violet | indigo | rose | amber | teal"; each also
+     hands its two colours down as --tone and --tone-soft */
   [data-tone="sky"] {
-    background: var(--color-sky-soft);
-    color: var(--color-sky);
+    --tone: var(--color-sky);
+    --tone-soft: var(--color-sky-soft);
+    background: var(--tone-soft);
+    color: var(--tone);
   }
   [data-tone="violet"] {
-    background: var(--color-violet-soft);
-    color: var(--color-violet);
+    --tone: var(--color-violet);
+    --tone-soft: var(--color-violet-soft);
+    background: var(--tone-soft);
+    color: var(--tone);
   }
   [data-tone="indigo"] {
-    background: var(--color-indigo-soft);
-    color: var(--color-indigo);
+    --tone: var(--color-indigo);
+    --tone-soft: var(--color-indigo-soft);
+    background: var(--tone-soft);
+    color: var(--tone);
   }
   [data-tone="rose"] {
-    background: var(--color-rose-soft);
-    color: var(--color-rose);
+    --tone: var(--color-rose);
+    --tone-soft: var(--color-rose-soft);
+    background: var(--tone-soft);
+    color: var(--tone);
   }
   [data-tone="amber"] {
-    background: var(--color-amber-soft);
-    color: var(--color-amber);
+    --tone: var(--color-amber);
+    --tone-soft: var(--color-amber-soft);
+    background: var(--tone-soft);
+    color: var(--tone);
   }
   [data-tone="teal"] {
-    background: var(--color-teal-soft);
-    color: var(--color-teal);
+    --tone: var(--color-teal);
+    --tone-soft: var(--color-teal-soft);
+    background: var(--tone-soft);
+    color: var(--tone);
   }
 
   /* a small round icon badge; set its size with --icon-size */
@@ -507,22 +520,22 @@
     @apply mt-3 font-display leading-snug text-brand-slate lg:mt-[0.8vw];
   }
   /* the modules an industry usually needs, as small chips at the bottom of its card (on phones right under the
-     line about it, since each swiping card keeps its own height); data-tone on the list
-     only lends its colour (via currentColor) to the chips, so the list's own tone background is cleared */
+     line about it, since each swiping card keeps its own height). Two to a row where a card is wide enough for
+     every label (768px tablets, and desktop from 1280px); on phones and narrow laptops each chip takes its own width and
+     they wrap. data-tone on the list gives the chips the same soft background as the card's icon and a dot in its
+     colour, with dark text; the list's own background is cleared */
   .industry-tags {
-    @apply mt-4 flex flex-wrap gap-1.5 border-t border-dashed border-[#dfe5f3] pt-3 sm:mt-auto sm:pt-4 lg:gap-[0.45vw] lg:pt-[1vw];
+    @apply mt-4 flex flex-wrap gap-1.5 border-t border-dashed border-[#dfe5f3] pt-3 sm:mt-auto sm:pt-4 md:grid md:grid-cols-2 lg:flex lg:gap-[0.45vw] lg:pt-[1vw] xl:grid;
     background: none;
   }
   .industry-tag {
-    @apply inline-flex items-center gap-1.5 rounded-md border px-2 py-1 font-display text-[0.72rem] font-semibold leading-tight lg:gap-[0.35vw] lg:rounded-[0.4vw] lg:px-[0.55vw] lg:py-[0.28vw] lg:text-[clamp(0.62rem,0.72vw,0.9rem)];
-    background: color-mix(in srgb, currentColor 6%, white);
-    border-color: color-mix(in srgb, currentColor 20%, transparent);
+    @apply flex min-w-0 items-center gap-1.5 whitespace-nowrap rounded-md border border-transparent px-2 py-1 font-display text-[0.72rem] font-semibold leading-tight text-brand-navy lg:gap-[0.35vw] lg:rounded-[0.4vw] lg:px-[0.55vw] lg:py-[0.28vw] lg:text-[clamp(0.62rem,0.72vw,0.9rem)];
+    background: var(--tone-soft);
   }
   .industry-tag::before {
     content: "";
     @apply h-1.5 w-1.5 shrink-0 rounded-full lg:h-[0.38vw] lg:min-h-1 lg:w-[0.38vw] lg:min-w-1;
-    background: currentColor;
-    box-shadow: 0 0 0 2px color-mix(in srgb, currentColor 18%, transparent);
+    background: var(--tone);
   }
   /* the card for an industry that is not listed: text and button on the left, the picture on the right */
   .industry-cta {
@@ -578,9 +591,128 @@
     box-shadow: 0 0 0 4px rgb(111 143 245 / 0.18);
   }
   .step-art {
-    @apply mt-2 block sm:mt-3 lg:mt-[0.9vw];
+    @apply relative mt-2 block sm:mt-3 lg:mt-[0.9vw];
     width: var(--size-step-art);
     height: calc(var(--size-step-art) * 0.83);
+  }
+
+  /* The steps playing in turn (components/how-we-work-steps.tsx marks them): the current number lights up, its
+     picture finishes, and the wavy line fills on to the next. Delays only apply on the way in, so a reset is quick */
+  .step-badge {
+    transition: background 0.4s ease, color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
+  }
+  .step[data-current] .step-badge {
+    @apply text-white;
+    background: linear-gradient(135deg, var(--color-blue) 0%, #5b5bf0 100%);
+    box-shadow: 0 0 0 6px rgb(47 123 255 / 0.16), 0 10px 24px -8px rgb(47 100 255 / 0.75);
+    transform: scale(1.06);
+    transition-delay: 0.35s;
+  }
+  .step-link-fill {
+    clip-path: inset(0 100% 0 0);
+    transition: clip-path 0.3s ease;
+  }
+  .step[data-link-done] .step-link-fill {
+    clip-path: inset(0 0 0 0);
+    transition: clip-path 0.7s ease-in-out;
+  }
+  .step-dot {
+    transition: background 0.3s ease 0.3s;
+  }
+  .step[data-link-done] .step-dot {
+    @apply bg-[#2f7bff];
+  }
+
+  /* the labels beside a picture: to its right, or over its top right corner; not on phones, where the text
+     sits right beside the picture */
+  .step-chips {
+    @apply pointer-events-none absolute z-10 hidden flex-col items-start gap-1 sm:flex lg:gap-[0.35vw];
+    left: calc(100% + 0.4rem);
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .step-chips[data-at="top"] {
+    @apply left-[88%] top-0;
+    transform: translateY(-30%);
+  }
+  .step-chip {
+    @apply inline-flex items-center gap-1.5 whitespace-nowrap rounded-md bg-white px-2 py-1 font-display text-[0.62rem] font-semibold leading-none text-brand-navy lg:gap-[0.35vw] lg:rounded-[0.4vw] lg:px-[0.5vw] lg:py-[0.3vw] lg:text-[clamp(0.55rem,0.62vw,0.8rem)];
+    box-shadow: 0 0 0 1px rgb(222 229 247), 0 6px 16px -8px rgb(30 50 140 / 0.35);
+    opacity: 0;
+    transform: translateX(-6px) scale(0.92);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+  .step-chip[data-kind="live"] {
+    @apply bg-[#16204a] text-white;
+    box-shadow: 0 6px 16px -8px rgb(20 30 90 / 0.6);
+  }
+  .step-chip-dot {
+    @apply h-1.5 w-1.5 shrink-0 rounded-full lg:h-[0.4vw] lg:min-h-1 lg:w-[0.4vw] lg:min-w-1;
+  }
+  .step-chip-faces {
+    @apply flex;
+  }
+  .step-chip-faces i {
+    @apply -ml-[0.3em] h-[1.05em] w-[1.05em] rounded-full border border-white first:ml-0;
+  }
+  .step-chip-tick {
+    @apply h-[1.05em] w-[1.05em] shrink-0;
+  }
+  .step[data-reached] .step-chip {
+    opacity: 1;
+    transform: none;
+    transition: opacity 0.4s ease, transform 0.5s cubic-bezier(0.2, 0.8, 0.3, 1.3);
+  }
+  .step[data-reached] .step-chip:nth-child(1) { transition-delay: 0.6s; }
+  .step[data-reached] .step-chip:nth-child(2) { transition-delay: 1.2s; }
+  .step[data-reached] .step-chip:nth-child(3) { transition-delay: 1.8s; }
+  /* step 03's labels wait for the build bar, step 04's for the bars */
+  .step:nth-child(3)[data-reached] .step-chip:nth-child(1) { transition-delay: 2.1s; }
+  .step:nth-child(3)[data-reached] .step-chip:nth-child(2) { transition-delay: 2.6s; }
+  .step:nth-child(4)[data-reached] .step-chip:nth-child(1) { transition-delay: 1.6s; }
+
+  /* inside the pictures (components/process-icons.tsx): 02's ticks, 03's build bar, 04's bars */
+  .hw-check {
+    opacity: 0;
+    transform: scale(0.3);
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+  .step[data-reached] .hw-check {
+    opacity: 1;
+    transform: none;
+    transition: opacity 0.3s ease, transform 0.45s cubic-bezier(0.2, 0.8, 0.3, 1.5);
+    transition-delay: calc(0.6s + var(--i, 0) * 0.6s);
+  }
+  .hw-progress {
+    transform: scaleX(0);
+    transform-box: fill-box;
+    transform-origin: left;
+    transition: transform 0.25s ease;
+  }
+  .step[data-reached] .hw-progress {
+    transform: none;
+    transition: transform 1.5s ease-in-out 0.5s;
+  }
+  .hw-bar {
+    transform: scaleY(0.7);
+    transform-box: fill-box;
+    transform-origin: bottom;
+    transition: transform 0.3s ease;
+  }
+  .step[data-reached] .hw-bar {
+    transform: none;
+    transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.3, 1.2) 0.5s;
+  }
+  .step[data-reached] .hw-bar:nth-child(2) { transition-delay: 0.65s; }
+  .step[data-reached] .hw-bar:nth-child(3) { transition-delay: 0.8s; }
+  .step[data-reached] .hw-bar:nth-child(4) { transition-delay: 0.95s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .step-badge, .step-link-fill, .step-dot, .step-chip, .hw-check, .hw-progress, .hw-bar {
+      transition: none !important;
+    }
   }
   .step-title {
     font-size: var(--fs-step-title);
@@ -620,7 +752,7 @@
     @apply flex items-start gap-4 lg:gap-[1vw];
   }
   .partner-icon {
-    @apply grid shrink-0 place-items-center rounded-full border border-white/10 bg-white/[0.07];
+    @apply relative grid shrink-0 place-items-center rounded-full border border-white/10 bg-white/[0.07];
     width: var(--size-partner-icon);
     height: var(--size-partner-icon);
     box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.08), 0 10px 24px -14px rgb(0 0 0 / 0.6);
@@ -1036,7 +1168,7 @@
   }
   .footer-legal-link {
     font-size: var(--fs-footer-sm);
-    @apply font-display text-[#dbe3ff] transition-colors hover:text-white;
+    @apply font-display text-[#dbe3ff] transition-colors hover:text-white max-sm:inline-block max-sm:py-1.5;
   }
 
   /* a footer column title and the short coloured line under it; set the line colour with --accent */
@@ -1098,12 +1230,11 @@
     padding: var(--btn-lg-py) var(--btn-lg-px);
     font-size: var(--fs-btn-lg);
   }
-  /* the "A partner throughout" button carries a long label, so it runs a size smaller than .btn-lg; on the dark
-     band it drops the blue glow, which spread like a shine around its edge, and keeps the plain brand gradient */
-  .partner-cta {
-    @apply shadow-none max-sm:w-full max-sm:justify-center max-sm:gap-2 max-sm:px-4 max-sm:text-[min(3.6vw,0.875rem)] sm:px-6 sm:text-[1.0625rem] lg:px-[1.3vw] lg:text-[clamp(0.85rem,1.05vw,1.35rem)];
+  /* a button with a long label: on phones it spans the width, its text runs a little smaller and may take two
+     lines, so it never runs off a narrow screen */
+  .btn-fit {
+    @apply max-sm:w-full max-sm:justify-center max-sm:whitespace-normal max-sm:px-4 max-sm:text-center max-sm:text-[min(4vw,0.95rem)];
   }
-
   /* text */
   .text-gradient {
     @apply bg-brand-gradient bg-clip-text text-transparent;
@@ -1178,13 +1309,12 @@
   .doc-lines { animation: doc-lines 3s ease-in-out infinite; }
 
   /* the "How we work" pictures (components/process-icons.tsx): typing dots, floating blocks, code being
-     written, a turning gear, rising bars, a pushing arrow and a swaying plant; art-d2..d5 stagger a set */
+     written, a turning gear, a pushing arrow and a swaying plant; art-d2..d5 stagger a set */
   .art-type { animation: art-type 1.4s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
   .art-float { animation: art-float 3.2s ease-in-out infinite; }
   .art-line { animation: art-line 3s ease-in-out infinite; transform-box: fill-box; transform-origin: left; }
   .art-code { animation: art-code 3.6s ease-in-out infinite; transform-box: fill-box; transform-origin: left; }
   .art-spin { animation: clock-spin 6s linear infinite; transform-box: view-box; transform-origin: 101px 68px; }
-  .art-rise { animation: art-rise 2.8s ease-in-out infinite; transform-box: fill-box; transform-origin: bottom; }
   .art-arrow { animation: art-arrow 2.8s ease-in-out infinite; }
   .art-sway { animation: art-sway 3.4s ease-in-out infinite; transform-box: view-box; transform-origin: 100px 68px; }
   .art-d2 { animation-delay: 0.18s; }
@@ -1192,14 +1322,82 @@
   .art-d4 { animation-delay: 0.54s; }
   .art-d5 { animation-delay: 0.72s; }
 
+  /* the laptop and phone of "A partner throughout" (components/devices-art.tsx): bars that move, a turning donut,
+     filling stat bars, a light passing over the screen, the phone's pick walking down its list, a floating phone
+     and a swaying plant; --i offsets each bar so they never move together */
+  .dv-bar { animation: dv-bar 3.2s ease-in-out infinite; animation-delay: calc(var(--i, 0) * -0.45s); transform-box: fill-box; transform-origin: bottom; }
+  .dv-donut { animation: clock-spin 14s linear infinite; transform-box: view-box; transform-origin: 477px 218px; }
+  .dv-pill { animation: dv-pill 4s ease-in-out infinite; animation-delay: calc(var(--i, 0) * -0.8s); transform-box: fill-box; transform-origin: left; }
+  .dv-sweep { animation: dv-sweep 6s ease-in-out infinite; transform: translateX(-160px) skewX(-18deg); }
+  .dv-pick { animation: dv-pick 7.5s steps(1, end) infinite; }
+  .dv-float { animation: art-float 5s ease-in-out infinite; }
+  .dv-sway { animation: dv-sway 5s ease-in-out infinite; transform-box: view-box; transform-origin: 690px 334px; }
+
+  /* the four round icons under "A partner throughout": each icon moves in its own way, and a soft ring in its
+     colour spreads from each circle in turn (--i is its place in the row) */
+  .pi-turn { animation: clock-spin 6s linear infinite; }
+  .pi-bob { animation: pi-bob 2.6s ease-in-out infinite; }
+  .pi-cycle { animation: pi-cycle 3.2s ease-in-out infinite; }
+  .pi-beat { animation: pi-beat 2.4s ease-in-out infinite; }
+  .partner-icon::after {
+    content: "";
+    @apply pointer-events-none absolute inset-0 rounded-full;
+    border: 1.5px solid currentColor;
+    opacity: 0;
+    animation: pi-ring 4.8s ease-out infinite;
+    animation-delay: calc(var(--i, 0) * 1.2s);
+  }
+
   @media (prefers-reduced-motion: reduce) {
-    .art-type, .art-float, .art-line, .art-code, .art-spin, .art-rise, .art-arrow, .art-sway,
+    .pi-turn, .pi-bob, .pi-cycle, .pi-beat, .partner-icon::after,
+    .dv-bar, .dv-donut, .dv-pill, .dv-sweep, .dv-pick, .dv-float, .dv-sway,
+    .art-type, .art-float, .art-line, .art-code, .art-spin, .art-arrow, .art-sway,
     .dot-blink, .clock-hand, .bell-ring, .bar-a, .bar-b, .bar-c, .coin-bob, .trend-draw, .doc-lines {
       animation: none;
     }
   }
 }
 
+@keyframes pi-bob {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-3px) rotate(-8deg); }
+}
+@keyframes pi-cycle {
+  0%, 35% { transform: rotate(0deg); }
+  75%, 100% { transform: rotate(360deg); }
+}
+@keyframes pi-beat {
+  0%, 40%, 100% { transform: scale(1); }
+  20% { transform: scale(1.14); }
+  30% { transform: scale(0.98); }
+}
+@keyframes pi-ring {
+  0% { opacity: 0.55; transform: scale(1); }
+  35%, 100% { opacity: 0; transform: scale(1.45); }
+}
+@keyframes dv-bar {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(0.62); }
+}
+@keyframes dv-pill {
+  0%, 100% { transform: scaleX(0.35); }
+  50% { transform: scaleX(1); }
+}
+@keyframes dv-sweep {
+  0%, 55% { transform: translateX(-160px) skewX(-18deg); }
+  100% { transform: translateX(560px) skewX(-18deg); }
+}
+@keyframes dv-pick {
+  0% { transform: translateY(0); }
+  20% { transform: translateY(36px); }
+  40% { transform: translateY(72px); }
+  60% { transform: translateY(108px); }
+  80% { transform: translateY(144px); }
+}
+@keyframes dv-sway {
+  0%, 100% { transform: rotate(-2.5deg); }
+  50% { transform: rotate(2.5deg); }
+}
 @keyframes art-type {
   0%, 60%, 100% { transform: translateY(0); opacity: 0.6; }
   30% { transform: translateY(-2.5px); opacity: 1; }
@@ -1217,10 +1415,7 @@
   35%, 85% { transform: scaleX(1); }
   100% { transform: scaleX(0); }
 }
-@keyframes art-rise {
-  0%, 100% { transform: scaleY(1); }
-  50% { transform: scaleY(0.7); }
-}
+
 @keyframes art-arrow {
   0%, 100% { transform: translate(0, 0); }
   50% { transform: translate(2px, -2px); }

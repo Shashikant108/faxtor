@@ -34,7 +34,7 @@ export const NAV_LINKS = [
 export const CONTACT_INFO = {
   location: "Bangalore, India",
   email: "hello@faxtor.in",
-  phone: "+91 80 4719 1959",
+  phone: "+91 88618 30244",
 } as const;
 
 // TODO: replace "#" with the real profile links

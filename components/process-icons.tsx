@@ -1,5 +1,6 @@
 // The four "How we work" illustrations, drawn in code like the "What we build" ones (same 120 x 100 box,
 // same paints), plus the small round icons of "A partner throughout".
+import type { CSSProperties } from "react";
 import { Ground, Paints } from "./service-icons";
 
 type ArtProps = { className?: string };
@@ -45,6 +46,13 @@ export function PlanArt({ className }: ArtProps) {
       <rect x="25" y="52.5" width="26" height="5" rx="2.5" fill="#9fb7ff" className="art-line art-d2" />
       <circle cx="18" cy="68" r="2.6" fill="#b9c8f5" />
       <rect x="25" y="65.5" width="30" height="5" rx="2.5" fill={`url(#${p}-purple)`} opacity="0.85" className="art-line art-d3" />
+      {/* ticked off one by one while this step plays (how-we-work-steps.tsx) */}
+      {[42, 55, 68].map((y, i) => (
+        <g key={y} className="hw-check" style={{ "--i": i } as CSSProperties}>
+          <circle cx="18" cy={y} r="4" fill="#22c55e" />
+          <path d={`M16.1 ${y}l1.3 1.4 2.6-2.8`} fill="none" stroke="#fff" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+        </g>
+      ))}
       <path d="M86 30v12h-6M86 42v14h8" fill="none" stroke="#8fa8f0" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
       <g filter={`url(#${p}-lift)`}>
         <rect x="76" y="8" width="22" height="22" rx="5" fill={`url(#${p}-blue)`} className="art-float" />
@@ -79,6 +87,9 @@ export function BuildArt({ className }: ArtProps) {
       <rect x="20" y="44" width="26" height="3.4" rx="1.7" fill="#8f72f2" className="art-code art-d3" />
       <rect x="16" y="51" width="34" height="3.4" rx="1.7" fill="#4a5a9a" className="art-code art-d4" />
       <rect x="20" y="58" width="22" height="3.4" rx="1.7" fill="#5b8cff" className="art-code art-d5" />
+      {/* the build bar, filled while this step plays (how-we-work-steps.tsx) */}
+      <rect x="16" y="67" width="32" height="3" rx="1.5" fill="#2c3870" />
+      <rect x="16" y="67" width="32" height="3" rx="1.5" fill="#22c55e" className="hw-progress" />
       <g filter={`url(#${p}-lift)`}>
         <rect x="52" y="56" width="36" height="24" rx="6" fill={`url(#${p}-purple)`} />
       </g>
@@ -96,7 +107,7 @@ export function BuildArt({ className }: ArtProps) {
   );
 }
 
-/** 04: bars that keep rising, an arrow and a small plant. */
+/** 04: bars that rise, an arrow and a small plant. */
 export function GrowArt({ className }: ArtProps) {
   const p = "art-grow";
   return (
@@ -109,11 +120,12 @@ export function GrowArt({ className }: ArtProps) {
         </linearGradient>
       </defs>
       <Ground cx={58} rx={48} />
+      {/* the bars grow taller while this step plays (how-we-work-steps.tsx) */}
       <g filter={`url(#${p}-lift)`}>
-        <rect x="10" y="70" width="14" height="18" rx="3" fill={`url(#${p}-blue)`} className="art-rise" />
-        <rect x="28" y="60" width="14" height="28" rx="3" fill={`url(#${p}-blue)`} className="art-rise art-d2" />
-        <rect x="46" y="48" width="14" height="40" rx="3" fill={`url(#${p}-mix)`} className="art-rise art-d3" />
-        <rect x="64" y="34" width="14" height="54" rx="3" fill={`url(#${p}-purple)`} className="art-rise art-d4" />
+        <rect x="10" y="70" width="14" height="18" rx="3" fill={`url(#${p}-blue)`} className="hw-bar" />
+        <rect x="28" y="60" width="14" height="28" rx="3" fill={`url(#${p}-blue)`} className="hw-bar" />
+        <rect x="46" y="48" width="14" height="40" rx="3" fill={`url(#${p}-mix)`} className="hw-bar" />
+        <rect x="64" y="34" width="14" height="54" rx="3" fill={`url(#${p}-purple)`} className="hw-bar" />
       </g>
       <g className="art-arrow">
         <path d="M8 58C30 52 52 40 82 14" fill="none" stroke={`url(#${p}-blue)`} strokeWidth="3.4" strokeLinecap="round" />

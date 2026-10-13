@@ -25,7 +25,7 @@ function LeavesArt({ className }: { className?: string }) {
 
 /**
  * Section 8, contact. On desktop the invitation sits left of the form; on tablet and phones the form follows
- * below. Every "Discuss your requirements" button on the page lands here (#contact).
+ * below. Every "Book free 30 min consultation call" button on the page lands here (#contact).
  */
 export function ContactSection() {
   return (

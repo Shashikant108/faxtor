@@ -1,44 +1,63 @@
-import Link from "next/link";
-import { CONTACT_HREF } from "@/lib/site-config";
-import { ArrowIcon } from "./arrow-icon";
 import { DevicesArt } from "./devices-art";
+import type { CSSProperties } from "react";
 import { Fold } from "./fold";
+import { HowWeWorkSteps } from "./how-we-work-steps";
 import { BuildArt, CapIcon, GearIcon, GrowArt, PlanArt, RefreshIcon, TalkArt, TeamIcon } from "./process-icons";
 
-const STEPS = [
+// the small labels that pop in beside a step's picture while it plays: a coloured dot, or "team" (three faces and
+// a tick) or "live" (a dark label with a green dot)
+type Chip = { label: string; dot?: string; kind?: "team" | "live" };
+
+const STEPS: { title: string[]; Art: typeof TalkArt; copy: string; chips: Chip[]; chipsAt?: "side" | "top" }[] = [
   {
     title: ["Tell us about", "your business"],
     Art: TalkArt,
     copy: "Share your goals, challenges and how your team works. No technical expertise needed.",
+    chips: [
+      { label: "Your goals", dot: "#3b82f6" },
+      { label: "Your challenges", dot: "#f59e0b" },
+      { label: "How your team works", dot: "#8b5cf6" },
+    ],
   },
   {
     title: ["We plan the", "right solution"],
     Art: PlanArt,
     copy: "We map your processes, define the requirements and create a clear plan.",
+    chips: [
+      { label: "Processes mapped", dot: "#3b82f6" },
+      { label: "Requirements defined", dot: "#f59e0b" },
+      { label: "Clear plan", dot: "#22c55e" },
+    ],
   },
   {
     title: ["We build, implement", "and train"],
     Art: BuildArt,
     copy: "We develop and implement the solution, onboard your team and provide staff training.",
+    chips: [{ label: "Team trained", kind: "team" }, { label: "System live", kind: "live" }],
   },
   {
     title: ["We support", "and evolve"],
     Art: GrowArt,
     copy: "As your business grows, we help you refine the system, add new capabilities and keep improving.",
+    chips: [{ label: "Capability added", dot: "#8b5cf6" }],
+    chipsAt: "top",
   },
 ];
 
+// motion: how the icon moves (the pi-* classes in app/globals.css): the gear turns, the cap bobs, the arrows
+// come round, the team beats
 const PROMISES = [
-  { title: ["Smooth", "implementation"], Icon: GearIcon, tone: "#3ba4ff", copy: "Put the solution into practice with a planned rollout." },
-  { title: ["Onboarding", "and staff training"], Icon: CapIcon, tone: "#9b6bff", copy: "Help your team understand the system and use it confidently." },
-  { title: ["Ongoing", "improvement"], Icon: RefreshIcon, tone: "#38b6ff", copy: "Add new modules and capabilities as your needs evolve." },
-  { title: ["A long-term", "partner"], Icon: TeamIcon, tone: "#8f8cff", copy: "Work with a team that understands your business beyond launch." },
+  { title: ["Smooth", "implementation"], Icon: GearIcon, tone: "#3ba4ff", motion: "pi-turn", copy: "Put the solution into practice with a planned rollout." },
+  { title: ["Onboarding", "and staff training"], Icon: CapIcon, tone: "#9b6bff", motion: "pi-bob", copy: "Help your team understand the system and use it confidently." },
+  { title: ["Ongoing", "improvement"], Icon: RefreshIcon, tone: "#38b6ff", motion: "pi-cycle", copy: "Add new modules and capabilities as your needs evolve." },
+  { title: ["A long-term", "partner"], Icon: TeamIcon, tone: "#8f8cff", motion: "pi-beat", copy: "Work with a team that understands your business beyond launch." },
 ];
 
 /**
  * Section 5, in two parts. "How we work": four steps in a row on desktop, joined by a wavy line, two on
- * tablet, and on phones a list with the picture left of the text. "A partner throughout": a dark band with
- * the promise, four points and the button, with the laptop and phone on the right (below the text on phones).
+ * tablet, and on phones a list with the picture left of the text; the steps play in turn
+ * (components/how-we-work-steps.tsx). "A partner throughout": a dark band with
+ * the promise and four points, with the live laptop and phone on the right (below the text on phones).
  * Every picture is drawn in code (components/process-icons.tsx, components/devices-art.tsx).
  */
 export function HowWeWorkSection() {
@@ -64,8 +83,8 @@ export function HowWeWorkSection() {
               </p>
             </div>
 
-            <ol className="steps">
-              {STEPS.map(({ title, Art, copy }, index) => (
+            <HowWeWorkSteps>
+              {STEPS.map(({ title, Art, copy, chips, chipsAt = "side" }, index) => (
                 <li key={copy} className="step">
                   <div className="step-head">
                     <span className="step-badge" data-even={index % 2 === 1 || undefined}>
@@ -76,12 +95,47 @@ export function HowWeWorkSection() {
                       <span aria-hidden="true" className="step-link">
                         <svg viewBox="0 0 100 40" preserveAspectRatio="none" className="h-full w-full overflow-visible">
                           <path d="M0 26C14 4 34 2 50 28S86 30 100 18" fill="none" stroke="url(#step-line)" strokeWidth="1.6" vectorEffect="non-scaling-stroke" />
+                          {/* the same line in strong blue, drawn on once this step is done */}
+                          <path
+                            d="M0 26C14 4 34 2 50 28S86 30 100 18"
+                            pathLength={1}
+                            className="step-link-fill"
+                            fill="none"
+                            stroke="url(#step-line-done)"
+                            strokeWidth="2.4"
+                            strokeLinecap="round"
+                            vectorEffect="non-scaling-stroke"
+                          />
                         </svg>
                         <span className="step-dot" />
                       </span>
                     )}
                     <span className="step-art">
                       <Art className="h-full w-full" />
+                      {chips.length > 0 && (
+                        <span aria-hidden="true" className="step-chips" data-at={chipsAt}>
+                          {chips.map(({ label, dot, kind }) => (
+                            <span key={label} className="step-chip" data-kind={kind}>
+                              {kind === "team" ? (
+                                <span className="step-chip-faces">
+                                  <i style={{ background: "#7c9cff" }} />
+                                  <i style={{ background: "#f59ec0" }} />
+                                  <i style={{ background: "#a78bfa" }} />
+                                </span>
+                              ) : (
+                                <i className="step-chip-dot" style={{ background: kind === "live" ? "#22c55e" : dot }} />
+                              )}
+                              {label}
+                              {kind === "team" && (
+                                <svg viewBox="0 0 12 12" className="step-chip-tick">
+                                  <circle cx="6" cy="6" r="6" fill="#22c55e" />
+                                  <path d="M3.4 6.2l1.8 1.8 3.4-3.6" fill="none" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                </svg>
+                              )}
+                            </span>
+                          ))}
+                        </span>
+                      )}
                     </span>
                   </div>
                   <div>
@@ -93,13 +147,17 @@ export function HowWeWorkSection() {
                   </div>
                 </li>
               ))}
-            </ol>
-            {/* the gradient every wavy line uses */}
+            </HowWeWorkSteps>
+            {/* the gradients of the wavy lines: soft at rest, strong blue once filled */}
             <svg aria-hidden="true" className="absolute h-0 w-0">
               <defs>
                 <linearGradient id="step-line" x1="0" y1="0" x2="1" y2="0">
                   <stop offset="0" stopColor="#8fb8ff" />
                   <stop offset="1" stopColor="#b99cff" />
+                </linearGradient>
+                <linearGradient id="step-line-done" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0" stopColor="#2f7bff" />
+                  <stop offset="1" stopColor="#5b5bf0" />
                 </linearGradient>
               </defs>
             </svg>
@@ -132,10 +190,10 @@ export function HowWeWorkSection() {
           <DevicesArt className="partner-art" />
 
           <ul className="partner-points">
-            {PROMISES.map(({ title, Icon, tone, copy }) => (
+            {PROMISES.map(({ title, Icon, tone, motion, copy }, index) => (
               <li key={copy} className="partner-point">
-                <span className="partner-icon" style={{ color: tone }}>
-                  <Icon className="h-[46%] w-[46%]" />
+                <span className="partner-icon" style={{ color: tone, "--i": index } as CSSProperties}>
+                  <Icon className={`h-[46%] w-[46%] ${motion}`} />
                 </span>
                 <div>
                   <h3 className="partner-title">
@@ -147,13 +205,6 @@ export function HowWeWorkSection() {
               </li>
             ))}
           </ul>
-
-          <div className="relative z-10 mt-10 flex justify-center lg:mt-[2vw]">
-            <Link href={CONTACT_HREF} className="btn btn-lg partner-cta">
-              Let’s build what’s next for your business
-              <ArrowIcon className="h-5 w-5" />
-            </Link>
-          </div>
         </div>
       </Fold>
     </>
